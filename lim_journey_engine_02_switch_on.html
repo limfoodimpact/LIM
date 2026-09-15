@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LIM Journey Engine 02 · LIM Switch</title>
+<style>
+:root{
+ --navy:#1F4E79;--blue:#3E7CB1;--light:#6FA8DC;--gold:#E8C97A;
+ --cream:#FFF6E9;--rail:#DCE7ED;--muted:#728591;--paper:#fff;
+}
+*{box-sizing:border-box}html,body{margin:0;background:#fff;color:#173750;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif;overflow-x:hidden}
+header{position:fixed;z-index:100;top:0;left:0;right:0;height:56px;padding:0 18px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid #edf2f5}
+.logo{font-weight:900;letter-spacing:.18em;color:var(--navy)}.hint{font-size:9px;color:#84949f;letter-spacing:.06em}
+.hero{height:100svh;min-height:600px;display:grid;place-items:center;text-align:center;padding:70px 24px 24px}
+.hero-dot{color:var(--gold);font-size:23px;margin-bottom:18px}.hero h1{margin:0;font-size:clamp(40px,7vw,70px);line-height:1.08;letter-spacing:-.055em;color:var(--navy)}
+.hero p{max-width:590px;margin:20px auto 0;color:var(--muted);font-size:15px;line-height:1.75}
+
+.journey{height:430svh;position:relative}
+.stage{position:sticky;top:56px;height:calc(100svh - 56px);min-height:520px;overflow:hidden;background:#fff}
+.main-rail{position:absolute;left:7.5%;top:0;bottom:0;width:2px;background:var(--rail);z-index:2}
+.station-node{position:absolute;left:7.5%;top:46%;width:25px;height:25px;border:2px solid var(--navy);border-radius:50%;background:#fff;transform:translate(-50%,-50%);z-index:5}
+.station-halo{position:absolute;left:7.5%;top:46%;width:42px;height:42px;border:1px solid var(--gold);border-radius:50%;transform:translate(-50%,-50%) scale(.5);opacity:0;z-index:4}
+.traveler{position:absolute;left:7.5%;top:8%;width:17px;height:17px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 6px rgba(232,201,122,.22),0 0 18px rgba(232,201,122,.35);transform:translate(-50%,-50%);z-index:20}
+.branch{position:absolute;left:7.5%;top:46%;height:2px;width:0;background:linear-gradient(90deg,var(--gold),rgba(232,201,122,.35));z-index:3;transform-origin:left center}
+
+.copy{position:absolute;left:19%;right:7%;top:11%;text-align:center;z-index:7}
+.eyebrow{font-size:10px;font-weight:900;letter-spacing:.15em;color:var(--light);margin-bottom:12px}
+.copy h2{margin:0;font-size:clamp(34px,5vw,54px);line-height:1.1;letter-spacing:-.05em;color:var(--navy)}
+.copy p{max-width:660px;margin:15px auto 0;color:var(--muted);font-size:15px;line-height:1.7}
+
+.flow{position:absolute;left:22%;right:9%;top:58%;height:230px;transform:translateY(-50%);border:1px solid #e1e9ee;border-radius:30px;background:linear-gradient(180deg,#fff,#fbfcfd);z-index:6;overflow:hidden}
+.flow-title{position:absolute;top:19px;left:0;right:0;text-align:center;font-size:9px;font-weight:900;letter-spacing:.14em;color:#8aa0ae}
+.flow-line{position:absolute;left:11%;right:11%;top:54%;height:2px;background:#e5ecef;transform-origin:left center;transform:scaleX(0)}
+.flow-node{position:absolute;top:54%;width:66px;height:66px;border:1px solid #dce6eb;border-radius:50%;background:#fff;transform:translate(-50%,-50%) scale(.72);opacity:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--navy)}
+.flow-node b{font-size:11px}.flow-node span{font-size:8px;color:#83949f;margin-top:3px}.n1{left:18%}.n2{left:42%}.n3{left:66%}.n4{left:86%}
+.n2{border-color:var(--gold)}.n2 .check{position:absolute;top:-17px;font-size:11px;color:var(--blue);font-weight:900}
+.flow-pulse{position:absolute;top:54%;left:11%;width:11px;height:11px;border-radius:50%;background:var(--gold);transform:translate(-50%,-50%);opacity:0;box-shadow:0 0 0 5px rgba(232,201,122,.18)}
+.flow-result{position:absolute;bottom:19px;left:0;right:0;text-align:center;font-size:10px;color:#7e909b;opacity:0}
+.flow-glow{position:absolute;left:8%;top:54%;width:54px;height:54px;border-radius:50%;border:1px solid var(--gold);transform:translate(-50%,-50%) scale(.2);opacity:0}
+.phase{position:absolute;left:7.5%;bottom:5%;transform:translateX(-50%);writing-mode:vertical-rl;font-size:8px;font-weight:900;letter-spacing:.11em;color:#8b9aa4;z-index:8}
+
+.after{height:72svh;display:grid;place-items:center;text-align:center;padding:30px;background:linear-gradient(#fff,var(--cream))}
+.after small{font-size:9px;font-weight:900;letter-spacing:.15em;color:var(--light)}.after h3{font-size:clamp(30px,5vw,50px);letter-spacing:-.045em;color:var(--navy);margin:12px 0}.after p{color:var(--muted);font-size:13px;line-height:1.7}
+
+@media(max-width:650px){
+ .main-rail,.station-node,.station-halo,.traveler,.branch,.phase{left:28px}
+ .copy{left:68px;right:16px;top:9%;text-align:left}
+ .copy h2{font-size:34px}.copy p{font-size:13px}
+ .flow{left:68px;right:16px;top:60%;height:285px;border-radius:25px}
+ .flow-line{left:50%;right:auto;top:25%;bottom:18%;width:2px;height:auto;transform-origin:center top;transform:scaleY(0)}
+ .flow-node{left:50%!important;width:58px;height:58px}
+ .n1{top:28%}.n2{top:46%}.n3{top:64%}.n4{top:80%}
+ .flow-pulse{left:50%;top:25%}
+ .flow-glow{left:50%;top:22%}
+ .flow-result{bottom:9px;font-size:8.5px}
+ .flow-title{top:14px}
+}
+
+/* Engine 02 · LIM SWITCH */
+.switch-contact{
+ position:absolute;left:8%;top:54%;width:22px;height:22px;border-radius:50%;
+ border:1.5px solid #D9E5EB;background:#fff;transform:translate(-50%,-50%);
+ z-index:5;transition:border-color .12s,box-shadow .12s,transform .12s
+}
+.switch-contact span{
+ position:absolute;inset:6px;border-radius:50%;background:#DCE7ED;
+ transition:background .12s,transform .12s
+}
+.switch-contact i{
+ position:absolute;left:50%;top:50%;width:22px;height:22px;border:1.5px solid #E8C97A;
+ border-radius:50%;transform:translate(-50%,-50%) scale(.35);opacity:0
+}
+.switch-contact.on{
+ border-color:#E8C97A;box-shadow:0 0 0 5px rgba(232,201,122,.14),0 0 18px rgba(232,201,122,.25);
+ transform:translate(-50%,-50%) scale(1.08)
+}
+.switch-contact.on span{background:#E8C97A;transform:scale(.82)}
+.switch-contact.fire i{animation:limSwitchPulse .42s ease-out 1}
+@keyframes limSwitchPulse{
+ 0%{opacity:.9;transform:translate(-50%,-50%) scale(.45)}
+ 100%{opacity:0;transform:translate(-50%,-50%) scale(2.7)}
+}
+@media(max-width:650px){
+ .switch-contact{left:50%;top:22%}
+}
+</style>
+</head>
+<body>
+<header><div class="logo">LIM</div><div class="hint">JOURNEY ENGINE 02 · LIM SWITCH</div></header>
+
+<section class="hero">
+ <div><div class="hero-dot">●</div><h1>선을 따라,<br>LIM을 이해합니다.</h1><p>작은 선택 하나가 길을 따라 움직입니다. 그리고 그 선택이 닿는 곳에서 LIM이 작동합니다.</p></div>
+</section>
+
+<section class="journey" id="journey">
+ <div class="stage" id="stage">
+  <div class="main-rail"></div><div class="station-halo" id="stationHalo"></div><div class="station-node"></div>
+  <div class="branch" id="branch"></div><div class="traveler" id="traveler"></div><div class="phase" id="phase">TRAVEL</div>
+
+  <div class="copy">
+   <div class="eyebrow">STATION 01 · 오늘의 식탁</div>
+   <h2>작은 선택에서<br>시작합니다.</h2>
+   <p>필요하지 않은 반찬을 미리 제외하는 작은 선택. 그 선택이 Station에 닿는 순간 LIM Flow가 깨어납니다.</p>
+  </div>
+
+  <div class="flow" id="flow">
+   <div class="flow-title">LIM FLOW · SMALL CHOICE IN ACTION</div>
+   <div class="switch-contact" id="switchContact"><span></span><i></i></div><div class="flow-glow" id="flowGlow"></div><div class="flow-line" id="flowLine"></div><div class="flow-pulse" id="flowPulse"></div>
+   <div class="flow-node n1"><b>주문</b><span>ORDER</span></div>
+   <div class="flow-node n2"><div class="check">✓</div><b>반찬 제외</b><span>CHOICE</span></div>
+   <div class="flow-node n3"><b>제공 감소</b><span>LESS</span></div>
+   <div class="flow-node n4"><b>남지 않음</b><span>RESULT</span></div>
+   <div class="flow-result" id="flowResult">작은 선택 → 제공량 감소 → 남지 않음</div>
+  </div>
+ </div>
+</section>
+
+<section class="after"><div><small>THE SMALL CHOICE CONTINUES</small><h3>●은 다시 길을 갑니다.</h3><p>다음 Station에 닿으면 또 하나의 LIM Flow가 시작됩니다.</p></div></section>
+
+<script>
+(()=>{
+ const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)), smooth=t=>t*t*(3-2*t);
+ const journey=document.getElementById('journey'), stage=document.getElementById('stage'), traveler=document.getElementById('traveler'),
+ branch=document.getElementById('branch'), halo=document.getElementById('stationHalo'), flow=document.getElementById('flow'),
+ glow=document.getElementById('flowGlow'), line=document.getElementById('flowLine'), pulse=document.getElementById('flowPulse'),
+ result=document.getElementById('flowResult'), phase=document.getElementById('phase'), switchContact=document.getElementById('switchContact'), nodes=[...document.querySelectorAll('.flow-node')];
+ let last=-1, switchWasOn=false;
+
+ function render(){
+  const y=window.pageYOffset||document.documentElement.scrollTop||document.body.scrollTop||0;
+  const top=journey.offsetTop, range=Math.max(1,journey.offsetHeight-window.innerHeight);
+  const p=clamp((y-top)/range);
+  const switchOn = p >= .27 && p < .91;
+  if(switchOn !== switchWasOn){
+    switchContact.classList.toggle('on', switchOn);
+    if(switchOn){
+      switchContact.classList.remove('fire');
+      void switchContact.offsetWidth;
+      switchContact.classList.add('fire');
+    }else{
+      switchContact.classList.remove('fire');
+    }
+    switchWasOn=switchOn;
+  }
+  const mobile=innerWidth<=650, mainX=mobile?28:stage.clientWidth*.075;
+  const stationY=stage.clientHeight*.46;
+  const fr=flow.getBoundingClientRect(), sr=stage.getBoundingClientRect();
+  const targetX=fr.left-sr.left+(mobile?fr.width*.50:fr.width*.08);
+  const targetY=fr.top-sr.top+(mobile?fr.height*.22:fr.height*.54);
+
+  let x=mainX,ypos=stage.clientHeight*.08, op=1, label='TRAVEL';
+
+  // 0-.18 travel down main line
+  if(p<.18){
+   const q=smooth(p/.18); ypos=stage.clientHeight*(.08+.38*q);
+  }
+  // .18-.27 approach the Flow trigger
+  else if(p<.27){
+   const q=smooth((p-.18)/.09); ypos=stationY+(targetY-stationY)*q; x=mainX+(targetX-mainX)*q;
+   branch.style.width=Math.max(0,targetX-mainX)+'px'; branch.style.opacity=q; label='APPROACH';
+   halo.style.opacity=.75*(1-q); halo.style.transform=`translate(-50%,-50%) scale(${.6+.7*(1-q)})`;
+   switchContact.style.boxShadow=`0 0 0 ${4*q}px rgba(232,201,122,${.10+.10*q})`;
+  }
+  // .27-.72 traveler dissolves; LIM Flow owns the scene
+  else if(p<.72){
+   const q=clamp((p-.27)/.45); x=targetX;ypos=targetY; op=1-smooth(clamp(q/.13)); label=q<.14?'SWITCH ON':'LIM FLOW';
+   branch.style.width=Math.max(0,targetX-mainX)+'px';branch.style.opacity=1;
+   glow.style.opacity=.75*(1-clamp(q/.18));glow.style.transform=`translate(-50%,-50%) scale(${.3+1.25*smooth(clamp(q/.18))})`;
+
+   const fq=smooth(clamp((q-.10)/.80));
+   if(mobile){line.style.transform=`scaleY(${fq})`} else {line.style.transform=`scaleX(${fq})`}
+   nodes.forEach((n,i)=>{
+    const nq=smooth(clamp((fq*4-i)/.75));
+    n.style.opacity=nq;n.style.transform=`translate(-50%,-50%) scale(${.72+.28*nq})`;
+   });
+   const pq=clamp((fq-.05)/.90);
+   pulse.style.opacity=(pq>0&&pq<1)?1:0;
+   if(mobile){pulse.style.left='50%';pulse.style.top=(25+55*pq)+'%'}
+   else{pulse.style.top='54%';pulse.style.left=(11+75*pq)+'%'}
+   result.style.opacity=smooth(clamp((q-.72)/.18));
+  }
+  // .72-.82 quiet completed scene; dot remains absorbed
+  else if(p<.82){
+   x=targetX;ypos=targetY;op=0;label='UNDERSTAND';
+   result.style.opacity=1;
+  }
+  // .82-.91 re-emerge from Flow and return to main rail
+  else if(p<.91){
+   const q=smooth((p-.82)/.09);x=targetX+(mainX-targetX)*q;ypos=targetY+(stage.clientHeight*.78-targetY)*q;op=smooth(clamp(q/.28));label='RETURN';
+  }
+  // .91-1 continue down the main line
+  else{
+   const q=smooth((p-.91)/.09);x=mainX;ypos=stage.clientHeight*(.78+.17*q);op=1;label='CONTINUE';
+  }
+
+  traveler.style.left=x+'px';traveler.style.top=ypos+'px';traveler.style.opacity=op;
+  phase.textContent=label;
+ }
+ addEventListener('scroll',render,{passive:true});document.addEventListener('scroll',render,{passive:true});addEventListener('touchmove',render,{passive:true});
+ addEventListener('resize',render,{passive:true});
+ setInterval(()=>{const y=window.pageYOffset||document.documentElement.scrollTop||0;if(y!==last){last=y;render()}},100);
+ requestAnimationFrame(render);
+})();
+</script>
+</body></html>
