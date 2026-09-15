@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LIM Journey V13 · Mobile Vertical Mini Flow</title>
+<style>
+:root{
+  --navy:#1F4E79; --blue:#3E7CB1; --light:#6FA8DC;
+  --gold:#E8C97A; --cream:#FFF6E9; --muted:#708493;
+  --rail:#DDE7ED; --paper:#fff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;color:#173750;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif}
+body{overflow-x:hidden}
+header{
+  position:fixed;z-index:100;left:0;right:0;top:0;height:56px;
+  display:flex;align-items:center;justify-content:space-between;padding:0 18px;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(10px);
+  border-bottom:1px solid #edf2f5
+}
+.logo{font-weight:900;letter-spacing:.18em;color:var(--navy)}
+.hint{font-size:10px;color:#83939e}
+.hero{
+  height:100vh;min-height:620px;padding:56px 24px 0;
+  display:grid;place-items:center;text-align:center
+}
+.hero .dot{color:var(--gold);font-size:22px;margin-bottom:20px}
+.hero h1{margin:0;color:var(--navy);font-size:clamp(40px,7vw,72px);line-height:1.08;letter-spacing:-.055em}
+.hero p{margin:20px auto 0;max-width:600px;color:var(--muted);font-size:16px;line-height:1.75}
+.journey{height:330vh;position:relative}
+.stage{
+  position:sticky;top:56px;height:calc(100vh - 56px);min-height:560px;
+  overflow:hidden;background:#fff
+}
+.copy{
+  position:absolute;left:20%;right:7%;top:17%;
+  text-align:center;z-index:8
+}
+.kicker{font-size:10px;letter-spacing:.16em;font-weight:900;color:var(--light);margin-bottom:12px}
+.copy h2{margin:0;color:var(--navy);font-size:clamp(34px,5vw,54px);line-height:1.12;letter-spacing:-.045em}
+.copy p{max-width:650px;margin:16px auto 0;color:var(--muted);font-size:clamp(14px,1.7vw,18px);line-height:1.7}
+.table-card{
+  position:absolute;left:24%;right:10%;top:54%;height:190px;
+  transform:translateY(-50%);border:1px solid #e4ebef;border-radius:26px;
+  background:linear-gradient(180deg,#fff,#fbfcfd);z-index:6
+}
+.table-track{position:absolute;left:10%;right:10%;top:52%;height:2px;background:#e5ecef}
+.plate{
+  position:absolute;top:52%;width:58px;height:58px;transform:translate(-50%,-50%);
+  border-radius:50%;border:1px solid #dbe5ea;background:#fff;
+  display:grid;place-items:center;font-size:10px;font-weight:800;color:#657987;
+  transition:opacity .08s,transform .08s,box-shadow .08s
+}
+.p1{left:23%}.p2{left:50%}.p3{left:77%}
+.choice{
+  position:absolute;left:50%;top:18%;transform:translateX(-50%) translateY(6px);
+  font-size:10px;font-weight:900;color:var(--blue);opacity:0
+}
+.result{
+  position:absolute;left:50%;bottom:17px;transform:translateX(-50%);
+  font-size:10px;color:#81909b;white-space:nowrap
+}
+.station-label{
+  position:absolute;left:7.5%;top:48%;transform:translate(-50%,-50%);
+  font-size:9px;font-weight:900;letter-spacing:.12em;color:var(--blue);
+  writing-mode:vertical-rl;opacity:.5;z-index:7
+}
+svg.rail{position:absolute;inset:0;width:100%;height:100%;z-index:5;overflow:visible;pointer-events:none}
+.rail-base,.rail-branch{fill:none;stroke:var(--rail);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.rail-progress{fill:none;stroke:var(--gold);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.station-node{fill:#fff;stroke:var(--navy);stroke-width:2}
+.station-core{fill:var(--gold);opacity:.35}
+.station-halo{fill:none;stroke:var(--gold);stroke-width:1.5;opacity:0}
+.traveler{
+  position:absolute;width:16px;height:16px;border-radius:50%;
+  background:var(--gold);border:2px solid #fff;
+  box-shadow:0 0 0 5px rgba(232,201,122,.22),0 4px 14px rgba(31,78,121,.12);
+  transform:translate(-50%,-50%);z-index:20;pointer-events:none
+}
+.phase{
+  position:absolute;left:7.5%;bottom:6%;transform:translateX(-50%);
+  font-size:8px;font-weight:900;letter-spacing:.11em;color:#8a9aa5;
+  writing-mode:vertical-rl;z-index:8
+}
+.next{
+  height:70vh;display:grid;place-items:center;text-align:center;padding:30px;
+  background:linear-gradient(#fff,var(--cream))
+}
+.next .small{font-size:10px;font-weight:900;letter-spacing:.16em;color:var(--light)}
+.next h3{font-size:clamp(30px,5vw,50px);margin:12px 0;color:var(--navy);letter-spacing:-.04em}
+.next p{color:var(--muted);line-height:1.7}
+
+@media(max-width:650px){
+  .hint{font-size:9px}
+  .hero{min-height:600px}
+  .hero h1{font-size:43px}
+  .hero p{font-size:14px}
+  .copy{left:58px;right:14px;top:13%}
+  .copy h2{font-size:32px}
+  .copy p{font-size:14px}
+  .table-card{left:58px;right:14px;top:56%;height:180px}
+  .plate{width:50px;height:50px;font-size:9px}
+  .station-label,.phase{left:26px}
+}
+@media(prefers-reduced-motion:reduce){
+  .journey{height:180vh}
+}
+
+/* V9: GitHub Pages mobile validation layer */
+@media(max-width:650px){
+  .traveler{
+    width:20px;height:20px;
+    box-shadow:0 0 0 7px rgba(232,201,122,.25),0 4px 16px rgba(31,78,121,.14);
+  }
+}
+
+/* V10 · Station 01 polish + Station 02 */
+.station02{min-height:115vh;padding:20vh 9vw 16vh;text-align:center}
+.station02 .station-copy{max-width:680px;margin:0 auto}
+.station02 .eyebrow{font-size:12px;font-weight:900;letter-spacing:.15em;color:#6FA8DC;margin-bottom:18px}
+.station02 h2{font-size:clamp(38px,5vw,64px);line-height:1.08;letter-spacing:-.055em;color:#1F4E79;margin:0 0 22px}
+.station02 p{max-width:650px;margin:0 auto;color:#718493;line-height:1.85;font-size:16px}
+.system-flow{max-width:650px;margin:52px auto 0;border:1px solid #dfe8ee;border-radius:28px;padding:38px 28px;background:rgba(255,255,255,.9)}
+.system-row{display:flex;align-items:center;justify-content:center;gap:14px;color:#1F4E79;font-weight:800}
+.system-row span{border:1px solid #d9e5eb;border-radius:999px;padding:12px 16px;background:#fff}
+.system-row i{font-style:normal;color:#E8C97A}
+.system-note{margin-top:25px;font-size:12px;color:#82939e}
+@media(max-width:650px){
+  /* Keep the rail clean: remove the vertical label that collided with the station node. */
+  .station-label,.stationTag,.station-tag{display:none!important}
+  .station02{padding:17vh 28px 14vh 84px;text-align:left}
+  .station02 .eyebrow{font-size:10px}
+  .station02 h2{font-size:38px}
+  .station02 p{font-size:14px}
+  .system-flow{padding:28px 18px;border-radius:24px}
+  .system-row{display:grid;grid-template-columns:1fr auto 1fr;gap:9px;text-align:center}
+  .system-row span{font-size:12px;padding:10px 8px}
+  .system-row i:nth-of-type(2){display:none}
+  .system-note{text-align:center;line-height:1.6}
+}
+
+/* V11 · Station 03 : two realities, without implying simplistic causation */
+.station03{min-height:125vh;padding:21vh 9vw 17vh;text-align:center}
+.station03 .station-copy{max-width:760px;margin:0 auto}
+.station03 .eyebrow{font-size:12px;font-weight:900;letter-spacing:.15em;color:#6FA8DC;margin-bottom:18px}
+.station03 h2{font-size:clamp(40px,5.2vw,68px);line-height:1.07;letter-spacing:-.055em;color:#1F4E79;margin:0 0 24px}
+.station03 p{max-width:720px;margin:0 auto;color:#718493;line-height:1.85;font-size:16px}
+.balance-scene{max-width:760px;margin:58px auto 0;border:1px solid #dfe8ee;border-radius:30px;padding:42px 36px 30px;background:#fff;display:grid;grid-template-columns:1fr 120px 1fr;align-items:center;gap:18px}
+.table-label{font-size:12px;font-weight:800;color:#718493;margin-bottom:18px}
+.plate{width:142px;height:58px;border:2px solid #d9e5eb;border-radius:50%;margin:auto;position:relative;background:#fff}
+.food{position:absolute;border-radius:50%;background:#E8C97A;opacity:.9}
+.f1{width:22px;height:22px;left:32px;top:15px}.f2{width:15px;height:15px;left:65px;top:24px}.f3{width:18px;height:18px;left:87px;top:12px}
+.plate-empty{background:#fafcfd}
+.empty-mark{position:absolute;width:34px;height:2px;background:#d9e5eb;left:52px;top:27px}
+.bridge{height:70px;position:relative}
+.bridge-line{position:absolute;left:8px;right:8px;top:34px;height:1px;background:#d9e5eb}
+.bridge-dot{position:absolute;width:10px;height:10px;border-radius:50%;background:#E8C97A;left:calc(50% - 5px);top:29px;z-index:2;box-shadow:0 0 0 6px rgba(232,201,122,.18)}
+.scene-caption{grid-column:1/-1;margin-top:24px;padding-top:22px;border-top:1px solid #edf2f5;font-size:11px;color:#8798a3;line-height:1.6}
+@media(max-width:650px){
+ .station03{padding:18vh 26px 15vh 84px;text-align:left}
+ .station03 .eyebrow{font-size:10px}
+ .station03 h2{font-size:38px}
+ .station03 p{font-size:14px}
+ .balance-scene{margin-top:42px;padding:28px 18px 24px;display:block;text-align:center;border-radius:24px}
+ .bridge{height:76px;width:1px;margin:auto}
+ .bridge-line{left:0;right:auto;top:8px;bottom:8px;width:1px;height:auto}
+ .bridge-dot{left:-4.5px;top:33px}
+ .table-side{padding:8px 0}
+ .scene-caption{margin-top:18px}
+}
+
+/* V12 · mobile Station 01 containment
+   Scroll engine/path timing intentionally unchanged. */
+@media(max-width:650px){
+  .station01{overflow:hidden!important}
+  .station01 .station-copy{
+    padding-left:0!important;
+    padding-right:0!important;
+    max-width:100%!important;
+  }
+  .station01 .mini-card{
+    width:auto!important;
+    max-width:none!important;
+    margin-left:72px!important;
+    margin-right:18px!important;
+    padding-left:16px!important;
+    padding-right:16px!important;
+    overflow:hidden!important;
+    border-radius:24px!important;
+  }
+  .station01 .mini-card svg,
+  .station01 .mini-card .mini-svg,
+  .station01 .mini-card .flow-svg{
+    max-width:100%!important;
+    overflow:visible!important;
+  }
+  .station01 .mini-card .flow-row,
+  .station01 .mini-card .choices,
+  .station01 .mini-card .nodes{
+    width:100%!important;
+    max-width:100%!important;
+  }
+  .station01 .mini-card .node{
+    min-width:0!important;
+  }
+  /* Keep copy clear of the left LIM rail. */
+  .station01 h1,.station01 h2,.station01 p,.station01 .eyebrow{
+    position:relative;z-index:3;
+  }
+}
+
+/* V13 · Mobile-first vertical Mini Flow */
+.mobile-mini-flow{display:none}
+@media(max-width:650px){
+  /* Hide the desktop Station 01 diagram only; preserve the proven traveler engine. */
+  .station01 .mini-card{display:none!important}
+
+  .station01{
+    min-height:135vh!important;
+    padding-bottom:18vh!important;
+  }
+  .mobile-mini-flow{
+    display:block;
+    position:relative;
+    z-index:4;
+    margin:42px 20px 0 82px;
+    padding:26px 18px 22px;
+    border:1px solid #dfe8ee;
+    border-radius:26px;
+    background:rgba(255,255,255,.96);
+    text-align:center;
+  }
+  .mm-kicker{
+    color:#6FA8DC;
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:.13em;
+    margin-bottom:22px;
+  }
+  .mm-track{display:flex;flex-direction:column;align-items:center}
+  .mm-node{
+    width:112px;height:76px;
+    border:1.5px solid #d9e5eb;
+    border-radius:50%;
+    display:flex;flex-direction:column;
+    align-items:center;justify-content:center;
+    background:#fff;color:#1F4E79;
+  }
+  .mm-node b{font-size:15px}
+  .mm-node span{font-size:9px;color:#8395a0;margin-top:4px}
+  .mm-choice{
+    border-color:#E8C97A;
+    box-shadow:0 0 0 8px rgba(232,201,122,.16);
+  }
+  .mm-choice:before{
+    content:"✓";
+    position:absolute;
+    margin-top:-83px;
+    color:#6FA8DC;
+    font-size:12px;font-weight:900;
+  }
+  .mm-arrow{
+    height:43px;
+    display:flex;align-items:center;justify-content:center;
+    color:#E8C97A;font-size:18px;
+  }
+  .mm-result{
+    border-top:1px solid #edf2f5;
+    margin-top:22px;padding-top:18px;
+    color:#718493;font-size:10px;line-height:1.6;
+  }
+}
+</style>
+</head>
+<body>
+<header><div class="logo">LIM</div><div class="hint">V13 · ↓ 진행 · ↑ Reverse</div></header>
+
+<section class="hero">
+  <div>
+    <div class="dot">●</div>
+    <h1>선을 따라,<br>LIM을 이해합니다.</h1>
+    <p>하나의 작은 선택이 어디에서 시작되고 어떻게 이어지는지, 골드 점과 함께 따라가 봅니다.</p>
+  </div>
+</section>
+
+<section class="journey" id="journey">
+  <div class="stage" id="stage">
+    <svg class="rail" id="rail" aria-hidden="true">
+      <path class="rail-base" id="base"></path>
+      <path class="rail-branch" id="branch"></path>
+      <path class="rail-progress" id="progress"></path>
+      <circle class="station-halo" id="halo" r="28"></circle>
+      <circle class="station-node" id="station" r="12"></circle>
+      <circle class="station-core" id="core" r="5"></circle>
+    </svg>
+
+    <div class="traveler" id="traveler"></div>
+    <div class="station-label">STATION 01</div>
+    <div class="phase" id="phase">APPROACH</div>
+
+    <div class="copy" id="copy">
+      <div class="kicker">STATION 01 · 오늘의 식탁</div>
+      <h2>작은 선택에서<br>시작합니다.</h2>
+      <p>필요하지 않은 반찬이나 제공량을 미리 줄이는 선택. LIM의 출발점은 거창한 행동이 아니라 오늘의 식탁입니다.</p>
+    </div>
+
+    <div class="table-card" id="card">
+      <div class="table-track"></div>
+      <div class="choice" id="choice">✓ 제외 선택</div>
+      <div class="plate p1" id="p1">밥</div>
+      <div class="plate p2" id="p2">반찬</div>
+      <div class="plate p3" id="p3">반찬</div>
+      <div class="result">주문 → 제외 선택 → 제공량 감소 → 남지 않음</div>
+    </div>
+  </div>
+</section>
+
+<section class="next">
+  <div><div class="small">MAIN LINE · CONTINUES</div><h3>다음 Station으로.</h3><p>Station 01을 나온 선택은 다시 본선으로 돌아와 다음 이야기를 향합니다.</p></div>
+</section>
+
+<script>
+(()=>{
+  const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+  const smooth=t=>t*t*(3-2*t);
+  const lerp=(a,b,t)=>a+(b-a)*t;
+
+  const journey=document.getElementById('journey');
+  const stage=document.getElementById('stage');
+  const base=document.getElementById('base');
+  const branch=document.getElementById('branch');
+  const progress=document.getElementById('progress');
+  const traveler=document.getElementById('traveler');
+  const station=document.getElementById('station');
+  const core=document.getElementById('core');
+  const halo=document.getElementById('halo');
+  const card=document.getElementById('card');
+  const copy=document.getElementById('copy');
+  const choice=document.getElementById('choice');
+  const plates=[document.getElementById('p1'),document.getElementById('p2'),document.getElementById('p3')];
+  const phase=document.getElementById('phase');
+
+  let geom={}, branchLen=1;
+
+  function build(){
+    const W=stage.clientWidth,H=stage.clientHeight;
+    const mobile=W<=650;
+    const mainX=mobile?26:W*.075;
+    const stationY=H*.48;
+    const cr=card.getBoundingClientRect(), sr=stage.getBoundingClientRect();
+    const cardX=cr.left-sr.left, cardY=cr.top-sr.top, cardW=cr.width, cardH=cr.height;
+    const entry={x:cardX+cardW*.08,y:cardY+cardH*.52};
+    const exit={x:cardX+cardW*.92,y:cardY+cardH*.52};
+    const platePts=plates.map(el=>{
+      const r=el.getBoundingClientRect();
+      return {x:r.left-sr.left+r.width/2,y:r.top-sr.top+r.height/2};
+    });
+    const returnY=H*.83;
+
+    geom={W,H,mainX,stationY,entry,exit,platePts,returnY};
+    base.setAttribute('d',`M ${mainX} 0 L ${mainX} ${H}`);
+    const d=`M ${mainX} 0
+      L ${mainX} ${stationY}
+      C ${mainX+36} ${stationY}, ${entry.x-46} ${entry.y}, ${entry.x} ${entry.y}
+      C ${entry.x+22} ${entry.y}, ${platePts[0].x-25} ${platePts[0].y}, ${platePts[0].x} ${platePts[0].y}
+      C ${platePts[0].x+30} ${platePts[0].y}, ${platePts[1].x-30} ${platePts[1].y}, ${platePts[1].x} ${platePts[1].y}
+      C ${platePts[1].x+30} ${platePts[1].y}, ${platePts[2].x-30} ${platePts[2].y}, ${platePts[2].x} ${platePts[2].y}
+      C ${platePts[2].x+24} ${platePts[2].y}, ${exit.x-18} ${exit.y}, ${exit.x} ${exit.y}
+      C ${exit.x+28} ${exit.y+22}, ${mainX+54} ${returnY-35}, ${mainX} ${returnY}
+      L ${mainX} ${H}`;
+    branch.setAttribute('d',d);
+    progress.setAttribute('d',d);
+    branchLen=branch.getTotalLength();
+    progress.style.strokeDasharray=`${branchLen} ${branchLen}`;
+
+    [station,core,halo].forEach(el=>{
+      el.setAttribute('cx',mainX); el.setAttribute('cy',stationY);
+    });
+  }
+
+  // Story timing is deliberately non-linear.
+  // 0-.18 approach | .18-.31 dwell | .31-.72 mini flow | .72-.88 return | .88-1 depart
+  function pathProgress(raw){
+    if(raw<.18) return .17*smooth(raw/.18);
+    if(raw<.31) return .17 + .035*smooth((raw-.18)/.13);
+    if(raw<.72) return .205 + .56*smooth((raw-.31)/.41);
+    if(raw<.88) return .765 + .15*smooth((raw-.72)/.16);
+    return .915 + .085*smooth((raw-.88)/.12);
+  }
+
+  function render(){
+    const y=window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    const journeyTop=journey.offsetTop;
+    const scrollable=Math.max(1,journey.offsetHeight-window.innerHeight);
+    const raw=clamp((y-journeyTop)/scrollable);
+    const q=pathProgress(raw);
+    const len=branchLen*q;
+    const p=branch.getPointAtLength(len);
+
+    traveler.style.left=p.x+'px';
+    traveler.style.top=p.y+'px';
+    progress.style.strokeDashoffset=String(branchLen-len);
+
+    const arrive=1-clamp(Math.abs(raw-.245)/.085);
+    halo.style.opacity=(.85*arrive).toFixed(3);
+    halo.setAttribute('r',String(18+18*arrive));
+    core.style.opacity=String(.25+.75*arrive);
+
+    const visible=smooth(clamp((raw-.08)/.12))*(1-smooth(clamp((raw-.94)/.05)));
+    copy.style.opacity=String(.35+.65*visible);
+
+    const mini=clamp((raw-.31)/.41);
+    const hits=[.20,.50,.78];
+    plates.forEach((el,i)=>{
+      const hit=1-clamp(Math.abs(mini-hits[i])/.16);
+      el.style.boxShadow=`0 0 0 ${5*hit}px rgba(232,201,122,${.20*hit})`;
+      el.style.transform=`translate(-50%,-50%) scale(${1+.08*hit})`;
+    });
+
+    const exclude=smooth(clamp((mini-.39)/.16));
+    choice.style.opacity=String(exclude);
+    choice.style.transform=`translateX(-50%) translateY(${6*(1-exclude)}px)`;
+    // The middle side dish is the chosen exclusion.
+    const fade=smooth(clamp((mini-.48)/.20));
+    plates[1].style.opacity=String(1-.62*fade);
+
+    let label='APPROACH';
+    if(raw>=.18 && raw<.31) label='ARRIVE · PAUSE';
+    else if(raw>=.31 && raw<.72) label='TABLE FLOW';
+    else if(raw>=.72 && raw<.88) label='RETURN';
+    else if(raw>=.88) label='DEPART';
+    phase.textContent=label;
+  }
+
+  let timer;
+  addEventListener('resize',()=>{
+    clearTimeout(timer);
+    timer=setTimeout(()=>{build();render()},120);
+  });
+  addEventListener('scroll',render,{passive:true});
+  document.addEventListener('scroll',render,{passive:true});
+  addEventListener('touchmove',render,{passive:true});
+  let lastScroll=-1;
+  setInterval(()=>{
+    const y=window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    if(y!==lastScroll){ lastScroll=y; render(); }
+  },100);
+  requestAnimationFrame(()=>{build();render()});
+})();
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  const st=document.querySelector('.station01');
+  if(st && !st.querySelector('.mobile-mini-flow')){
+    const m=document.createElement('div');
+    m.className='mobile-mini-flow';
+    m.innerHTML=`
+      <div class="mm-kicker">오늘의 식탁 · MINI FLOW</div>
+      <div class="mm-track">
+        <div class="mm-node"><b>밥</b><span>주문</span></div>
+        <div class="mm-arrow">↓</div>
+        <div class="mm-node mm-choice"><b>반찬</b><span>제외 선택</span></div>
+        <div class="mm-arrow">↓</div>
+        <div class="mm-node"><b>반찬</b><span>제공하지 않음</span></div>
+      </div>
+      <div class="mm-result">제외 선택 → 제공량 감소 → 남지 않음</div>`;
+    st.appendChild(m);
+  }
+});
+</script>
+
+</body>
+</html>
