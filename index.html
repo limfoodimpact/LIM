@@ -438,7 +438,7 @@ body{position:relative}
    count.textContent=['YOUR CHOICE','BEFORE SERVING','01 · 작은 선택','02 · 또 하나의 선택','LESS IS MORE'][n];}
   scene.style.setProperty('--table-progress',String(Math.min(1,elapsed/duration)));flyChoices();
  }
- function finish(){playing=false;area.dataset.tablePlaying='false';area.dataset.tableComplete='true';playback.textContent='두 선택의 흔적을 따라, 다음 이야기로 이어집니다.';dispatchEvent(new Event('lim-table-end'));}
+ function finish(){playing=false;scene.dispatchEvent(new Event('lim-flow-complete'));area.dataset.tablePlaying='false';area.dataset.tableComplete='true';playback.textContent='두 선택의 흔적을 따라, 다음 이야기로 이어집니다.';dispatchEvent(new Event('lim-table-end'));}
  function play(){begun=true;playing=true;elapsed=0;last=0;phase=-1;area.dataset.tableComplete='false';area.dataset.tablePlaying='true';scene.classList.add('resetting');classes.forEach(c=>scene.classList.remove(c));scene.style.setProperty('--table-progress','0');void scene.offsetWidth;scene.classList.remove('resetting');playback.textContent='선택에 맞춰 식탁을 준비하고 있습니다.';if(reduce.matches){elapsed=duration;paint();finish();}queue();}
  function update(now){raf=0;if(begun&&!playing)flyChoices();
   const inView=visible(),ready=hero.dataset.journeyComplete==='true';
@@ -446,7 +446,8 @@ body{position:relative}
   if(playing){if(inView&&!document.hidden){if(last)elapsed+=Math.min(80,now-last);last=now;paint();if(elapsed>=duration)finish();}else last=0;}
   const start=runway.getBoundingClientRect().bottom+scrollY-34,station=document.getElementById('gather'),end=document.getElementById('together').getBoundingClientRect().bottom+scrollY-28,target=scrollY+innerHeight*.52,active=ready&&target>=start;
   let y=Math.max(start,Math.min(end,target));
-  trail.style.top=start+'px';trail.style.height=active&&!reduce.matches?Math.max(0,y-start)+'px':'0px';dot.style.top=(y-6)+'px';dot.style.opacity=active&&!reduce.matches?'1':'0';oldDot.style.visibility=active&&!reduce.matches?'hidden':'';
+  if(dot.dataset.switching==='true')y=Number(dot.dataset.switchDocumentY)||y;
+  trail.style.top=start+'px';trail.style.height=active&&!reduce.matches?Math.max(0,y-start)+'px':'0px';dot.style.top=(y-6)+'px';dot.style.opacity=active&&!reduce.matches&&dot.dataset.inside!=='true'?'1':'0';oldDot.style.visibility=active&&!reduce.matches?'hidden':'';
   if(playing&&inView&&!document.hidden)queue();
  }
  function queue(){if(!raf)raf=requestAnimationFrame(update);}
@@ -500,7 +501,7 @@ body{position:relative}
   scene.style.setProperty('--bridge-progress',String(clamp(elapsed/duration)));
  }
  function visible(){const r=scene.getBoundingClientRect();return r.top<innerHeight*.82&&r.bottom>innerHeight*.28;}
- function finish(){playing=false;station.dataset.playing='false';status.textContent='이 연결을 실제 식탁에서 하나씩 확인해갑니다. ↓';dispatchEvent(new Event('scroll'));}
+ function finish(){playing=false;scene.dispatchEvent(new Event('lim-flow-complete'));station.dataset.playing='false';status.textContent='이 연결을 실제 식탁에서 하나씩 확인해갑니다. ↓';dispatchEvent(new Event('scroll'));}
  function play(){started=true;playing=true;elapsed=0;last=0;phase=-1;station.dataset.playing='true';station.classList.add('active');status.textContent='작은 선택들이 연결되는 이야기입니다.';dispatchEvent(new Event('lim-bridge-start'));if(reduce.matches){elapsed=duration;paint();finish();}else paint();queue();}
  function tick(now){raf=0;const inView=visible(),table=document.getElementById('start');
   if(!started&&inView&&(document.getElementById('journeyHero').dataset.journeyComplete==='true'||reduce.matches)&&(table.dataset.tablePlaying!=='true'||table.getBoundingClientRect().bottom<100))play();
@@ -535,7 +536,7 @@ body{position:relative}
  }
  function visible(){const r=scene.getBoundingClientRect();return r.top<innerHeight*.86&&r.bottom>innerHeight*.22;}
  function play(){started=true;playing=true;elapsed=0;last=0;phase=-1;if(reduce.matches){elapsed=duration;playing=false;}paint();queue();}
- function tick(now){raf=0;const seen=visible();if(!started&&seen)play();if(playing&&seen&&!document.hidden){if(last)elapsed+=Math.min(80,now-last);last=now;paint();if(elapsed>=duration)playing=false;else queue();}else last=0;}
+ function tick(now){raf=0;const seen=visible();if(!started&&seen)play();if(playing&&seen&&!document.hidden){if(last)elapsed+=Math.min(80,now-last);last=now;paint();if(elapsed>=duration){playing=false;scene.dispatchEvent(new Event('lim-flow-complete'))}else queue();}else last=0;}
  function queue(){if(!raf)raf=requestAnimationFrame(tick);}
  document.getElementById('recordReplay').addEventListener('click',play);addEventListener('scroll',queue,{passive:true});addEventListener('resize',()=>{paint();queue();});document.addEventListener('visibilitychange',()=>{last=0;queue();});reduce.addEventListener('change',()=>{if(reduce.matches){elapsed=duration;playing=false;paint();}queue();});if(reduce.matches){elapsed=duration;started=true;}paint();queue();
 })();
@@ -559,7 +560,7 @@ body{position:relative}
   const n=t>=8500?3:t>=5200?2:t>=2500?1:0;if(n!==phase){phase=n;caption.textContent=['한 곳의 식탁에서 시작된 작은 선택.','시야를 넓히면, 서로 다른 식탁이 보입니다.','식량에 접근하기 어려운 이유는 하나가 아닙니다.','그래서 먼저 문제와 원인을 확인합니다.'][n];}
  }
  function visible(){const r=scene.getBoundingClientRect();return r.top<innerHeight*.86&&r.bottom>innerHeight*.2}
- function finish(){elapsed=duration;playing=false;paint()}
+ function finish(){elapsed=duration;playing=false;paint();scene.dispatchEvent(new Event('lim-flow-complete'))}
  function play(){started=true;playing=true;elapsed=0;last=0;phase=-1;if(reduce.matches)finish();else{paint();queue()}}
  function tick(now){raf=0;const seen=visible();if(!started&&seen)play();if(playing&&seen&&!document.hidden){if(last)elapsed+=Math.min(80,now-last);last=now;paint();if(elapsed>=duration)finish();else queue()}else last=0}
  function queue(){if(!raf)raf=requestAnimationFrame(tick)}
@@ -585,7 +586,7 @@ body{position:relative}
   parts.rolePaths.forEach((path,i)=>{const q=ease(clamp((t-(5100+i*500))/1000));draw(path,q);opacity(parts.roles[i],clamp((t-(4500+i*500))/700))});const gather=clamp((t-7200)/1100);opacity(parts.centerGroup,gather);parts.ring.setAttribute('r',(mobile?76:92)+34*Math.sin(Math.PI*gather));opacity(parts.ring,gather*(1-clamp((t-8900)/1000))+.18*clamp((t-8900)/1000));const final=clamp((t-9700)/1300);lock.style.opacity=String(final);lock.style.transform=`translateY(${(1-final)*10}px)`;bar.style.transform=`scaleX(${clamp(t/duration)})`;
   const n=t>=9700?4:t>=7200?3:t>=4500?2:t>=2600?1:0;if(n!==phase){phase=n;caption.textContent=['작은 선택 하나가 길을 만들었습니다.','식탁과 매장, 기록을 지나 더 넓은 문제를 바라봅니다.','선택한 사람과 참여한 식탁, LIM이 서로 연결됩니다.','함께하면 더 이상 작은 선택으로만 남지 않습니다.','각자의 자리에서 시작된 선택들. 우리는 LIM입니다.'][n]}
  }
- function visible(){const r=scene.getBoundingClientRect();return r.top<innerHeight*.84&&r.bottom>innerHeight*.2}function finish(){elapsed=duration;playing=false;paint()}
+ function visible(){const r=scene.getBoundingClientRect();return r.top<innerHeight*.84&&r.bottom>innerHeight*.2}function finish(){elapsed=duration;playing=false;paint();scene.dispatchEvent(new Event('lim-flow-complete'))}
  function play(){started=true;playing=true;elapsed=0;last=0;phase=-1;if(reduce.matches)finish();else{paint();queue()}}
  function tick(now){raf=0;const seen=visible();if(!started&&seen)play();if(playing&&seen&&!document.hidden){if(last)elapsed+=Math.min(80,now-last);last=now;paint();if(elapsed>=duration)finish();else queue()}else last=0}
  function queue(){if(!raf)raf=requestAnimationFrame(tick)}
@@ -595,17 +596,25 @@ body{position:relative}
 <script>
 (()=>{
  const traveler=document.getElementById('tableTraveler'),hero=document.getElementById('journeyHero'),reduce=matchMedia('(prefers-reduced-motion: reduce)');
- if(!traveler||reduce.matches||!('IntersectionObserver' in window))return;
- const stations=[['start','#supperScene'],['gather','#bridgeScene'],['field','.pilot-stores'],['records','#recordScene'],['world','#worldScene'],['together','#finaleScene']];
- const visited=new Set();let switching=false;
- function wake(section,scene){
-  if(visited.has(section.id)||hero.dataset.journeyComplete!=='true')return;if(switching){setTimeout(()=>{const r=scene.getBoundingClientRect();if(r.top<innerHeight*.84&&r.bottom>0)wake(section,scene)},1550);return}visited.add(section.id);switching=true;section.classList.add('station-switching');
-  const railX=traveler.getBoundingClientRect().left+traveler.offsetWidth/2,rect=scene.getBoundingClientRect(),targetX=Math.max(72,Math.min(rect.left+Math.min(90,rect.width*.12)-railX,innerWidth*.38));
-  if(traveler.animate){const motion=traveler.animate([{transform:'translateX(0)'},{transform:`translateX(${targetX}px)`,offset:.44},{transform:`translateX(${targetX}px)`,offset:.58},{transform:'translateX(0)'}],{duration:1500,easing:'cubic-bezier(.35,0,.2,1)'});motion.finished.finally(()=>{switching=false;section.classList.remove('station-switching')});}else{setTimeout(()=>{switching=false;section.classList.remove('station-switching')},1500)}
-  scene.dispatchEvent(new CustomEvent('lim-station-awake',{bubbles:true,detail:{station:section.id}}));
+ if(!traveler||reduce.matches)return;
+ const definitions=[['start','#supperScene','tableReplay',15000],['gather','#bridgeScene','gatherPlay',21000],['field','.pilot-stores',null,2500],['records','#recordScene','recordReplay',11000],['world','#worldScene','worldReplay',15000],['together','#finaleScene','finaleReplay',16500]];
+ const stations=definitions.map(([id,selector,replayId,fallback])=>{const section=document.getElementById(id);return{section,scene:section?.querySelector(selector),replayId,fallback}}).filter(x=>x.scene);
+ const visited=new Set();let switching=false,scanFrame=0;
+ function wake({section,scene,replayId,fallback}){
+  if(switching||visited.has(section.id)||hero.dataset.journeyComplete!=='true')return;const rect=scene.getBoundingClientRect(),midY=rect.top+rect.height/2;if(Math.abs(midY-innerHeight*.52)>Math.max(48,innerHeight*.09))return;
+  visited.add(section.id);switching=true;traveler.dataset.switching='true';traveler.dataset.switchDocumentY=String(scrollY+midY);section.classList.add('station-switching');
+  const railX=traveler.getBoundingClientRect().left+traveler.offsetWidth/2,targetX=rect.left+rect.width/2-railX;
+  const enter=traveler.animate([{transform:'translateX(0)'},{transform:`translateX(${targetX}px)`}],{duration:800,easing:'cubic-bezier(.35,0,.2,1)',fill:'forwards'});
+  enter.finished.then(()=>{
+   traveler.dataset.inside='true';traveler.style.opacity='0';let returned=false;
+   const returnToRail=()=>{if(returned)return;returned=true;clearTimeout(fallbackTimer);scene.removeEventListener('lim-flow-complete',returnToRail);traveler.dataset.inside='false';traveler.style.opacity='1';const exit=traveler.animate([{transform:`translateX(${targetX}px)`},{transform:'translateX(0)'}],{duration:800,easing:'cubic-bezier(.35,0,.2,1)',fill:'forwards'});exit.finished.finally(()=>{enter.cancel();exit.cancel();switching=false;delete traveler.dataset.switching;delete traveler.dataset.switchDocumentY;delete traveler.dataset.inside;section.classList.remove('station-switching');scan()})};
+   scene.addEventListener('lim-flow-complete',returnToRail,{once:true});const fallbackTimer=setTimeout(returnToRail,fallback);
+   if(section.id==='field'){const cards=[...section.querySelectorAll('.pilot-store')];cards.forEach((card,i)=>setTimeout(()=>{card.classList.remove('is-waiting');card.classList.add('is-arrived')},i*180));setTimeout(()=>scene.dispatchEvent(new Event('lim-flow-complete')),1400)}else if(replayId){document.getElementById(replayId)?.click()}
+  }).catch(()=>{});
  }
- const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){const section=entry.target.closest('section');wake(section,entry.target)}}),{rootMargin:'0px 0px -18% 0px',threshold:.01});
- stations.forEach(([id,selector])=>{const section=document.getElementById(id),scene=section?.querySelector(selector);if(scene)observer.observe(scene)});
+ function scan(){scanFrame=0;if(switching||hero.dataset.journeyComplete!=='true')return;for(const station of stations){if(visited.has(station.section.id))continue;const r=station.scene.getBoundingClientRect(),mid=r.top+r.height/2;if(Math.abs(mid-innerHeight*.52)<=Math.max(48,innerHeight*.09)){wake(station);break}}}
+ function queue(){if(!scanFrame)scanFrame=requestAnimationFrame(scan)}
+ addEventListener('scroll',queue,{passive:true});addEventListener('resize',queue);new MutationObserver(queue).observe(hero,{attributes:true,attributeFilter:['data-journey-complete']});queue();
 })();
 </script>
 </body>
