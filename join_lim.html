@@ -50,6 +50,16 @@
     .empty{grid-column:1/-1;padding:26px 12px;border-radius:14px;background:var(--gray);color:var(--muted);text-align:center}
     .count{margin:0;color:var(--muted)}
     .count strong{color:var(--navy);font-size:24px}
+    .duplicate-dialog{width:min(460px,calc(100% - 32px));padding:0;border:0;border-radius:20px;background:#fff;color:var(--ink);box-shadow:0 24px 70px rgba(20,48,72,.28)}
+    .duplicate-dialog::backdrop{background:rgba(18,39,57,.52)}
+    .duplicate-inner{padding:28px 24px 22px;text-align:center}
+    .duplicate-mark{width:18px;height:18px;margin:0 auto 14px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 8px rgba(232,201,122,.2)}
+    .duplicate-inner h3{margin:0;color:var(--navy);font-size:23px}
+    .duplicate-inner p{margin:12px 0 0;color:var(--muted)}
+    .duplicate-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:22px}
+    .duplicate-actions button{min-height:50px;border-radius:999px;padding:11px 14px;font-weight:900;cursor:pointer}
+    .duplicate-edit{border:1px solid var(--line);background:#fff;color:var(--navy)}
+    .duplicate-continue{border:0;background:var(--gold);color:var(--navy)}
     details{margin-top:22px}
     summary{min-height:48px;padding:12px 0;color:var(--navy);font-weight:900;cursor:pointer}
     footer{padding-top:28px;color:#82909B;text-align:center;font-size:13px}
@@ -100,6 +110,18 @@
         <button class="primary" id="submitButton" type="submit">작은 선택 기록하기</button>
         <p class="status" id="joinStatus" role="status" aria-live="polite"></p>
       </form>
+
+      <dialog class="duplicate-dialog" id="duplicateDialog" aria-labelledby="duplicateTitle">
+        <div class="duplicate-inner">
+          <div class="duplicate-mark" aria-hidden="true"></div>
+          <h3 id="duplicateTitle">같은 이름이 이미 기록되어 있습니다.</h3>
+          <p>본인이 이미 신청했다면 다시 신청하지 않아도 됩니다.<br>동명이인이거나 다른 분이라면 그대로 진행할 수 있습니다.</p>
+          <form class="duplicate-actions" method="dialog">
+            <button class="duplicate-edit" value="edit">이름 다시 확인</button>
+            <button class="duplicate-continue" value="continue">그래도 신청하기</button>
+          </form>
+        </div>
+      </dialog>
 
       <div class="success" id="successBox" tabindex="-1">
         <div class="choice" aria-hidden="true"></div>
@@ -154,6 +176,10 @@
       const deleteStatus = document.querySelector('#deleteStatus');
       const namesList = document.querySelector('#namesList');
       const limCount = document.querySelector('#limCount');
+      const duplicateDialog = document.querySelector('#duplicateDialog');
+      const displayName = document.querySelector('#displayName');
+      let approvedNameKeys = new Set();
+      let namesReady = false;
 
       async function rpc(name, body) {
         const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${name}`, {
@@ -180,12 +206,45 @@
         return /^[0-9]{6}$/.test(value);
       }
 
+      function normalizeName(value) {
+        return value.normalize('NFKC').trim().replace(/\s+/g, ' ').toLocaleLowerCase('ko-KR');
+      }
+
+      function recentSubmittedNames() {
+        try {
+          const saved = JSON.parse(localStorage.getItem('lim_recent_names') || '[]');
+          const limit = Date.now() - (30 * 24 * 60 * 60 * 1000);
+          return Array.isArray(saved) ? saved.filter((item) => item && item.at >= limit && typeof item.name === 'string') : [];
+        } catch (_) {
+          return [];
+        }
+      }
+
+      function rememberSubmittedName(value) {
+        const names = recentSubmittedNames();
+        names.push({ name: normalizeName(value), at: Date.now() });
+        try { localStorage.setItem('lim_recent_names', JSON.stringify(names.slice(-20))); } catch (_) {}
+      }
+
+      function hasSameName(value) {
+        const key = normalizeName(value);
+        return approvedNameKeys.has(key) || recentSubmittedNames().some((item) => item.name === key);
+      }
+
+      function confirmSameName() {
+        return new Promise((resolve) => {
+          duplicateDialog.returnValue = '';
+          duplicateDialog.addEventListener('close', () => resolve(duplicateDialog.returnValue === 'continue'), { once: true });
+          duplicateDialog.showModal();
+        });
+      }
+
       joinForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         successBox.classList.remove('show');
         setStatus(joinStatus, '');
 
-        const name = document.querySelector('#displayName').value.trim();
+        const name = displayName.value.trim();
         const code = document.querySelector('#deleteCode').value.trim();
         const age = document.querySelector('#ageConsent').checked;
         const collection = document.querySelector('#collectionConsent').checked;
@@ -204,6 +263,12 @@
           return;
         }
 
+        if (!namesReady) await loadNames();
+        if (hasSameName(name) && !(await confirmSameName())) {
+          displayName.focus();
+          return;
+        }
+
         submitButton.disabled = true;
         setStatus(joinStatus, '작은 선택을 기록하고 있습니다…');
         try {
@@ -218,6 +283,7 @@
           receiptId.textContent = record && record.receipt_id ? record.receipt_id : '접수 완료';
           successBox.classList.add('show');
           successBox.focus();
+          rememberSubmittedName(name);
           joinForm.reset();
           setStatus(joinStatus, '');
         } catch (error) {
@@ -232,6 +298,8 @@
         try {
           const result = await rpc('get_public_lims', {});
           const names = Array.isArray(result) ? result : [];
+          approvedNameKeys = new Set(names.map((entry) => normalizeName(entry.display_name)));
+          namesReady = true;
           limCount.textContent = String(names.length);
           namesList.replaceChildren();
           if (!names.length) {
@@ -251,6 +319,7 @@
             namesList.append(item);
           });
         } catch (error) {
+          namesReady = false;
           limCount.textContent = '—';
           namesList.innerHTML = '';
           const empty = document.createElement('div');
