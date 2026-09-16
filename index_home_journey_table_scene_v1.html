@@ -115,7 +115,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offse
 .supper-art{max-width:650px;margin:-4px auto 0}.supper-art svg{display:block;width:100%;height:auto;overflow:visible}
 .supper-draw{stroke-dasharray:1;stroke-dashoffset:0;transition:stroke-dashoffset 2s ease}
 .supper-bowl,.supper-side{transition:transform 1.6s cubic-bezier(.22,.68,.2,1),opacity 1.1s}
-.supper-bowl{transform:translateX(25px)}.supper-side.keep{transform:translateY(-40px)}.supper-side.omit{opacity:0}
+.supper-bowl{transform:translateX(45px)}.supper-side.keep{transform:translateY(-55px)}.supper-side.omit{opacity:0}
 .supper-food path{stroke-dasharray:1;stroke-dashoffset:0;transition:stroke-dashoffset 1.8s ease}
 .supper-food path:nth-child(2){transition-delay:.12s}.supper-food path:nth-child(3){transition-delay:.24s}.supper-food path:nth-child(4){transition-delay:.36s}.supper-food path:nth-child(5){transition-delay:.48s}
 .supper-garnish,.supper-side-food{transition:opacity 1.2s .8s}
@@ -125,7 +125,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offse
 .supper-progress{position:absolute;bottom:0;left:0;right:0;height:2px;background:#ffffff0c}.supper-progress i{display:block;height:100%;background:#E8C97A;transform-origin:left;transform:scaleX(var(--table-progress,1))}
 .supper-controls{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:16px}.supper-controls #tableReplay{margin:0;min-height:44px;font-size:13px}.supper-controls span{font-size:12px;color:var(--muted)}
 .supper.enhanced:not(.drawn) .supper-draw{stroke-dashoffset:1}.supper.enhanced:not(.drawn) .supper-aura{opacity:0}
-.supper.enhanced:not(.selected) .supper-bowl,.supper.enhanced:not(.selected) .supper-side.keep{transform:none}.supper.enhanced:not(.selected) .supper-side.omit{opacity:1}
+.supper.enhanced:not(.selected) .supper-bowl{transform:translateX(60px)}.supper.enhanced:not(.selected) .supper-side.keep{transform:none}.supper.enhanced:not(.selected) .supper-side.omit{opacity:1}
 .supper.enhanced:not(.served) .supper-food path{stroke-dashoffset:1}.supper.enhanced:not(.served) .supper-garnish,.supper.enhanced:not(.served) .supper-side-food{opacity:0}
 .supper.enhanced:not(.selected) .supper-memory.first,.supper.enhanced:not(.served) .supper-memory.second{opacity:0;transform:scale(.2)}
 .supper.enhanced:not(.settled) .supper-ending{opacity:0;transform:translateY(8px)}.supper.enhanced:not(.settled) .supper-link{stroke-dashoffset:1}
@@ -202,9 +202,9 @@ body{position:relative}
       </g>
       <g class="supper-garnish" stroke="#99BDCC" stroke-width="3" stroke-linecap="round"><path d="M274 145l12 5m-3-10l10 5"/></g>
     </g>
-    <g class="supper-side keep"><circle class="supper-draw" cx="451" cy="250" r="44" pathLength="1" stroke="#C7DCEB" stroke-opacity=".7" fill="url(#bowlFill)"/><circle class="supper-draw" cx="451" cy="250" r="32" pathLength="1" stroke="#C7DCEB" stroke-opacity=".22"/><g class="supper-side-food" stroke="#99BDCC" stroke-width="3" stroke-linecap="round"><path d="M436 247l12-10m-6 20l13-16m1 19l11-13"/></g></g>
-    <g class="supper-side omit"><circle class="supper-draw" cx="451" cy="130" r="44" pathLength="1" stroke="#C7DCEB" stroke-opacity=".7"/><circle class="supper-draw" cx="451" cy="130" r="32" pathLength="1" stroke="#C7DCEB" stroke-opacity=".22"/></g>
-    <g class="supper-cutlery supper-draw" stroke="#E8C97A" stroke-opacity=".65" stroke-linecap="round"><path pathLength="1" d="M119 130v136M129 130v136"/></g>
+    <g class="supper-side keep"><circle class="supper-draw" cx="140" cy="250" r="44" pathLength="1" stroke="#C7DCEB" stroke-opacity=".7" fill="url(#bowlFill)"/><circle class="supper-draw" cx="140" cy="250" r="32" pathLength="1" stroke="#C7DCEB" stroke-opacity=".22"/><g class="supper-side-food" stroke="#99BDCC" stroke-width="3" stroke-linecap="round"><path d="M125 247l12-10m-6 20l13-16m1 19l11-13"/></g></g>
+    <g class="supper-side omit"><circle class="supper-draw" cx="140" cy="130" r="44" pathLength="1" stroke="#C7DCEB" stroke-opacity=".7"/><circle class="supper-draw" cx="140" cy="130" r="32" pathLength="1" stroke="#C7DCEB" stroke-opacity=".22"/></g>
+    <g class="supper-cutlery" stroke="#E8C97A" stroke-opacity=".75" stroke-width="1.6" stroke-linecap="round"><ellipse class="supper-draw" pathLength="1" cx="480" cy="146" rx="12" ry="20"/><path class="supper-draw" pathLength="1" d="M480 166v98"/><path class="supper-draw" pathLength="1" d="M515 128v136"/><path class="supper-draw" pathLength="1" d="M525 128v136"/></g>
     <g class="supper-memories"><path class="supper-link" pathLength="1" d="M281 335 Q300 355 320 350 Q340 355 359 335" stroke="#E8C97A" stroke-opacity=".65"/><circle class="supper-memory first" cx="281" cy="335" r="5" fill="#E8C97A"/><circle class="supper-memory second" cx="359" cy="335" r="5" fill="#E8C97A"/></g>
   </svg>
   </div>
