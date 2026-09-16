@@ -211,6 +211,12 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offse
 .finale-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:34px auto 0;text-align:left}.finale-action{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:105px;padding:20px 24px;border:1px solid #b7cddd3d;border-radius:20px;background:#ffffff05;color:#fff;text-decoration:none;transition:background .2s,transform .2s}.finale-action:hover{background:#ffffff0b;transform:translateY(-2px)}.finale-action.primary{background:#E8C97A;border-color:#E8C97A;color:#173d5c}.finale-action span{display:block;font-size:10px;opacity:.72;margin-bottom:4px}.finale-action strong{font-size:18px}.finale-action b{font-size:22px;font-weight:400}
 @media(max-width:700px){#finaleArt .finale-role{font-size:13px}#finaleArt .finale-sub{font-size:9px}.together.finale{padding:68px 16px 72px 33px}.finale-scene{padding:19px 10px 24px;border-radius:22px}.finale-head{font-size:7px;letter-spacing:.04em}.finale-caption{font-size:20px;min-height:4em;margin-top:18px}.finale-lock{min-height:210px;margin-top:-4px;padding:0 7px}.finale-lock strong{font-size:34px}.finale-lock p{font-size:12px}.finale-actions{grid-template-columns:1fr;gap:11px;margin-top:28px}.finale-action{min-height:88px;padding:17px 20px;border-radius:17px}.finale-action strong{font-size:17px}}
 @media(prefers-reduced-motion:reduce){.finale-lock{transform:none}.finale-action{transition:none}}
+
+/* Unified station switch: the journey dot enters each scene, wakes it, and returns. */
+.table-traveler{will-change:top,transform}
+.station-switching .supper,.station-switching .bridge-scene,.station-switching .pilot-store:first-of-type,.station-switching .record-scene,.station-switching .world-scene,.station-switching .finale-scene{animation:stationWake 1.5s ease-out}
+@keyframes stationWake{0%{box-shadow:0 0 0 0 rgba(232,201,122,0)}38%{box-shadow:0 0 0 2px rgba(232,201,122,.45),0 0 34px rgba(232,201,122,.16)}100%{box-shadow:0 0 0 0 rgba(232,201,122,0)}}
+@media(prefers-reduced-motion:reduce){.station-switching .supper,.station-switching .bridge-scene,.station-switching .pilot-store:first-of-type,.station-switching .record-scene,.station-switching .world-scene,.station-switching .finale-scene{animation:none}}
 </style>
 
 <style>
@@ -417,7 +423,7 @@ body{position:relative}
  const duration=12800,classes=['illuminate','drawn','selected','served','settled'];
  scene.classList.add('enhanced');scene.style.setProperty('--table-progress','0');
  caption.textContent='작은 선택으로, 식탁이 달라집니다.';
- function visible(){const r=scene.getBoundingClientRect();return r.top<innerHeight*.78&&r.bottom>innerHeight*.3;}
+ function visible(){const r=scene.getBoundingClientRect();return r.top<innerHeight*.86&&r.bottom>innerHeight*.3;}
  function flyChoices(){
   const box=scene.getBoundingClientRect(),label=caption.getBoundingClientRect(),svg=scene.querySelector('svg').getBoundingClientRect();
   [3500,6500].forEach((start,i)=>{const dot=document.getElementById('choiceFlight'+(i+1)),age=elapsed-start,t=Math.max(0,Math.min(1,(age-850)/1300)),q=t*t*(3-2*t),scale=svg.width/640;
@@ -438,10 +444,8 @@ body{position:relative}
   const inView=visible(),ready=hero.dataset.journeyComplete==='true';
   if(!begun&&inView&&(ready||reduce.matches))play();
   if(playing){if(inView&&!document.hidden){if(last)elapsed+=Math.min(80,now-last);last=now;paint();if(elapsed>=duration)finish();}else last=0;}
-  const start=runway.getBoundingClientRect().bottom+scrollY-34,station=document.getElementById('gather'),end=document.getElementById('together').getBoundingClientRect().bottom+scrollY-28,target=scrollY+innerHeight*.62,active=ready&&target>=start;
+  const start=runway.getBoundingClientRect().bottom+scrollY-34,station=document.getElementById('gather'),end=document.getElementById('together').getBoundingClientRect().bottom+scrollY-28,target=scrollY+innerHeight*.52,active=ready&&target>=start;
   let y=Math.max(start,Math.min(end,target));
-  if(playing&&scene.getBoundingClientRect().bottom>100)y=Math.min(y,scene.getBoundingClientRect().top+scrollY+100);
-  if(station.dataset.playing==='true'&&station.getBoundingClientRect().bottom>100)y=Math.min(y,station.getBoundingClientRect().top+scrollY+126);
   trail.style.top=start+'px';trail.style.height=active&&!reduce.matches?Math.max(0,y-start)+'px':'0px';dot.style.top=(y-6)+'px';dot.style.opacity=active&&!reduce.matches?'1':'0';oldDot.style.visibility=active&&!reduce.matches?'hidden':'';
   if(playing&&inView&&!document.hidden)queue();
  }
@@ -495,7 +499,7 @@ body{position:relative}
   if(n!==phase){phase=n;caption.textContent=['식탁에 남은 두 선택에서 시작합니다.','다른 자리의 작은 선택들이 함께합니다.','각자의 선택이 하나의 연결로 모입니다.','작은 선택들이 모여, 더 큰 가치가 됩니다.','LIM은 그 사이에 다리를 놓습니다.','누군가의 More가 될 수 있도록, 필요한 곳들로.','우리가 함께 만드는 연결.'][n];}
   scene.style.setProperty('--bridge-progress',String(clamp(elapsed/duration)));
  }
- function visible(){const r=scene.getBoundingClientRect();return r.top<innerHeight*.72&&r.bottom>innerHeight*.28;}
+ function visible(){const r=scene.getBoundingClientRect();return r.top<innerHeight*.82&&r.bottom>innerHeight*.28;}
  function finish(){playing=false;station.dataset.playing='false';status.textContent='이 연결을 실제 식탁에서 하나씩 확인해갑니다. ↓';dispatchEvent(new Event('scroll'));}
  function play(){started=true;playing=true;elapsed=0;last=0;phase=-1;station.dataset.playing='true';station.classList.add('active');status.textContent='작은 선택들이 연결되는 이야기입니다.';dispatchEvent(new Event('lim-bridge-start'));if(reduce.matches){elapsed=duration;paint();finish();}else paint();queue();}
  function tick(now){raf=0;const inView=visible(),table=document.getElementById('start');
@@ -520,16 +524,16 @@ body{position:relative}
 <script>
 (()=>{
  const scene=document.getElementById('recordScene'),entries=[document.getElementById('recordEntry1'),document.getElementById('recordEntry2')],review=document.getElementById('recordReview'),checks=document.getElementById('recordChecks'),pen=document.getElementById('recordPen'),route=document.getElementById('recordRoute'),bar=document.getElementById('recordProgress'),caption=document.getElementById('recordNarration'),reduce=matchMedia('(prefers-reduced-motion: reduce)');
- const duration=10500,clamp=x=>Math.max(0,Math.min(1,x));let started=false,playing=false,elapsed=0,last=0,raf=0,phase=-1;
+ const duration=8600,clamp=x=>Math.max(0,Math.min(1,x));let started=false,playing=false,elapsed=0,last=0,raf=0,phase=-1;
  function reveal(el,p){el.style.opacity=String(p);el.style.transform='translateY('+((1-p)*9)+'px)';}
  function paint(){
-  entries.forEach((e,i)=>reveal(e,clamp((elapsed-(i?3100:900))/900)));reveal(review,clamp((elapsed-5400)/1100));reveal(checks,clamp((elapsed-7400)/1000));
+  entries.forEach((e,i)=>reveal(e,clamp((elapsed-(i?2100:150))/550)));reveal(review,clamp((elapsed-3900)/750));reveal(checks,clamp((elapsed-5600)/750));
   const paper=pen.parentElement,rect=paper.getBoundingClientRect(),targets=entries.map(e=>e.getBoundingClientRect().top-rect.top+43),end=review.getBoundingClientRect().top-rect.top+20;let y=50;
-  if(elapsed<3100)y=50+(targets[0]-50)*clamp(elapsed/1500);else if(elapsed<5400)y=targets[0]+(targets[1]-targets[0])*clamp((elapsed-3100)/1100);else y=targets[1]+(end-targets[1])*clamp((elapsed-5400)/1200);
+  if(elapsed<2100)y=50+(targets[0]-50)*clamp(elapsed/700);else if(elapsed<3900)y=targets[0]+(targets[1]-targets[0])*clamp((elapsed-2100)/800);else y=targets[1]+(end-targets[1])*clamp((elapsed-3900)/850);
   pen.style.top=(y-4)+'px';route.style.height=Math.max(0,y-54)+'px';bar.style.transform='scaleX('+clamp(elapsed/duration)+')';
-  const n=elapsed>=7400?3:elapsed>=5400?2:elapsed>=3100?1:0;if(n!==phase){phase=n;caption.textContent=['하나의 선택이 기록으로 남습니다.','또 하나의 선택이 기록에 더해집니다.','선택을 모으고, 제공량을 확인합니다.','기록하고, 확인한 뒤 전하겠습니다.'][n];}
+  const n=elapsed>=5600?3:elapsed>=3900?2:elapsed>=2100?1:0;if(n!==phase){phase=n;caption.textContent=['하나의 선택이 기록으로 남습니다.','또 하나의 선택이 기록에 더해집니다.','선택을 모으고, 제공량을 확인합니다.','기록하고, 확인한 뒤 전하겠습니다.'][n];}
  }
- function visible(){const r=scene.getBoundingClientRect();return r.top<innerHeight*.78&&r.bottom>innerHeight*.22;}
+ function visible(){const r=scene.getBoundingClientRect();return r.top<innerHeight*.86&&r.bottom>innerHeight*.22;}
  function play(){started=true;playing=true;elapsed=0;last=0;phase=-1;if(reduce.matches){elapsed=duration;playing=false;}paint();queue();}
  function tick(now){raf=0;const seen=visible();if(!started&&seen)play();if(playing&&seen&&!document.hidden){if(last)elapsed+=Math.min(80,now-last);last=now;paint();if(elapsed>=duration)playing=false;else queue();}else last=0;}
  function queue(){if(!raf)raf=requestAnimationFrame(tick);}
@@ -554,7 +558,7 @@ body{position:relative}
   const reveal=clamp((t-8500)/1100);question.style.opacity=String(reveal);question.style.transform=`translateY(${(1-reveal)*10}px)`;bar.style.transform=`scaleX(${clamp(t/duration)})`;
   const n=t>=8500?3:t>=5200?2:t>=2500?1:0;if(n!==phase){phase=n;caption.textContent=['한 곳의 식탁에서 시작된 작은 선택.','시야를 넓히면, 서로 다른 식탁이 보입니다.','식량에 접근하기 어려운 이유는 하나가 아닙니다.','그래서 먼저 문제와 원인을 확인합니다.'][n];}
  }
- function visible(){const r=scene.getBoundingClientRect();return r.top<innerHeight*.78&&r.bottom>innerHeight*.2}
+ function visible(){const r=scene.getBoundingClientRect();return r.top<innerHeight*.86&&r.bottom>innerHeight*.2}
  function finish(){elapsed=duration;playing=false;paint()}
  function play(){started=true;playing=true;elapsed=0;last=0;phase=-1;if(reduce.matches)finish();else{paint();queue()}}
  function tick(now){raf=0;const seen=visible();if(!started&&seen)play();if(playing&&seen&&!document.hidden){if(last)elapsed+=Math.min(80,now-last);last=now;paint();if(elapsed>=duration)finish();else queue()}else last=0}
@@ -581,11 +585,27 @@ body{position:relative}
   parts.rolePaths.forEach((path,i)=>{const q=ease(clamp((t-(5100+i*500))/1000));draw(path,q);opacity(parts.roles[i],clamp((t-(4500+i*500))/700))});const gather=clamp((t-7200)/1100);opacity(parts.centerGroup,gather);parts.ring.setAttribute('r',(mobile?76:92)+34*Math.sin(Math.PI*gather));opacity(parts.ring,gather*(1-clamp((t-8900)/1000))+.18*clamp((t-8900)/1000));const final=clamp((t-9700)/1300);lock.style.opacity=String(final);lock.style.transform=`translateY(${(1-final)*10}px)`;bar.style.transform=`scaleX(${clamp(t/duration)})`;
   const n=t>=9700?4:t>=7200?3:t>=4500?2:t>=2600?1:0;if(n!==phase){phase=n;caption.textContent=['작은 선택 하나가 길을 만들었습니다.','식탁과 매장, 기록을 지나 더 넓은 문제를 바라봅니다.','선택한 사람과 참여한 식탁, LIM이 서로 연결됩니다.','함께하면 더 이상 작은 선택으로만 남지 않습니다.','각자의 자리에서 시작된 선택들. 우리는 LIM입니다.'][n]}
  }
- function visible(){const r=scene.getBoundingClientRect();return r.top<innerHeight*.76&&r.bottom>innerHeight*.2}function finish(){elapsed=duration;playing=false;paint()}
+ function visible(){const r=scene.getBoundingClientRect();return r.top<innerHeight*.84&&r.bottom>innerHeight*.2}function finish(){elapsed=duration;playing=false;paint()}
  function play(){started=true;playing=true;elapsed=0;last=0;phase=-1;if(reduce.matches)finish();else{paint();queue()}}
  function tick(now){raf=0;const seen=visible();if(!started&&seen)play();if(playing&&seen&&!document.hidden){if(last)elapsed+=Math.min(80,now-last);last=now;paint();if(elapsed>=duration)finish();else queue()}else last=0}
  function queue(){if(!raf)raf=requestAnimationFrame(tick)}
  replay.addEventListener('click',play);restart.addEventListener('click',event=>{event.preventDefault();const hero=document.getElementById('journeyHero'),button=document.getElementById('signatureReplay');hero.scrollIntoView({behavior:reduce.matches?'auto':'smooth',block:'start'});let frames=0;const replayWhenVisible=()=>{const r=hero.getBoundingClientRect();if((r.top>=-80&&r.top<innerHeight*.35)||frames>240){button?.click();return}frames++;requestAnimationFrame(replayWhenVisible)};requestAnimationFrame(replayWhenVisible)});addEventListener('scroll',queue,{passive:true});addEventListener('resize',()=>{if((scene.clientWidth<600)!==mobile)build();else paint();queue()});document.addEventListener('visibilitychange',()=>{last=0;queue()});reduce.addEventListener('change',()=>{if(reduce.matches)finish();queue()});build();if(reduce.matches){started=true;finish()}queue();
+})();
+</script>
+<script>
+(()=>{
+ const traveler=document.getElementById('tableTraveler'),hero=document.getElementById('journeyHero'),reduce=matchMedia('(prefers-reduced-motion: reduce)');
+ if(!traveler||reduce.matches||!('IntersectionObserver' in window))return;
+ const stations=[['start','#supperScene'],['gather','#bridgeScene'],['field','.pilot-stores'],['records','#recordScene'],['world','#worldScene'],['together','#finaleScene']];
+ const visited=new Set();let switching=false;
+ function wake(section,scene){
+  if(visited.has(section.id)||hero.dataset.journeyComplete!=='true')return;if(switching){setTimeout(()=>{const r=scene.getBoundingClientRect();if(r.top<innerHeight*.84&&r.bottom>0)wake(section,scene)},1550);return}visited.add(section.id);switching=true;section.classList.add('station-switching');
+  const railX=traveler.getBoundingClientRect().left+traveler.offsetWidth/2,rect=scene.getBoundingClientRect(),targetX=Math.max(72,Math.min(rect.left+Math.min(90,rect.width*.12)-railX,innerWidth*.38));
+  if(traveler.animate){const motion=traveler.animate([{transform:'translateX(0)'},{transform:`translateX(${targetX}px)`,offset:.44},{transform:`translateX(${targetX}px)`,offset:.58},{transform:'translateX(0)'}],{duration:1500,easing:'cubic-bezier(.35,0,.2,1)'});motion.finished.finally(()=>{switching=false;section.classList.remove('station-switching')});}else{setTimeout(()=>{switching=false;section.classList.remove('station-switching')},1500)}
+  scene.dispatchEvent(new CustomEvent('lim-station-awake',{bubbles:true,detail:{station:section.id}}));
+ }
+ const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){const section=entry.target.closest('section');wake(section,entry.target)}}),{rootMargin:'0px 0px -18% 0px',threshold:.01});
+ stations.forEach(([id,selector])=>{const section=document.getElementById(id),scene=section?.querySelector(selector);if(scene)observer.observe(scene)});
 })();
 </script>
 </body>
