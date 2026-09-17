@@ -10,7 +10,8 @@
   *{box-sizing:border-box;margin:0;padding:0}
   html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
   body{font-family:"Pretendard","Malgun Gothic",-apple-system,sans-serif;color:var(--text);background:#fff;line-height:1.72;word-break:keep-all;overflow-wrap:break-word}
-  header{position:sticky;top:0;z-index:100;padding:12px 18px;background:rgba(255,255,255,.96);border-bottom:1px solid #eee}
+  header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 18px;background:rgba(255,255,255,.96);border-bottom:1px solid #eee}
+  .home-logo{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;flex:0 0 auto}.home-logo img{display:block;width:auto;height:34px}
   .back-link{display:inline-flex;align-items:center;min-height:44px;color:var(--navy);font-size:16px;font-weight:800;text-decoration:none}
   .hero{padding:48px 20px 42px;background:linear-gradient(160deg,var(--navy),#163A5C);color:#fff;text-align:center}
   .badge{display:inline-block;margin-bottom:16px;padding:7px 16px;border-radius:999px;background:var(--gold);color:var(--navy);font-size:14px;font-weight:900}
@@ -45,7 +46,7 @@
 </style>
 </head>
 <body>
-<header><a class="back-link" href="./index.html#stores">← 참여 매장으로 돌아가기</a></header>
+<header><a class="home-logo" href="./index.html" aria-label="LIM Food Impact 홈으로"><img src="./lim-logo.png" alt="LIM Food Impact"></a><a class="back-link" href="./index.html#stores">← 참여 매장</a></header>
 
 <div class="hero">
   <span class="badge">LIM 참여 매장 02</span>
