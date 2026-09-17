@@ -175,7 +175,7 @@
 <body>
   <header>
     <a class="logo" href="./index.html" aria-label="LIM Food Impact 홈으로"><img src="./lim-logo.png" alt="LIM Food Impact"></a>
-    <nav class="main-nav" aria-label="주요 메뉴"><a href="#community">함께한 LIM</a><a class="stores-link" href="#stores">참여 매장</a><a href="./story.html">LIM 이야기</a><a class="owner-link" href="./apply.html">사장님 참여 문의</a></nav>
+    <nav class="main-nav" aria-label="주요 메뉴"><a href="#community">함께한 LIM</a><a class="stores-link" href="#stores">함께하는 매장</a><a href="./story.html">LIM 이야기</a><a class="owner-link" href="./apply.html">사장님 참여 문의</a></nav>
     <a class="mobile-store-link" href="./apply.html">사장님 참여 문의 →</a>
   </header>
 
@@ -208,7 +208,7 @@
     <section class="registry" id="community" aria-labelledby="communityTitle">
       <div class="registry-inner">
         <div class="registry-head">
-          <div><span class="kicker">SMALL CHOICES, RECORDED</span><h2 id="communityTitle">함께 만든 기록</h2><p class="registry-copy">작은 선택을 한 사람들의 이름입니다.<br>동의하고 확인된 이름만 공개합니다.</p></div>
+          <div><span class="kicker">SMALL CHOICES, RECORDED</span><h2 id="communityTitle">작은 선택의 기록</h2><p class="registry-copy">작은 선택을 하고, 이름을 남겨주신 분들입니다.<br>원하는 경우에만 이름이 공개됩니다.</p></div>
           <p class="registry-count">함께한 LIM<strong id="limCount">—</strong></p>
         </div>
         <div class="registry-names" id="limNames" aria-live="polite"><div class="registry-empty">이름을 불러오는 중입니다.</div></div>
@@ -220,7 +220,7 @@
       <div class="hero-inner">
         <div class="eyebrow">LIM FOOD IMPACT · LESS IS MORE</div>
         <h1 id="heroTitle"><span>이곳의 <em>‘Less’</em>가,</span><span>누군가에게는 <em>‘More’</em>가 됩니다</span></h1>
-        <p class="hero-intro">남는 곳에서, 필요한 곳으로.<br><strong>LIM은 그 사이에 다리를 놓습니다.</strong></p>
+        <p class="hero-intro">Less와 More를 연결해요.<br><strong>LIM은 그 사이를 잇는 허브입니다.</strong></p>
         <div class="signature-scene" id="signatureScene">
           <div class="signature-top"><span>작은 선택이 만드는 연결</span><span>THE LIM FLOW</span></div>
           <svg id="signatureArt" viewBox="0 0 1000 330" role="img" aria-label="여러 작은 선택이 LIM으로 모이고 필요한 여러 곳으로 이어지는 흐름"></svg>
@@ -258,7 +258,7 @@
       <div class="section-inner">
         <span class="kicker">FROM LESS TO MORE</span>
         <h2 id="bridgeTitle">남는 곳에서,<br>필요한 곳으로.</h2>
-        <p>LIM은 음식이 버려진 뒤보다, 제공되기 전의 선택을 기록합니다. 확인된 변화가 필요한 곳의 More로 이어질 수 있도록 방법을 찾습니다.</p>
+        <p>LIM은 음식이 버려진 뒤보다, 제공되기 전의 선택을 기록해요. 확인된 변화가 필요한 곳의 More로 이어질 수 있도록 방법을 찾습니다.</p>
         <div class="bridge-steps" aria-label="LIM이 하는 일"><div class="bridge-step"><i aria-hidden="true"></i><strong>필요한 만큼 선택</strong></div><div class="bridge-step"><i aria-hidden="true"></i><strong>변화를 기록</strong></div><div class="bridge-step"><i aria-hidden="true"></i><strong>필요한 곳과 연결</strong></div></div>
         <a class="bridge-link" href="./story.html">LIM이 시작된 이야기 보기 →</a>
       </div>
@@ -270,7 +270,7 @@
         <div class="next-grid">
           <a class="next-card" href="#stores"><div><span>함께하는 식탁</span><strong>참여 매장 보기</strong></div><b aria-hidden="true">↗</b></a>
           <a class="next-card" href="./story.html"><div><span>LIM의 시작</span><strong>LIM 이야기 읽기</strong></div><b aria-hidden="true">↗</b></a>
-          <a class="next-card" href="./join_lim.html"><div><span>함께 만든 기록</span><strong>함께한 LIM 보기</strong></div><b aria-hidden="true">↗</b></a>
+          <a class="next-card" href="./join_lim.html"><div><span>작은 선택의 기록</span><strong>함께한 LIM 보기</strong></div><b aria-hidden="true">↗</b></a>
         </div>
       </div>
     </section>
@@ -338,7 +338,7 @@
       parts.paths.forEach((path,index)=>{const progress=ease(clamp((time-1200-index*220)/1800));draw(path,progress);opacity(parts.origins[index],.3+.7*clamp((time-200-index*240)/550));position(parts.dots[index],path,progress);opacity(parts.dots[index],progress>0&&progress<1?1:0)});
       const form=clamp((time-3800)/750),move=ease(clamp((time-4900)/1800));draw(parts.out,clamp((time-4400)/1800));position(parts.value,parts.out,move);parts.value.setAttribute('r',10*form);opacity(parts.value,form*(1-clamp((time-7100)/700)));opacity(parts.hubText,time<3800?1:time<5300?1-form:clamp((time-5300)/500));
       parts.branches.forEach((path,index)=>{draw(path,clamp((time-6800-index*170)/1000));opacity(parts.ends[index],.2+.8*clamp((time-7450-index*170)/700))});
-      const next=time>=8400?3:time>=4900?2:time>=1200?1:0;if(next!==phase){phase=next;caption.textContent=['하나의 작은 선택에서 시작합니다.','작은 선택들이 모여, 더 큰 가치가 됩니다.','LIM은 그 사이에 다리를 놓습니다.','이곳의 Less가, 누군가에게는 More가 됩니다.'][next]}
+      const next=time>=8400?3:time>=4900?2:time>=1200?1:0;if(next!==phase){phase=next;caption.textContent=['하나의 작은 선택에서 시작합니다.','작은 선택들이 모여, 더 큰 가치가 됩니다.','LIM은 그 사이를 잇는 허브입니다.','이곳의 Less가, 누군가에게는 More가 됩니다.'][next]}
     }
     function finish(){elapsed=duration;playing=false;paint()}
     function play(){started=true;playing=true;elapsed=0;last=0;phase=-1;if(reduce.matches)finish();else{paint();queue()}}
