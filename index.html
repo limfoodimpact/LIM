@@ -21,6 +21,7 @@
     .logo img{display:block;width:auto;height:40px}
     .main-nav{display:flex;align-items:center;gap:23px;font-size:14px;font-weight:850}
     .main-nav a{text-decoration:none}
+    .main-nav .owner-link{padding:8px 13px;border-radius:999px;background:var(--gold);color:var(--navy)}
     .main-nav .stores-link{position:relative;color:var(--navy)}
     .main-nav .stores-link::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;border-radius:2px;background:var(--gold)}
     .mobile-store-link{display:none;padding:8px 13px;border-radius:999px;background:var(--gold);color:var(--navy);font-size:13px;font-weight:900;text-decoration:none;white-space:nowrap}
@@ -174,8 +175,8 @@
 <body>
   <header>
     <a class="logo" href="./index.html" aria-label="LIM Food Impact 홈으로"><img src="./lim-logo.png" alt="LIM Food Impact"></a>
-    <nav class="main-nav" aria-label="주요 메뉴"><a href="#community">함께한 LIM</a><a class="stores-link" href="#stores">참여 매장</a><a href="./story.html">LIM 이야기</a></nav>
-    <a class="mobile-store-link" href="#stores">참여 매장 →</a>
+    <nav class="main-nav" aria-label="주요 메뉴"><a href="#community">함께한 LIM</a><a class="stores-link" href="#stores">참여 매장</a><a href="./story.html">LIM 이야기</a><a class="owner-link" href="./apply.html">사장님 참여 문의</a></nav>
+    <a class="mobile-store-link" href="./apply.html">사장님 참여 →</a>
   </header>
 
   <aside class="qr-bar" aria-label="식당 방문자 안내"><strong>식당에서 QR을 찍으셨나요?</strong><button id="openQrGuide" type="button">지금 참여하는 방법</button></aside>
@@ -225,7 +226,7 @@
           <svg id="signatureArt" viewBox="0 0 1000 330" role="img" aria-label="여러 작은 선택이 LIM으로 모이고 필요한 여러 곳으로 이어지는 흐름"></svg>
           <div class="signature-bottom"><p id="signatureCaption" role="status">하나의 작은 선택에서 시작합니다.</p><button class="signature-replay" type="button" id="signatureReplay">↻ 연결 다시 보기</button></div>
         </div>
-        <div class="hero-actions"><a class="primary" href="#stores">참여 매장 보기</a><a href="./story.html">LIM 이야기 읽기</a></div>
+        <div class="hero-actions"><a class="primary" href="#stores">참여 매장 보기</a><a href="./story.html">LIM 이야기 읽기</a><a href="./apply.html">사장님 참여 문의</a></div>
       </div>
     </section>
 
