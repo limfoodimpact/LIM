@@ -27,6 +27,7 @@
     100%{opacity:0;transform:scale(.94)}
   }
   .sf-more{fill:var(--gold);transform-box:fill-box;transform-origin:center}
+  #sfmmore{fill:#E8C97A!important}
 </style>
 </head>
 <body>
@@ -63,7 +64,7 @@ replay.addEventListener('click',play);if('IntersectionObserver' in window){const
   const outer=mobileFlow.querySelector('circle.sf-node[cy="420"]');
   if(outer){outer.setAttribute('cy','344');outer.setAttribute('r','40')}
   const more=document.getElementById('sfmmore');
-  if(more){more.setAttribute('cy','344');more.setAttribute('r','31')}
+  if(more){more.setAttribute('cy','344');more.setAttribute('r','31');more.setAttribute('fill','#E8C97A');more.style.setProperty('fill','#E8C97A','important')}
   const moreLabel=mobileFlow.querySelector('text[y="427"]');
   if(moreLabel)moreLabel.setAttribute('y','351');
   const placeLabel=mobileFlow.querySelector('text[y="468"]');
