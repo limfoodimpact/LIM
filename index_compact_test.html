@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>LIM Food Impact | 작은 선택이 만드는 변화</title>
+  <meta name="description" content="필요한 만큼 선택하고, 그 변화를 기록해 필요한 곳과의 연결을 준비하는 LIM Food Impact">
+  <style>
+    :root{
+      --navy:#1F4E79;--deep:#153A5A;--blue:#3E7CB1;--sky:#6FA8DC;
+      --gold:#E8C97A;--cream:#FFF6E9;--gray:#F2F5F8;--ink:#263746;
+      --muted:#667785;--line:#DCE5EC;--white:#fff;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+    body{background:#fff;color:var(--ink);font-family:"Pretendard","Malgun Gothic",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.7;word-break:keep-all}
+    a{color:inherit}
+    button{font:inherit}
+    header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:68px;padding:10px 24px;border-bottom:1px solid #EAF0F4;background:rgba(255,255,255,.96);backdrop-filter:blur(10px)}
+    .logo{display:inline-flex;align-items:center;min-height:44px;text-decoration:none}
+    .logo img{display:block;width:auto;height:40px}
+    .main-nav{display:flex;align-items:center;gap:23px;font-size:14px;font-weight:850}
+    .main-nav a{text-decoration:none}
+    .main-nav .stores-link{position:relative;color:var(--navy)}
+    .main-nav .stores-link::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;border-radius:2px;background:var(--gold)}
+    .mobile-store-link{display:none;padding:8px 13px;border-radius:999px;background:var(--gold);color:var(--navy);font-size:13px;font-weight:900;text-decoration:none;white-space:nowrap}
+
+    .qr-bar{display:flex;align-items:center;justify-content:center;gap:14px;min-height:54px;padding:8px 20px;border-bottom:1px solid #EAD9AF;background:#FFFAF0;color:var(--navy);font-size:14px}
+    .qr-bar strong{font-weight:900}
+    .qr-bar button{min-height:38px;padding:7px 13px;border:0;border-radius:999px;background:var(--navy);color:#fff;font-weight:850;cursor:pointer}
+    .qr-guide{display:none;padding:38px 20px 48px;border-bottom:1px solid #DFE7ED;background:#F6F9FB;scroll-margin-top:68px}
+    body.qr-open .qr-guide{display:block}
+    body.qr-open main,body.qr-open footer{display:none}
+    .qr-wrap{width:min(760px,100%);margin:auto}
+    .qr-picker,.qr-answer{padding:clamp(24px,5vw,38px);border:1px solid var(--line);border-radius:24px;background:#fff;box-shadow:0 15px 45px rgba(31,78,121,.08);text-align:center}
+    .qr-answer{display:none}
+    body[data-store] .qr-picker{display:none}
+    body[data-store] .qr-answer{display:block}
+    .qr-kicker{display:block;margin-bottom:10px;color:var(--blue);font-size:12px;font-weight:900;letter-spacing:.12em}
+    .qr-guide h1{color:var(--navy);font-size:clamp(28px,7vw,39px);line-height:1.35}
+    .qr-intro{margin:13px auto 0;color:var(--muted);font-size:17px}
+    .qr-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:25px}
+    .qr-option{min-height:140px;padding:20px 16px;border:1px solid var(--line);border-radius:17px;background:#fff;color:var(--navy);cursor:pointer}
+    .qr-option span,.qr-option small{display:block;color:var(--muted);font-size:13px}
+    .qr-option strong{display:block;margin:7px 0;color:var(--navy);font-size:20px}
+    .qr-store{display:inline-block;margin-top:14px;padding:7px 13px;border-radius:999px;background:var(--cream);color:var(--navy);font-weight:900}
+    .qr-words{margin:25px 0;padding:22px;border:2px solid var(--blue);border-radius:18px;background:#EEF5FA;color:var(--navy);font-size:clamp(22px,6vw,29px);font-weight:900}
+    .qr-plain{color:#566D7E;font-size:17px}
+    .qr-note{margin-top:18px;padding:15px;border-radius:13px;background:var(--cream);color:#5C6470;font-size:14px}
+    .qr-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;margin-top:23px}
+    .qr-actions a,.qr-actions button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:11px 18px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--navy);font-weight:900;text-decoration:none;cursor:pointer}
+    .qr-actions .primary{border-color:var(--navy);background:var(--navy);color:#fff}
+
+    .registry{padding:38px 20px;background:linear-gradient(180deg,#F7FAFC,#fff)}
+    .registry-inner{width:min(1040px,100%);margin:auto;padding:27px 30px;border:1px solid #E7DAB9;border-radius:24px;background:linear-gradient(145deg,#FFFBF2,#FFF6E9);box-shadow:0 18px 45px rgba(31,78,121,.06)}
+    .registry-head{display:flex;align-items:flex-end;justify-content:space-between;gap:25px}
+    .kicker{display:block;margin-bottom:8px;color:var(--blue);font-size:11px;font-weight:900;letter-spacing:.15em}
+    .registry h2{color:var(--navy);font-size:clamp(25px,4vw,35px);line-height:1.35}
+    .registry-copy{margin-top:8px;color:var(--muted);font-size:15px}
+    .registry-count{flex:0 0 auto;color:var(--muted);font-size:13px;text-align:right}
+    .registry-count strong{display:block;color:var(--navy);font-size:clamp(34px,5vw,48px);line-height:1.1}
+    .registry-names{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-top:22px}
+    .registry-name{display:flex;align-items:center;justify-content:center;gap:7px;min-height:46px;padding:9px;border:1px solid #E9DFC7;border-radius:13px;background:rgba(255,255,255,.78);color:var(--navy);font-weight:850;text-align:center}
+    .registry-name i{width:7px;height:7px;border-radius:50%;background:var(--gold);flex:0 0 auto}
+    .registry-empty{grid-column:1/-1;padding:18px;color:var(--muted);text-align:center}
+    .registry-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:18px}
+    .registry-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 17px;border-radius:999px;color:var(--navy);font-weight:900;text-decoration:none}
+    .registry-actions .join{background:var(--gold)}
+    .registry-actions .all{border:1px solid #D7C99F;background:#fff}
+
+    .hero{position:relative;overflow:hidden;padding:76px 36px 44px;background:radial-gradient(ellipse at 65% 40%,#285C86 0%,#1B456A 42%,#12324E 100%);color:#fff;text-align:center}
+    .hero-inner{position:relative;z-index:3;width:min(1080px,100%);margin:auto}
+    .hero .eyebrow{margin-bottom:20px;color:var(--gold);font-size:11px;font-weight:850;letter-spacing:.2em}
+    .hero h1{font-size:clamp(35px,5.4vw,64px);line-height:1.38;letter-spacing:-.045em;text-wrap:balance}
+    .hero h1 span{display:block}
+    .hero h1 em{color:var(--gold);font-style:normal;white-space:nowrap}
+    .hero-intro{margin-top:19px;color:#C3D5E2;font-size:clamp(16px,2vw,19px)}
+    .hero-intro strong{color:#fff}
+    .signature-scene{margin:38px auto 0;padding:21px 25px 18px;border:1px solid rgba(184,210,227,.18);border-radius:27px;background:linear-gradient(140deg,rgba(255,255,255,.04),rgba(11,38,57,.3));box-shadow:0 24px 65px rgba(7,29,46,.16);text-align:left}
+    .signature-top{display:flex;align-items:center;justify-content:space-between;gap:15px;color:#DCE9F2;font-size:12px;font-weight:800;letter-spacing:.08em}
+    .signature-scene svg{display:block;width:100%;height:auto;margin:3px auto 0;overflow:visible}
+    .signature-bottom{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:61px;padding-top:14px;border-top:1px solid rgba(255,255,255,.09)}
+    .signature-bottom p{color:#F1E2B9;font-size:16px}
+    .signature-replay{flex:0 0 auto;min-height:44px;padding:8px 14px;border:1px solid rgba(180,205,209,.25);border-radius:999px;background:transparent;color:#E5EEF4;font-size:12px;font-weight:800;cursor:pointer}
+    .hero-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:24px}
+    .hero-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:12px 20px;border:1px solid rgba(255,255,255,.24);border-radius:999px;color:#fff;font-weight:900;text-decoration:none}
+    .hero-actions .primary{border-color:var(--gold);background:var(--gold);color:var(--navy)}
+
+    .section{padding:76px 22px}
+    .section.alt{max-width:none;background:#F7F9FB}
+    .section-inner{width:min(1040px,100%);margin:auto}
+    .section-title{text-align:center}
+    .section-title h2{color:var(--navy);font-size:clamp(28px,5vw,41px);line-height:1.38;letter-spacing:-.03em}
+    .section-title p{max-width:680px;margin:13px auto 0;color:var(--muted);font-size:17px}
+    .store-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:34px}
+    .store-card{overflow:hidden;border:1px solid var(--line);border-radius:22px;background:#fff;box-shadow:0 14px 36px rgba(31,78,121,.07)}
+    .store-photo{position:relative;aspect-ratio:4/3;overflow:hidden;background:#E8EDF1}
+    .store-photo img{display:block;width:100%;height:100%;object-fit:cover}
+    .store-number{position:absolute;left:13px;top:13px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.92);color:var(--navy);font-size:12px;font-weight:900}
+    .store-body{padding:23px}
+    .store-body .place{color:var(--blue);font-size:12px;font-weight:900;letter-spacing:.07em}
+    .store-body h3{margin-top:5px;color:var(--navy);font-size:25px}
+    .store-choice{margin-top:13px;color:var(--navy);font-size:20px;font-weight:900}
+    .store-description{margin-top:7px;color:var(--muted)}
+    .store-status{display:inline-block;margin-top:15px;padding:6px 10px;border-radius:999px;background:var(--cream);color:#6A582D;font-size:12px;font-weight:850}
+    .store-link{display:flex;align-items:center;justify-content:space-between;min-height:50px;margin-top:18px;padding-top:14px;border-top:1px solid #ECF0F3;color:var(--navy);font-weight:900;text-decoration:none}
+
+    .record-card{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(260px,.7fr);gap:30px;align-items:center;width:min(980px,100%);margin:auto;padding:clamp(27px,5vw,45px);border:1px solid #E8DDC3;border-radius:25px;background:var(--cream)}
+    .record-card h2{color:var(--navy);font-size:clamp(28px,5vw,41px);line-height:1.4}
+    .record-card p{margin-top:13px;color:#596B78;font-size:17px}
+    .record-now{padding:24px;border-radius:18px;background:#fff;text-align:center}
+    .record-now span{display:block;color:var(--blue);font-size:12px;font-weight:900;letter-spacing:.1em}
+    .record-now strong{display:block;margin:8px 0;color:var(--navy);font-size:23px}
+    .record-now small{color:var(--muted);font-size:14px}
+
+    .bridge{background:linear-gradient(155deg,var(--navy),var(--deep));color:#fff;text-align:center}
+    .bridge .section-inner{width:min(820px,100%)}
+    .bridge .kicker{color:var(--gold)}
+    .bridge h2{font-size:clamp(31px,6vw,50px);line-height:1.4;letter-spacing:-.035em}
+    .bridge p{max-width:680px;margin:20px auto 0;color:#DCE8F0;font-size:17px}
+    .bridge-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:31px}
+    .bridge-step{padding:20px 14px;border:1px solid rgba(255,255,255,.14);border-radius:17px;background:rgba(255,255,255,.04)}
+    .bridge-step i{display:block;width:10px;height:10px;margin:0 auto 10px;border-radius:50%;background:var(--gold)}
+    .bridge-step strong{font-size:18px}
+    .bridge-link{display:inline-flex;align-items:center;justify-content:center;min-height:51px;margin-top:29px;padding:12px 21px;border-radius:999px;background:var(--gold);color:var(--navy);font-weight:900;text-decoration:none}
+
+    .next-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:32px}
+    .next-card{display:flex;align-items:center;justify-content:space-between;gap:15px;min-height:115px;padding:22px;border:1px solid var(--line);border-radius:19px;background:#fff;color:var(--navy);text-decoration:none}
+    .next-card span{display:block;color:var(--blue);font-size:11px;font-weight:900;letter-spacing:.08em}
+    .next-card strong{display:block;margin-top:6px;font-size:19px}
+    .next-card b{font-size:23px;font-weight:400}
+    footer{padding:38px 20px;background:#102F49;color:#D7E3EC;text-align:center}
+    footer img{display:block;width:auto;height:34px;margin:0 auto 12px;filter:brightness(0) invert(1);opacity:.9}
+    footer p{font-size:13px}
+
+    @media(max-width:720px){
+      body{padding-bottom:max(0px,env(safe-area-inset-bottom))}
+      header{min-height:61px;padding:8px 12px}
+      .logo img{height:34px}
+      .main-nav{display:none}
+      .mobile-store-link{display:inline-flex}
+      .qr-bar{justify-content:space-between;padding:8px 12px;font-size:13px}
+      .qr-bar strong{max-width:190px}
+      .qr-options{grid-template-columns:1fr}
+      .registry{padding:24px 12px 30px}
+      .registry-inner{padding:22px 17px;border-radius:20px}
+      .registry-head{align-items:flex-start}
+      .registry-copy{font-size:14px}
+      .registry-names{grid-template-columns:repeat(2,1fr)}
+      .registry-name:nth-child(n+7){display:none}
+      .registry-actions{display:grid;grid-template-columns:1fr 1fr}
+      .registry-actions a{padding-left:10px;padding-right:10px;font-size:14px}
+      .hero{padding:54px 12px 38px}
+      .hero h1{font-size:clamp(32px,9.2vw,43px);line-height:1.45}
+      .signature-scene{margin-top:29px;padding:17px 13px 14px;border-radius:21px}
+      .signature-top{font-size:10px}
+      .signature-bottom{display:block;padding-top:13px;text-align:center}
+      .signature-bottom p{min-height:52px;font-size:15px}
+      .signature-replay{margin-top:8px}
+      .hero-actions{display:grid}
+      .section{padding:58px 14px}
+      .section-title p{font-size:16px}
+      .store-grid{grid-template-columns:1fr;gap:14px;margin-top:27px}
+      .store-body{padding:20px}
+      .record-card{grid-template-columns:1fr;gap:22px;padding:27px 20px}
+      .bridge-steps,.next-grid{grid-template-columns:1fr}
+      .bridge-step{display:flex;align-items:center;justify-content:center;gap:10px;padding:16px}
+      .bridge-step i{margin:0}
+      .next-card{min-height:92px}
+    }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.signature-replay{display:none}}
+  </style>
+</head>
+<body>
+  <header>
+    <a class="logo" href="./index.html" aria-label="LIM Food Impact 홈으로"><img src="./lim-logo.png" alt="LIM Food Impact"></a>
+    <nav class="main-nav" aria-label="주요 메뉴"><a href="#community">함께한 LIM</a><a class="stores-link" href="#stores">참여 매장</a><a href="./story.html">LIM 이야기</a></nav>
+    <a class="mobile-store-link" href="#stores">참여 매장 →</a>
+  </header>
+
+  <aside class="qr-bar" aria-label="식당 방문자 안내"><strong>식당에서 QR을 찍으셨나요?</strong><button id="openQrGuide" type="button">지금 참여하는 방법</button></aside>
+
+  <section class="qr-guide" id="restaurantGuide" aria-labelledby="qrTitle">
+    <div class="qr-wrap">
+      <div class="qr-picker">
+        <span class="qr-kicker">LIM 참여 매장</span>
+        <h1 id="qrTitle">어느 매장에 계신가요?</h1>
+        <p class="qr-intro">지금 계신 매장을 선택하면<br>참여 방법을 바로 안내해 드립니다.</p>
+        <div class="qr-options">
+          <button class="qr-option" type="button" data-store-choice="hongje"><span>서울 서대문구</span><strong>홍제동우동국수</strong><small>“면은 조금 적게 주세요.”</small></button>
+          <button class="qr-option" type="button" data-store-choice="jangsu"><span>서울 강동구</span><strong>장수해물탕</strong><small>“이 반찬은 빼주세요.”</small></button>
+        </div>
+      </div>
+      <div class="qr-answer">
+        <span class="qr-kicker">지금 식당에 계신가요?</span>
+        <h1>필요한 만큼 선택해 주세요.</h1>
+        <span class="qr-store" id="qrStore">LIM 참여 매장</span>
+        <div class="qr-words" id="qrWords">“면은 조금 적게 주세요.”</div>
+        <p class="qr-plain" id="qrPlain">음식이 나오기 전에 필요한 만큼을 말씀해 주세요.</p>
+        <p class="qr-note">메뉴 가격은 그대로이며 할인이나 포인트는 없습니다. LIM은 먼저 실제 선택과 제공량의 변화를 기록하고 있습니다.</p>
+        <div class="qr-actions"><a class="primary" id="qrStorePage" href="#stores">이 매장 자세히 보기</a><a href="./join_lim.html">함께한 LIM 보기</a><button id="continueHome" type="button">LIM 더 알아보기</button></div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="registry" id="community" aria-labelledby="communityTitle">
+      <div class="registry-inner">
+        <div class="registry-head">
+          <div><span class="kicker">SMALL CHOICES, RECORDED</span><h2 id="communityTitle">함께 만든 기록</h2><p class="registry-copy">작은 선택을 한 사람들의 이름입니다.<br>동의하고 확인된 이름만 공개합니다.</p></div>
+          <p class="registry-count">함께한 LIM<strong id="limCount">—</strong></p>
+        </div>
+        <div class="registry-names" id="limNames" aria-live="polite"><div class="registry-empty">이름을 불러오는 중입니다.</div></div>
+        <div class="registry-actions"><a class="all" href="./join_lim.html#names-title">모든 이름 보기</a><a class="join" href="./join_lim.html#join-title">내 이름도 기록하기</a></div>
+      </div>
+    </section>
+
+    <section class="hero" id="journeyHero" aria-labelledby="heroTitle">
+      <div class="hero-inner">
+        <div class="eyebrow">LIM FOOD IMPACT · LESS IS MORE</div>
+        <h1 id="heroTitle"><span>이곳의 <em>‘Less’</em>가,</span><span>누군가에게는 <em>‘More’</em>가 됩니다</span></h1>
+        <p class="hero-intro">남는 곳에서, 필요한 곳으로.<br><strong>LIM은 그 사이에 다리를 놓습니다.</strong></p>
+        <div class="signature-scene" id="signatureScene">
+          <div class="signature-top"><span>작은 선택이 만드는 연결</span><span>THE LIM FLOW</span></div>
+          <svg id="signatureArt" viewBox="0 0 1000 330" role="img" aria-label="여러 작은 선택이 LIM으로 모이고 필요한 여러 곳으로 이어지는 흐름"></svg>
+          <div class="signature-bottom"><p id="signatureCaption" role="status">하나의 작은 선택에서 시작합니다.</p><button class="signature-replay" type="button" id="signatureReplay">↻ 연결 다시 보기</button></div>
+        </div>
+        <div class="hero-actions"><a class="primary" href="#stores">참여 매장 보기</a><a href="./story.html">LIM 이야기 읽기</a></div>
+      </div>
+    </section>
+
+    <section class="section alt" id="stores" aria-labelledby="storesTitle">
+      <div class="section-inner">
+        <div class="section-title"><span class="kicker">TWO TABLES</span><h2 id="storesTitle">두 곳의 식탁에서<br>첫 기록을 시작했습니다.</h2><p>먹기 어려운 음식은 주문할 때 미리 말씀해 주세요.<br>필요한 만큼 선택하는 것으로 충분합니다.</p></div>
+        <div class="store-grid">
+          <article class="store-card">
+            <div class="store-photo"><img src="./hongje_storefront.webp" width="1448" height="1086" alt="홍제동우동국수 매장 정면" loading="lazy"><span class="store-number">01 · 서대문구</span></div>
+            <div class="store-body"><span class="place">LIM 참여 매장</span><h3>홍제동우동국수</h3><p class="store-choice">“면은 조금 적게 주세요.”</p><p class="store-description">다 먹기 어렵다면 주문할 때 미리 말씀해 주세요.</p><span class="store-status">선택 기록 · 데이터 수집 중</span><a class="store-link" href="./store_hongje.html"><span>이 매장에서 선택하는 방법</span><b aria-hidden="true">↗</b></a></div>
+          </article>
+          <article class="store-card">
+            <div class="store-photo"><img src="./jangsu_storefront.webp" width="1600" height="1200" alt="장수해물탕 매장 정면" loading="lazy"><span class="store-number">02 · 강동구</span></div>
+            <div class="store-body"><span class="place">LIM 참여 매장</span><h3>장수해물탕</h3><p class="store-choice">“이 반찬은 빼주세요.”</p><p class="store-description">먹지 않을 반찬은 주문할 때 미리 말씀해 주세요.</p><span class="store-status">선택 기록 · 데이터 수집 중</span><a class="store-link" href="./store_jangsu.html"><span>이 매장에서 선택하는 방법</span><b aria-hidden="true">↗</b></a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="recordTitle">
+      <div class="record-card">
+        <div><span class="kicker">THE FIRST RECORD</span><h2 id="recordTitle">지금은 작은 선택을<br>기록하는 시간입니다.</h2><p>두 매장에서 한 달 동안 선택을 모으고 있습니다. 기록이 끝나면 실제 제공량이 어떻게 달라졌는지 정리해 공개하겠습니다.</p></div>
+        <div class="record-now"><span>CURRENT STATUS</span><strong>데이터 수집 중</strong><small>확인된 결과부터 공개합니다.</small></div>
+      </div>
+    </section>
+
+    <section class="section bridge" aria-labelledby="bridgeTitle">
+      <div class="section-inner">
+        <span class="kicker">FROM LESS TO MORE</span>
+        <h2 id="bridgeTitle">남는 곳에서,<br>필요한 곳으로.</h2>
+        <p>LIM은 음식이 버려진 뒤보다, 제공되기 전의 선택을 기록합니다. 확인된 변화가 필요한 곳의 More로 이어질 수 있도록 방법을 찾습니다.</p>
+        <div class="bridge-steps" aria-label="LIM이 하는 일"><div class="bridge-step"><i aria-hidden="true"></i><strong>필요한 만큼 선택</strong></div><div class="bridge-step"><i aria-hidden="true"></i><strong>변화를 기록</strong></div><div class="bridge-step"><i aria-hidden="true"></i><strong>필요한 곳과 연결</strong></div></div>
+        <a class="bridge-link" href="./story.html">LIM이 시작된 이야기 보기 →</a>
+      </div>
+    </section>
+
+    <section class="section alt" aria-labelledby="nextTitle">
+      <div class="section-inner">
+        <div class="section-title"><span class="kicker">CHOOSE YOUR NEXT STEP</span><h2 id="nextTitle">어디부터 볼까요?</h2></div>
+        <div class="next-grid">
+          <a class="next-card" href="#stores"><div><span>함께하는 식탁</span><strong>참여 매장 보기</strong></div><b aria-hidden="true">↗</b></a>
+          <a class="next-card" href="./story.html"><div><span>LIM의 시작</span><strong>LIM 이야기 읽기</strong></div><b aria-hidden="true">↗</b></a>
+          <a class="next-card" href="./join_lim.html"><div><span>함께 만든 기록</span><strong>함께한 LIM 보기</strong></div><b aria-hidden="true">↗</b></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><img src="./lim-logo.png" alt=""><p>LIM Food Impact — Less Is More</p></footer>
+
+  <script>
+  (()=>{
+    'use strict';
+    const storeData={
+      hongje:{name:'홍제동우동국수',words:'“면은 조금 적게 주세요.”',plain:'다 먹기 어렵다면 음식이 나오기 전에 말씀해 주세요.',page:'./store_hongje.html'},
+      jangsu:{name:'장수해물탕',words:'“이 반찬은 빼주세요.”',plain:'먹지 않을 반찬은 음식이 나오기 전에 말씀해 주세요.',page:'./store_jangsu.html'}
+    };
+    const guide=document.querySelector('#restaurantGuide');
+    function chooseStore(key){const data=storeData[key];if(!data)return false;document.body.dataset.store=key;document.querySelector('#qrStore').textContent=`${data.name} · LIM 참여 매장`;document.querySelector('#qrWords').textContent=data.words;document.querySelector('#qrPlain').textContent=data.plain;document.querySelector('#qrStorePage').href=data.page;return true}
+    function openGuide(key=''){document.body.classList.add('qr-open');if(key)chooseStore(key);guide.scrollIntoView({block:'start'})}
+    document.querySelector('#openQrGuide').addEventListener('click',()=>openGuide());
+    document.querySelectorAll('[data-store-choice]').forEach(button=>button.addEventListener('click',()=>{const key=button.dataset.storeChoice;if(!chooseStore(key))return;const next=new URL(location.href);next.searchParams.set('entry','qr');next.searchParams.set('store',key);history.replaceState(null,'',next)}));
+    document.querySelector('#continueHome').addEventListener('click',()=>{document.body.classList.remove('qr-open');guide.scrollIntoView({block:'start'});scrollTo({top:document.querySelector('#community').offsetTop-60,behavior:'smooth'})});
+    const params=new URLSearchParams(location.search);if(params.get('entry')==='qr')openGuide(params.get('store')||'');
+  })();
+  </script>
+
+  <script>
+  (()=>{
+    'use strict';
+    const box=document.querySelector('#limNames'),count=document.querySelector('#limCount');
+    const url='https://slrbqhygpexksvduluev.supabase.co/rest/v1/rpc/get_public_lims';
+    const key='sb_publishable_K9fILZLweR1Qi8IBQyNEmA_OMV1F4yb';
+    function empty(message){box.replaceChildren();const item=document.createElement('div');item.className='registry-empty';item.textContent=message;box.append(item)}
+    fetch(url,{method:'POST',headers:{apikey:key,Authorization:`Bearer ${key}`,'Content-Type':'application/json'},body:'{}'})
+      .then(response=>{if(!response.ok)throw new Error('load failed');return response.json()})
+      .then(rows=>{const names=Array.isArray(rows)?rows:[];count.textContent=String(names.length);box.replaceChildren();if(!names.length){empty('첫 번째 이름을 기다리고 있습니다.');return}names.slice(0,10).forEach(entry=>{const item=document.createElement('div');item.className='registry-name';const dot=document.createElement('i');dot.setAttribute('aria-hidden','true');item.append(dot,document.createTextNode(entry.display_name));box.append(item)})})
+      .catch(()=>{count.textContent='—';empty('이름을 불러오지 못했습니다. 잠시 후 다시 확인해 주세요.')});
+  })();
+  </script>
+
+  <script>
+  (()=>{
+    'use strict';
+    const scene=document.querySelector('#signatureScene'),svg=document.querySelector('#signatureArt'),caption=document.querySelector('#signatureCaption'),replay=document.querySelector('#signatureReplay');
+    const reduce=matchMedia('(prefers-reduced-motion: reduce)');
+    const ns='http://www.w3.org/2000/svg',duration=10600,clamp=value=>Math.max(0,Math.min(1,value)),ease=value=>value*value*(3-2*value);
+    let parts={},mobile=false,elapsed=0,playing=false,started=false,last=0,raf=0,phase=-1;
+    function element(tag,attrs,parent=svg){const node=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([key,value])=>node.setAttribute(key,value));parent.append(node);return node}
+    function label(x,y,value,size,color='#E5EFF6',parent=svg){const node=element('text',{x,y,'text-anchor':'middle',fill:color,'font-size':size,'font-family':'inherit','font-weight':750},parent);node.textContent=value;return node}
+    function build(){
+      mobile=scene.clientWidth<600;svg.replaceChildren();svg.setAttribute('viewBox',mobile?'0 0 360 480':'0 0 1000 330');
+      const hub=mobile?{x:180,y:224}:{x:460,y:155};parts={hub,origins:[],paths:[],dots:[],branches:[],ends:[]};
+      const nodes=mobile?[[80,77],[148,58],[221,77],[280,106]]:[[90,109],[155,198],[218,79],[273,222]];
+      nodes.forEach(([x,y])=>{const d=mobile?`M${x} ${y} C${x} 155 180 155 180 224`:`M${x} ${y} C${x+100} ${y} 370 155 460 155`;element('path',{d,fill:'none',stroke:'#FFFFFF','stroke-opacity':.1});parts.paths.push(element('path',{d,fill:'none',stroke:'#E8C97A','stroke-width':2,pathLength:1}));parts.origins.push(element('circle',{cx:x,cy:y,r:6,fill:'#E8C97A'}));parts.dots.push(element('circle',{r:5,fill:'#E8C97A'}))});
+      const out=mobile?'M180 224 C180 290 180 304 180 342':'M460 155 C554 155 605 155 700 155';parts.out=element('path',{d:out,fill:'none',stroke:'#E8C97A','stroke-width':3,pathLength:1});
+      const hubGroup=element('g',{});element('circle',{cx:hub.x,cy:hub.y,r:57,fill:'#214D71',stroke:'#E8C97A','stroke-opacity':.22},hubGroup);element('circle',{cx:hub.x,cy:hub.y,r:45,fill:'#183E5D',stroke:'#E8C97A','stroke-width':1.6},hubGroup);parts.hubText=label(hub.x,hub.y+9,'LIM',29,'#FFFFFF',hubGroup);
+      const ends=mobile?[[83,386],[180,409],[277,386]]:[[831,81],[884,155],[831,230]];
+      ends.forEach(([x,y])=>{const d=mobile?`M180 342 C180 365 ${x} 354 ${x} ${y}`:`M700 155 C750 155 765 ${y} ${x} ${y}`;parts.branches.push(element('path',{d,fill:'none',stroke:'#E8C97A','stroke-width':1.7,pathLength:1}));const group=element('g',{});element('circle',{cx:x,cy:y,r:19,fill:'#E8C97A','fill-opacity':.09,stroke:'#E8C97A','stroke-opacity':.4},group);element('circle',{cx:x,cy:y,r:7,fill:'#E8C97A'},group);parts.ends.push(group)});
+      parts.value=element('circle',{r:10,fill:'#E8C97A'});
+      label(mobile?180:166,mobile?27:32,'LESS',mobile?20:24,'#E8C97A');label(mobile?180:166,mobile?129:285,'필요한 만큼 선택',mobile?14:18);label(mobile?285:460,mobile?229:285,mobile?'기록 · 연결':'선택을 연결하는 다리',mobile?12:18);label(mobile?180:853,mobile?457:32,'MORE',mobile?20:24,'#E8C97A');label(mobile?180:853,mobile?479:285,'여러 필요한 곳으로',mobile?13:18);paint();
+    }
+    function opacity(node,value){node.style.opacity=String(clamp(value))}
+    function draw(node,progress){node.style.strokeDasharray='1';node.style.strokeDashoffset=String(1-clamp(progress))}
+    function position(node,path,progress){const point=path.getPointAtLength(path.getTotalLength()*clamp(progress));node.setAttribute('cx',point.x);node.setAttribute('cy',point.y)}
+    function paint(){
+      const time=elapsed;
+      parts.paths.forEach((path,index)=>{const progress=ease(clamp((time-1200-index*220)/1800));draw(path,progress);opacity(parts.origins[index],.3+.7*clamp((time-200-index*240)/550));position(parts.dots[index],path,progress);opacity(parts.dots[index],progress>0&&progress<1?1:0)});
+      const form=clamp((time-3800)/750),move=ease(clamp((time-4900)/1800));draw(parts.out,clamp((time-4400)/1800));position(parts.value,parts.out,move);parts.value.setAttribute('r',10*form);opacity(parts.value,form*(1-clamp((time-7100)/700)));opacity(parts.hubText,time<3800?1:time<5300?1-form:clamp((time-5300)/500));
+      parts.branches.forEach((path,index)=>{draw(path,clamp((time-6800-index*170)/1000));opacity(parts.ends[index],.2+.8*clamp((time-7450-index*170)/700))});
+      const next=time>=8400?3:time>=4900?2:time>=1200?1:0;if(next!==phase){phase=next;caption.textContent=['하나의 작은 선택에서 시작합니다.','작은 선택들이 모여, 더 큰 가치가 됩니다.','LIM은 그 사이에 다리를 놓습니다.','이곳의 Less가, 누군가에게는 More가 됩니다.'][next]}
+    }
+    function finish(){elapsed=duration;playing=false;paint()}
+    function play(){started=true;playing=true;elapsed=0;last=0;phase=-1;if(reduce.matches)finish();else{paint();queue()}}
+    function visible(){const rect=scene.getBoundingClientRect();return rect.top<innerHeight*.86&&rect.bottom>60}
+    function tick(now){raf=0;if(!started&&visible())play();if(playing&&visible()&&!document.hidden){if(last)elapsed+=Math.min(80,now-last);last=now;paint();if(elapsed>=duration)finish();else queue()}else last=0}
+    function queue(){if(!raf)raf=requestAnimationFrame(tick)}
+    replay.addEventListener('click',play);addEventListener('scroll',queue,{passive:true});addEventListener('resize',()=>{if((scene.clientWidth<600)!==mobile)build();else paint();queue()});document.addEventListener('visibilitychange',()=>{last=0;queue()});build();if(reduce.matches){started=true;finish()}queue();
+  })();
+  </script>
+</body>
+</html>
