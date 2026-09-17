@@ -18,6 +18,15 @@
 <style>
   /* Flow 진행 상태는 문장과 움직임으로 전달하고, 도형을 가로지르는 막대는 표시하지 않습니다. */
   .story-flow-progress{display:none}
+  /* 골드 반응은 LIM 원 안에서 중심을 유지하고, 모인 가치는 끝까지 골드로 이어집니다. */
+  .sf-center-pulse{transform-box:fill-box;transform-origin:center}
+  .sf-center-pulse.go{animation:sfPulseInside 1.2s ease-out}
+  @keyframes sfPulseInside{
+    0%{opacity:.78;transform:scale(.58)}
+    70%{opacity:.34;transform:scale(.94)}
+    100%{opacity:0;transform:scale(.94)}
+  }
+  .sf-more{fill:var(--gold);transform-box:fill-box;transform-origin:center}
 </style>
 </head>
 <body>
