@@ -279,7 +279,39 @@ body{position:relative}
 #journeyHero .journey-rail,#journeyHero .journey-trace{left:25px}
 @media(max-width:700px){#journeyHero{padding:48px 16px 28px 33px}#journeyHero .eyebrow{font-size:9px;letter-spacing:.12em;margin-bottom:18px}#journeyHero h1{font-size:clamp(32px,7.6vw,46px);line-height:1.45;word-spacing:.12em;letter-spacing:-.04em}#journeyHero .hero-intro{font-size:15px;line-height:1.9}.signature-scene{margin-top:28px;padding:18px 12px 16px;border-radius:22px}.signature-top{font-size:11px}.signature-top>span:last-child{font-size:8px;letter-spacing:.06em}.signature-bottom{align-items:flex-start;flex-direction:column;gap:8px;padding:16px 5px 0}#journeyHero .signature-bottom p{font-size:15px;min-height:48px}#journeyHero .hero-destinations{grid-template-columns:1fr;gap:12px;margin-top:18px}.hero-destination{padding:18px 20px;border-radius:17px}#journeyHero .hero-destination strong{font-size:19px}.hero-quiet-links{gap:18px;margin-top:14px}.hero-quiet-links a{font-size:11px}#journeyHero .journey-rail,#journeyHero .journey-trace{left:14px}#journeyHero .journey-hint{font-size:10px}}
 @media(prefers-reduced-motion:reduce){.hero-destination{transition:none}}
-</style><script>if(window.MediaQueryList&&!MediaQueryList.prototype.addEventListener){MediaQueryList.prototype.addEventListener=function(t,f){if(t==='change')this.addListener(f)}}</script>
+</style>
+<style>
+/* Transitional entrance: existing QR links remain useful while store-specific QR pages are prepared. */
+#gather{display:none!important}
+.restaurant-entry-bar{position:relative;z-index:8;display:flex;align-items:center;justify-content:center;gap:14px;min-height:54px;padding:8px 20px;background:#fffaf0;border-bottom:1px solid #ead9af;color:#1f4e79;font-size:14px}
+.restaurant-entry-bar strong{font-weight:900}.restaurant-entry-bar a{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:7px 15px;border-radius:999px;background:#1f4e79;color:#fff;text-decoration:none;font-size:13px;font-weight:900}
+.restaurant-guide{display:none;background:linear-gradient(155deg,#fffaf1 0%,#fff 72%);border-bottom:1px solid #eadfca;padding:54px 24px 58px}.restaurant-mode .restaurant-guide{display:block}.restaurant-mode .restaurant-entry-bar{display:none}
+.restaurant-guide-inner{max-width:980px;margin:0 auto}.restaurant-guide-head{text-align:center}.restaurant-guide-kicker{display:inline-flex;align-items:center;gap:7px;color:#1f4e79;font-size:12px;font-weight:900;letter-spacing:.08em}.restaurant-guide-kicker::before{content:"";width:9px;height:9px;border-radius:50%;background:#E8C97A;box-shadow:0 0 0 5px #e8c97a24}.restaurant-guide h1{margin:17px auto 12px;color:#1f4e79;font-size:clamp(30px,5vw,48px);line-height:1.35;letter-spacing:-.035em}.restaurant-guide-intro{margin:0 auto;color:#526879;font-size:clamp(16px,2vw,19px);line-height:1.75}.restaurant-guide-store{display:block;margin-top:8px;color:#3e7cb1;font-size:14px;font-weight:850}
+.restaurant-guide-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;max-width:760px;margin:30px auto 0}.restaurant-guide-choice{display:flex;align-items:center;justify-content:center;min-height:92px;padding:19px 18px;border:1px solid #e6d8b7;border-radius:19px;background:#fff;color:#1f4e79;font-size:clamp(19px,2.4vw,24px);font-weight:900;text-align:center;box-shadow:0 12px 30px #173f6209}.restaurant-guide-choice.is-secondary{color:#607688;font-size:clamp(16px,2vw,19px);font-weight:800}
+.restaurant-guide-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:28px auto 0}.restaurant-guide-step{padding:20px 18px;border-top:2px solid #E8C97A;background:#fff;border-radius:0 0 15px 15px}.restaurant-guide-step span{display:block;color:#3e7cb1;font-size:11px;font-weight:900;letter-spacing:.08em}.restaurant-guide-step strong{display:block;margin-top:7px;color:#1f4e79;font-size:17px;line-height:1.45}.restaurant-guide-step p{margin:6px 0 0;color:#657684;font-size:13px;line-height:1.65}.restaurant-guide-note{margin:20px auto 0;color:#6b7780;font-size:13px;text-align:center;line-height:1.7}
+.restaurant-guide-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:27px}.restaurant-guide-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:12px 21px;border:1px solid #b9ccda;border-radius:999px;color:#1f4e79;text-decoration:none;font-size:14px;font-weight:900}.restaurant-guide-actions a.primary{border-color:#1f4e79;background:#1f4e79;color:#fff}.restaurant-guide-actions a.names{border-color:#e4c976;background:#fffaf0}
+.restaurant-store-picker{display:none;max-width:760px;margin:0 auto;text-align:center}.restaurant-choosing .restaurant-store-picker{display:block}.restaurant-choosing .restaurant-guide-inner{display:none}.restaurant-store-picker .restaurant-guide-intro{max-width:560px}.restaurant-store-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:28px}.restaurant-store-option{min-height:126px;padding:22px;border:1px solid #d9e4eb;border-radius:20px;background:#fff;color:#1f4e79;font:inherit;text-align:left;cursor:pointer;box-shadow:0 15px 38px #173f620a;transition:transform .2s,border-color .2s,box-shadow .2s}.restaurant-store-option:hover,.restaurant-store-option:focus-visible{transform:translateY(-2px);border-color:#E8C97A;box-shadow:0 18px 42px #173f6214;outline:none}.restaurant-store-option span{display:block;color:#6f8290;font-size:12px;font-weight:800}.restaurant-store-option strong{display:block;margin-top:8px;font-size:22px}.restaurant-store-option small{display:block;margin-top:8px;color:#3e7cb1;font-size:14px;font-weight:850}.restaurant-store-help{margin:20px 0 0;color:#71818d;font-size:13px}
+@media(max-width:700px){.restaurant-entry-bar{justify-content:space-between;gap:9px;padding:8px 13px 8px 16px;font-size:12px}.restaurant-entry-bar a{flex:0 0 auto;min-height:40px;padding:7px 12px;font-size:12px}.restaurant-guide{padding:40px 16px 46px}.restaurant-guide h1{font-size:32px}.restaurant-guide-intro{font-size:15px}.restaurant-store-options{grid-template-columns:1fr;gap:9px;margin-top:23px}.restaurant-store-option{min-height:104px;padding:18px}.restaurant-store-option strong{font-size:20px}.restaurant-guide-choices{grid-template-columns:1fr;gap:9px;margin-top:24px}.restaurant-guide-choice{min-height:72px;padding:15px;font-size:20px}.restaurant-guide-choice.is-secondary{font-size:17px}.restaurant-guide-steps{grid-template-columns:1fr;gap:8px;margin-top:21px}.restaurant-guide-step{padding:16px 17px}.restaurant-guide-step strong{font-size:16px}.restaurant-guide-actions{display:grid}.restaurant-guide-actions a{width:100%;min-height:52px}.restaurant-guide-note{text-align:left}}
+</style>
+<script>if(window.MediaQueryList&&!MediaQueryList.prototype.addEventListener){MediaQueryList.prototype.addEventListener=function(t,f){if(t==='change')this.addListener(f)}}</script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+ const header=document.querySelector('header');
+ if(!header)return;
+ const shell=document.createElement('div');
+ shell.innerHTML=`<aside class="restaurant-entry-bar" id="restaurantEntryBar" aria-label="식당 방문자 안내"><strong>식당에서 QR을 찍으셨나요?</strong><a href="#restaurantGuide" id="openRestaurantGuide">지금 참여하는 방법</a></aside><section class="restaurant-guide" id="restaurantGuide" aria-labelledby="restaurantGuideTitle"><div class="restaurant-store-picker" id="restaurantStorePicker"><span class="restaurant-guide-kicker">LIM 참여 매장</span><h1>어느 매장에 계신가요?</h1><p class="restaurant-guide-intro">지금 계신 매장을 선택하면<br>이곳에서 참여하는 방법을 바로 안내해 드립니다.</p><div class="restaurant-store-options"><button class="restaurant-store-option" type="button" data-store-choice="hongje"><span>서울 서대문구</span><strong>홍제동우동국수</strong><small>“면은 조금 적게 주세요.”</small></button><button class="restaurant-store-option" type="button" data-store-choice="jangsu"><span>서울 강동구</span><strong>장수해물탕</strong><small>“이 반찬은 빼주세요.”</small></button></div><p class="restaurant-store-help">매장을 선택해도 별도의 개인정보는 입력되지 않습니다.</p></div><div class="restaurant-guide-inner"><div class="restaurant-guide-head"><span class="restaurant-guide-kicker">지금 식당에 계신가요?</span><h1 id="restaurantGuideTitle">필요한 만큼 선택해 주세요.</h1><p class="restaurant-guide-intro">먹지 않을 음식은 주문할 때 미리 말씀해 주세요.<br>작은 선택은 이 매장의 기록으로 남습니다.</p><span class="restaurant-guide-store" id="restaurantGuideStore">LIM 참여 매장</span></div><div class="restaurant-guide-choices" aria-label="식당에서 말하는 방법"><div class="restaurant-guide-choice" id="restaurantGuidePrimary">“면은 조금 적게 주세요.”</div><div class="restaurant-guide-choice is-secondary" id="restaurantGuideSecondary">“이 반찬은 빼주세요.”</div></div><div class="restaurant-guide-steps"><div class="restaurant-guide-step"><span>01 · 주문 전에</span><strong>미리 말씀해 주세요.</strong><p>음식이 나오기 전에 필요한 만큼을 선택합니다.</p></div><div class="restaurant-guide-step"><span>02 · 필요한 만큼</span><strong>내 식탁에 맞게 받습니다.</strong><p>메뉴 가격은 그대로이며 할인이나 포인트는 없습니다.</p></div><div class="restaurant-guide-step"><span>03 · 선택의 기록</span><strong>LIM이 기록합니다.</strong><p>어떤 선택이 있었는지 매장별로 모아 확인합니다.</p></div></div><p class="restaurant-guide-note">이 선택이 곧바로 기부된다는 뜻은 아닙니다. LIM은 먼저 실제 선택과 제공량의 변화를 기록하고 있습니다.</p><div class="restaurant-guide-actions"><a class="primary" href="#stores">참여 매장 보기</a><a class="names" href="./join_lim.html">함께한 LIM 이름 보기</a><a href="#journeyHero" id="continueToLim">LIM을 천천히 알아보기</a></div></div></section>`;
+ const bar=shell.firstElementChild,guide=shell.lastElementChild;
+ header.after(bar,guide);
+ const params=new URLSearchParams(location.search),entry=params.get('entry'),store=params.get('store');
+ const storeData={hongje:{name:'홍제동우동국수',primary:'“면은 조금 적게 주세요.”',secondary:'다 먹기 어렵다면 주문할 때 미리 말씀해 주세요.'},jangsu:{name:'장수해물탕',primary:'“이 반찬은 빼주세요.”',secondary:'먹지 않을 반찬은 주문할 때 미리 말씀해 주세요.'}};
+ const applyStore=key=>{const data=storeData[key];if(!data)return false;document.getElementById('restaurantGuideStore').textContent=data.name+' · LIM 참여 매장';document.getElementById('restaurantGuidePrimary').textContent=data.primary;document.getElementById('restaurantGuideSecondary').textContent=data.secondary;document.body.classList.remove('restaurant-choosing');document.body.dataset.store=key;return true};
+ const showGuide=(scroll=true,key=null)=>{document.body.classList.add('restaurant-mode');if(!applyStore(key))document.body.classList.add('restaurant-choosing');if(scroll)requestAnimationFrame(()=>guide.scrollIntoView({behavior:'smooth',block:'start'}))};
+ document.getElementById('openRestaurantGuide').addEventListener('click',event=>{event.preventDefault();showGuide(true,null)});
+ document.querySelectorAll('[data-store-choice]').forEach(button=>button.addEventListener('click',()=>{const key=button.dataset.storeChoice;if(!applyStore(key))return;const next=new URL(location.href);next.searchParams.set('entry','qr');next.searchParams.set('store',key);history.replaceState(null,'',next);requestAnimationFrame(()=>guide.scrollIntoView({behavior:'smooth',block:'start'}))}));
+ document.getElementById('continueToLim').addEventListener('click',()=>document.body.classList.remove('restaurant-mode'));
+ if(entry==='qr'){showGuide(false,store);document.body.dataset.entry='qr'}
+});
+</script>
 </head>
 <body>
 <div class="table-trail" id="tableTrail" aria-hidden="true"></div><div class="table-traveler" id="tableTraveler" aria-hidden="true"></div>
@@ -612,7 +644,7 @@ body{position:relative}
 (()=>{
  const traveler=document.getElementById('tableTraveler'),hero=document.getElementById('journeyHero'),reduce=matchMedia('(prefers-reduced-motion: reduce)');
  if(!traveler||reduce.matches)return;
- const definitions=[['start','#supperScene','tableReplay',15000],['gather','#bridgeScene','gatherPlay',21000],['field','.pilot-stores',null,2500],['records','#recordScene','recordReplay',11000],['world','#worldScene','worldReplay',15000],['together','#finaleScene','finaleReplay',16500]];
+ const definitions=[['start','#supperScene','tableReplay',15000],['field','.pilot-stores',null,2500],['records','#recordScene','recordReplay',11000],['world','#worldScene','worldReplay',15000],['together','#finaleScene','finaleReplay',16500]];
  const stations=definitions.map(([id,selector,replayId,fallback])=>{const section=document.getElementById(id);return{section,scene:section?.querySelector(selector),replayId,fallback}}).filter(x=>x.scene);
  const visited=new Set();let switching=false,scanFrame=0;
  function wake({section,scene,replayId,fallback}){
@@ -630,6 +662,18 @@ body{position:relative}
  function scan(){scanFrame=0;if(switching||hero.dataset.journeyComplete!=='true')return;for(const station of stations){if(visited.has(station.section.id))continue;const r=station.scene.getBoundingClientRect(),mid=r.top+r.height/2;if(Math.abs(mid-innerHeight*.52)<=Math.max(48,innerHeight*.09)){wake(station);break}}}
  function queue(){if(!scanFrame)scanFrame=requestAnimationFrame(scan)}
  addEventListener('scroll',queue,{passive:true});addEventListener('resize',queue);new MutationObserver(queue).observe(hero,{attributes:true,attributeFilter:['data-journey-complete']});queue();
+})();
+</script>
+<script>
+(()=>{
+ const card=document.getElementById('pilotJangsu');
+ const body=card?.querySelector('.pilot-body');
+ if(!body||body.querySelector('a[href="./store_jangsu.html"]'))return;
+ const link=document.createElement('a');
+ link.className='pilot-link';
+ link.href='./store_jangsu.html';
+ link.innerHTML='이 매장의 LIM 이야기 <span aria-hidden="true">↗</span>';
+ body.append(link);
 })();
 </script>
 </body>
