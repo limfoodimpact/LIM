@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>함께한 LIM들 | LIM Food Impact</title>
+  <meta name="description" content="하나의 작은 선택을 LIM의 기록에 남기고, 함께한 LIM들의 이름을 확인합니다.">
+  <style>
+    :root{
+      --navy:#1F4E79;--blue:#3E7CB1;--sky:#6FA8DC;--gold:#E8C97A;
+      --cream:#FFF6E9;--gray:#F2F5F8;--ink:#263746;--muted:#667788;
+      --line:#DCE5EC;--white:#fff;--danger:#9B403F;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+    body{margin:0;background:#F7F9FB;color:var(--ink);font-family:"Pretendard","Malgun Gothic",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.65;word-break:keep-all}
+    button,input{font:inherit}
+    .wrap{width:min(820px,calc(100% - 32px));margin:0 auto;padding:28px 0 72px}
+    .back{display:inline-flex;align-items:center;min-height:48px;margin-bottom:18px;color:var(--navy);font-weight:900;text-decoration:none}
+    .hero{padding:40px 24px 42px;border-radius:24px;background:linear-gradient(150deg,var(--navy),#173B5D);color:#fff;text-align:center}
+    .eyebrow{margin:0 0 12px;color:var(--gold);font-size:13px;font-weight:900;letter-spacing:.14em}
+    h1{margin:0;font-size:clamp(30px,7vw,46px);line-height:1.25}
+    .hero p{max-width:520px;margin:18px auto 0;color:#E5EEF5;font-size:17px}
+    .gold-dot{display:inline-block;width:12px;height:12px;margin-right:7px;border-radius:50%;background:var(--gold);vertical-align:1px}
+    .card{margin-top:22px;padding:clamp(22px,5vw,34px);border:1px solid var(--line);border-radius:22px;background:var(--white);box-shadow:0 12px 34px rgba(31,78,121,.06)}
+    .archive-card{position:relative;margin-top:-16px}
+    .archive-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px}
+    .archive-head .lead{margin-bottom:0}
+    .count{flex:0 0 auto;margin:0;padding:9px 14px;border-radius:999px;background:var(--cream);color:var(--muted);white-space:nowrap}
+    .count strong{color:var(--navy);font-size:24px}
+    h2{margin:0 0 8px;color:var(--navy);font-size:clamp(23px,5vw,30px);line-height:1.35}
+    .lead{margin:0 0 26px;color:var(--muted);font-size:16px}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+    label.title{display:block;margin:20px 0 8px;color:var(--navy);font-weight:900}
+    input[type="text"],input[type="password"]{width:100%;min-height:52px;padding:13px 14px;border:1px solid #C9D5DF;border-radius:12px;background:#fff;color:var(--ink);font-size:17px;outline:none}
+    input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(62,124,177,.14)}
+    .hint{margin:7px 0 0;color:var(--muted);font-size:14px}
+    .consent{margin-top:22px;padding:18px;border:1px solid var(--line);border-radius:16px;background:#FBFCFD}
+    .consent h3{margin:0 0 8px;color:var(--navy);font-size:17px}
+    .consent p{margin:0;color:#586B7A;font-size:14px}
+    .privacy-points{display:grid;gap:7px;margin:13px 0 15px;padding:14px;border-radius:12px;background:#fff;color:#586B7A;font-size:14px}
+    .privacy-points p{display:grid;grid-template-columns:88px 1fr;gap:8px}
+    .privacy-points strong{color:var(--navy)}
+    .check{display:flex;gap:10px;align-items:flex-start;min-height:44px;padding:8px 0;color:var(--ink);font-weight:750}
+    .check input{width:20px;height:20px;margin-top:3px;accent-color:var(--navy);flex:0 0 auto}
+    .primary,.secondary,.join-link{width:100%;min-height:54px;margin-top:22px;border:0;border-radius:999px;padding:14px 20px;font-weight:900;cursor:pointer}
+    .primary{background:var(--gold);color:var(--navy)}
+    .secondary{background:var(--navy);color:#fff}
+    .join-link{display:flex;align-items:center;justify-content:center;background:var(--gold);color:var(--navy);text-decoration:none}
+    button:disabled{opacity:.55;cursor:not-allowed}
+    .status{min-height:26px;margin:14px 0 0;font-size:15px;font-weight:750}
+    .status.error{color:var(--danger)}
+    .success{display:none;margin-top:22px;padding:24px 18px;border-radius:18px;background:var(--cream);text-align:center}
+    .success.show{display:block}
+    .success .choice{width:22px;height:22px;margin:0 auto 13px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 9px rgba(232,201,122,.2);animation:arrive .7s ease both}
+    .success strong{display:block;color:var(--navy);font-size:22px}
+    .receipt{display:block;width:max-content;max-width:100%;margin:14px auto 6px;padding:8px 13px;border-radius:9px;background:#fff;border:1px solid #E4D5AE;color:var(--navy);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:900;letter-spacing:.08em}
+    .names{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:22px}
+    .name{display:flex;align-items:center;justify-content:center;min-height:50px;padding:12px;border:1px solid #E2E8ED;border-radius:14px;background:#fff;color:var(--navy);font-weight:850;text-align:center}
+    .empty{grid-column:1/-1;padding:26px 12px;border-radius:14px;background:var(--gray);color:var(--muted);text-align:center}
+    .duplicate-dialog{width:min(460px,calc(100% - 32px));padding:0;border:0;border-radius:20px;background:#fff;color:var(--ink);box-shadow:0 24px 70px rgba(20,48,72,.28)}
+    .duplicate-dialog::backdrop{background:rgba(18,39,57,.52)}
+    .duplicate-inner{padding:28px 24px 22px;text-align:center}
+    .duplicate-mark{width:18px;height:18px;margin:0 auto 14px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 8px rgba(232,201,122,.2)}
+    .duplicate-inner h3{margin:0;color:var(--navy);font-size:23px}
+    .duplicate-inner p{margin:12px 0 0;color:var(--muted)}
+    .duplicate-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:22px}
+    .duplicate-actions button{min-height:50px;border-radius:999px;padding:11px 14px;font-weight:900;cursor:pointer}
+    .duplicate-edit{border:1px solid var(--line);background:#fff;color:var(--navy)}
+    .duplicate-continue{border:0;background:var(--gold);color:var(--navy)}
+    .withdraw-card{padding-top:18px;padding-bottom:18px}
+    details{margin:0}
+    summary{display:flex;align-items:center;justify-content:space-between;min-height:48px;color:var(--navy);font-size:18px;font-weight:900;cursor:pointer;list-style:none}
+    summary::-webkit-details-marker{display:none}
+    summary::after{content:'＋';font-size:24px;font-weight:500}
+    details[open] summary::after{content:'−'}
+    .withdraw-body{padding-top:10px}
+    footer{padding-top:28px;color:#82909B;text-align:center;font-size:13px}
+    @keyframes arrive{from{transform:scale(.25);opacity:0}to{transform:scale(1);opacity:1}}
+    @media(max-width:600px){
+      .wrap{width:min(100% - 24px,820px);padding-top:18px}
+      .hero{padding:34px 18px 38px;border-radius:20px}
+      .archive-card{margin-top:-12px}
+      .archive-head{display:block}
+      .archive-head .count{display:inline-block;margin-top:14px}
+      .form-grid{grid-template-columns:1fr}
+      .privacy-points p{grid-template-columns:1fr;gap:1px}
+      .duplicate-actions{grid-template-columns:1fr}
+    }
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.success .choice{animation:none}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <a class="back" href="./index.html">← LIM Food Impact로 돌아가기</a>
+
+    <section class="hero" aria-labelledby="page-title">
+      <p class="eyebrow">TOGETHER, WE ARE LIM</p>
+      <h1 id="page-title"><span class="gold-dot" aria-hidden="true"></span>함께 만든 기록</h1>
+      <p>작은 선택을 한 사람들의 이름입니다.<br>한 사람씩 더해지며 지금의 LIM을 만듭니다.</p>
+    </section>
+
+    <section class="card archive-card" aria-labelledby="names-title">
+      <div class="archive-head">
+        <div>
+          <h2 id="names-title">함께한 LIM들</h2>
+          <p class="lead">동의하고 확인된 이름만 공개됩니다.</p>
+        </div>
+        <p class="count">현재 <strong id="limCount">0</strong>명</p>
+      </div>
+      <div class="names" id="namesList" aria-live="polite"><div class="empty">이름을 불러오는 중입니다.</div></div>
+      <button class="secondary" id="refreshButton" type="button">명단 새로 확인하기</button>
+      <a class="join-link" href="#join-title">내 이름도 기록하기</a>
+    </section>
+
+    <section class="card" aria-labelledby="join-title">
+      <h2 id="join-title">나도 LIM으로 기록하기</h2>
+      <p class="lead">실명 대신 별명이나 이니셜도 괜찮습니다.</p>
+
+      <form id="joinForm" novalidate>
+        <div class="form-grid">
+          <div>
+            <label class="title" for="displayName">공개할 이름 또는 별명</label>
+            <input id="displayName" name="displayName" type="text" minlength="1" maxlength="30" autocomplete="off" placeholder="예: 작은별" required>
+            <p class="hint">30자 이내로 입력해 주세요.</p>
+          </div>
+          <div>
+            <label class="title" for="deleteCode">삭제 확인번호</label>
+            <input id="deleteCode" name="deleteCode" type="password" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="new-password" placeholder="숫자 6자리" required>
+            <p class="hint">나중에 이름을 지울 때 필요합니다.</p>
+          </div>
+        </div>
+
+        <div class="consent">
+          <h3>확인 및 동의</h3>
+          <label class="check"><input id="ageConsent" type="checkbox" required><span>저는 만 14세 이상입니다.</span></label>
+          <div class="privacy-points">
+            <p><strong>공개 정보</strong><span>입력한 이름 또는 별명</span></p>
+            <p><strong>보관 정보</strong><span>암호화된 삭제 확인정보, 제출 시각</span></p>
+            <p><strong>이용 목적</strong><span>이름 공개와 삭제 요청 확인</span></p>
+            <p><strong>보관 기간</strong><span>홈페이지 운영 종료 또는 삭제 요청 시까지</span></p>
+            <p><strong>처리자</strong><span>LIM Food Impact 운영자 강석구·강민구</span></p>
+          </div>
+          <label class="check"><input id="collectionConsent" type="checkbox" required><span>위 개인정보 수집·이용에 동의합니다.</span></label>
+          <label class="check"><input id="publicationConsent" type="checkbox" required><span>입력한 이름 또는 별명의 홈페이지 공개에 동의합니다.</span></label>
+          <p>공개된 이름은 다른 사람이 저장하거나 공유할 수 있습니다. 동의를 거부해도 식당 이용이나 작은 선택 참여에는 불이익이 없습니다.</p>
+        </div>
+
+        <button class="primary" id="submitButton" type="submit">작은 선택 기록하기</button>
+        <p class="status" id="joinStatus" role="status" aria-live="polite"></p>
+      </form>
+
+      <dialog class="duplicate-dialog" id="duplicateDialog" aria-labelledby="duplicateTitle">
+        <div class="duplicate-inner">
+          <div class="duplicate-mark" aria-hidden="true"></div>
+          <h3 id="duplicateTitle">같은 이름이 이미 기록되어 있습니다.</h3>
+          <p>본인이 이미 신청했다면 다시 신청하지 않아도 됩니다.<br>동명이인이거나 다른 분이라면 그대로 진행할 수 있습니다.</p>
+          <form class="duplicate-actions" method="dialog">
+            <button class="duplicate-edit" value="edit">이름 다시 확인</button>
+            <button class="duplicate-continue" value="continue">그래도 신청하기</button>
+          </form>
+        </div>
+      </dialog>
+
+      <div class="success" id="successBox" tabindex="-1">
+        <div class="choice" aria-hidden="true"></div>
+        <strong>하나의 작은 선택이 기록되었습니다.</strong>
+        <span class="receipt" id="receiptId"></span>
+        <p>이 접수번호와 삭제 확인번호를 함께 보관해 주세요.<br>운영자 확인 후 이름이 공개됩니다.</p>
+      </div>
+    </section>
+
+    <section class="card withdraw-card" aria-labelledby="delete-title">
+      <details>
+        <summary id="delete-title">내 이름 공개를 취소하고 싶어요</summary>
+        <div class="withdraw-body">
+          <p class="lead">접수번호와 본인이 정한 삭제 확인번호를 입력해 주세요.</p>
+          <form id="deleteForm" novalidate>
+            <label class="title" for="receiptInput">접수번호</label>
+            <input id="receiptInput" type="text" maxlength="10" autocomplete="off" placeholder="예: 7FDC42D600" required>
+            <label class="title" for="deleteCodeConfirm">삭제 확인번호</label>
+            <input id="deleteCodeConfirm" type="password" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="new-password" placeholder="숫자 6자리" required>
+            <button class="secondary" id="deleteButton" type="submit">공개 취소 요청하기</button>
+            <p class="status" id="deleteStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </details>
+    </section>
+
+    <footer>LIM Food Impact — 선택 · 기록 · 확인 · 연결<br>공개 철회 및 개인정보 문의: lim.project2030@gmail.com</footer>
+  </main>
+
+  <script>
+    (() => {
+      'use strict';
+
+      const SUPABASE_URL = 'https://slrbqhygpexksvduluev.supabase.co';
+      const SUPABASE_KEY = 'sb_publishable_K9fILZLweR1Qi8IBQyNEmA_OMV1F4yb';
+      const headers = {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${SUPABASE_KEY}`,
+        'Content-Type': 'application/json'
+      };
+
+      const joinForm = document.querySelector('#joinForm');
+      const submitButton = document.querySelector('#submitButton');
+      const joinStatus = document.querySelector('#joinStatus');
+      const successBox = document.querySelector('#successBox');
+      const receiptId = document.querySelector('#receiptId');
+      const deleteForm = document.querySelector('#deleteForm');
+      const deleteButton = document.querySelector('#deleteButton');
+      const deleteStatus = document.querySelector('#deleteStatus');
+      const namesList = document.querySelector('#namesList');
+      const limCount = document.querySelector('#limCount');
+      const duplicateDialog = document.querySelector('#duplicateDialog');
+      const displayName = document.querySelector('#displayName');
+      let approvedNameKeys = new Set();
+      let namesReady = false;
+
+      async function rpc(name, body) {
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${name}`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(body || {})
+        });
+        const raw = await response.text();
+        let data = raw;
+        try { data = raw ? JSON.parse(raw) : null; } catch (_) {}
+        if (!response.ok) {
+          const message = data && (data.message || data.hint) ? (data.message || data.hint) : '요청을 처리하지 못했습니다.';
+          throw new Error(message);
+        }
+        return data;
+      }
+
+      function setStatus(element, message, isError = false) {
+        element.textContent = message;
+        element.classList.toggle('error', isError);
+      }
+
+      function validSixDigits(value) {
+        return /^[0-9]{6}$/.test(value);
+      }
+
+      function normalizeName(value) {
+        return value.normalize('NFKC').trim().replace(/\s+/g, ' ').toLocaleLowerCase('ko-KR');
+      }
+
+      function recentSubmittedNames() {
+        try {
+          const saved = JSON.parse(localStorage.getItem('lim_recent_names') || '[]');
+          const limit = Date.now() - (30 * 24 * 60 * 60 * 1000);
+          return Array.isArray(saved) ? saved.filter((item) => item && item.at >= limit && typeof item.name === 'string') : [];
+        } catch (_) {
+          return [];
+        }
+      }
+
+      function rememberSubmittedName(value) {
+        const names = recentSubmittedNames();
+        names.push({ name: normalizeName(value), at: Date.now() });
+        try { localStorage.setItem('lim_recent_names', JSON.stringify(names.slice(-20))); } catch (_) {}
+      }
+
+      function hasSameName(value) {
+        const key = normalizeName(value);
+        return approvedNameKeys.has(key) || recentSubmittedNames().some((item) => item.name === key);
+      }
+
+      function confirmSameName() {
+        return new Promise((resolve) => {
+          duplicateDialog.returnValue = '';
+          duplicateDialog.addEventListener('close', () => resolve(duplicateDialog.returnValue === 'continue'), { once: true });
+          duplicateDialog.showModal();
+        });
+      }
+
+      joinForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        successBox.classList.remove('show');
+        setStatus(joinStatus, '');
+
+        const name = displayName.value.trim();
+        const code = document.querySelector('#deleteCode').value.trim();
+        const age = document.querySelector('#ageConsent').checked;
+        const collection = document.querySelector('#collectionConsent').checked;
+        const publication = document.querySelector('#publicationConsent').checked;
+
+        if (!name || name.length > 30) {
+          setStatus(joinStatus, '표시할 이름을 1자 이상 30자 이하로 입력해 주세요.', true);
+          return;
+        }
+        if (!validSixDigits(code)) {
+          setStatus(joinStatus, '삭제 확인번호는 숫자 6자리로 입력해 주세요.', true);
+          return;
+        }
+        if (!age || !collection || !publication) {
+          setStatus(joinStatus, '연령 확인과 두 가지 동의가 모두 필요합니다.', true);
+          return;
+        }
+
+        if (!namesReady) await loadNames();
+        if (hasSameName(name) && !(await confirmSameName())) {
+          displayName.focus();
+          return;
+        }
+
+        submitButton.disabled = true;
+        setStatus(joinStatus, '작은 선택을 기록하고 있습니다…');
+        try {
+          const result = await rpc('submit_lim_entry', {
+            p_display_name: name,
+            p_delete_code: code,
+            p_age_confirmed: age,
+            p_collection_consent: collection,
+            p_publication_consent: publication
+          });
+          const record = Array.isArray(result) ? result[0] : result;
+          receiptId.textContent = record && record.receipt_id ? record.receipt_id : '접수 완료';
+          successBox.classList.add('show');
+          successBox.focus();
+          rememberSubmittedName(name);
+          joinForm.reset();
+          setStatus(joinStatus, '');
+        } catch (error) {
+          setStatus(joinStatus, `기록하지 못했습니다. ${error.message}`, true);
+        } finally {
+          submitButton.disabled = false;
+        }
+      });
+
+      async function loadNames() {
+        namesList.innerHTML = '<div class="empty">승인된 이름을 불러오는 중입니다.</div>';
+        try {
+          const result = await rpc('get_public_lims', {});
+          const names = Array.isArray(result) ? result : [];
+          approvedNameKeys = new Set(names.map((entry) => normalizeName(entry.display_name)));
+          namesReady = true;
+          limCount.textContent = String(names.length);
+          namesList.replaceChildren();
+          if (!names.length) {
+            const empty = document.createElement('div');
+            empty.className = 'empty';
+            empty.textContent = '아직 공개된 LIM이 없습니다.';
+            namesList.append(empty);
+            return;
+          }
+          names.forEach((entry) => {
+            const item = document.createElement('div');
+            item.className = 'name';
+            const dot = document.createElement('span');
+            dot.className = 'gold-dot';
+            dot.setAttribute('aria-hidden', 'true');
+            item.append(dot, document.createTextNode(entry.display_name));
+            namesList.append(item);
+          });
+        } catch (error) {
+          namesReady = false;
+          limCount.textContent = '—';
+          namesList.innerHTML = '';
+          const empty = document.createElement('div');
+          empty.className = 'empty';
+          empty.textContent = `명단을 불러오지 못했습니다. ${error.message}`;
+          namesList.append(empty);
+        }
+      }
+
+      document.querySelector('#refreshButton').addEventListener('click', loadNames);
+
+      deleteForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        setStatus(deleteStatus, '');
+        const receipt = document.querySelector('#receiptInput').value.trim().toUpperCase();
+        const code = document.querySelector('#deleteCodeConfirm').value.trim();
+        if (!/^[A-F0-9]{10}$/.test(receipt) || !validSixDigits(code)) {
+          setStatus(deleteStatus, '접수번호와 숫자 6자리 삭제 확인번호를 확인해 주세요.', true);
+          return;
+        }
+        deleteButton.disabled = true;
+        setStatus(deleteStatus, '철회 요청을 확인하고 있습니다…');
+        try {
+          const success = await rpc('request_lim_deletion', {
+            p_receipt_id: receipt,
+            p_delete_code: code
+          });
+          if (success === true) {
+            setStatus(deleteStatus, '공개 철회 요청이 기록되었습니다. 운영자 확인 후 삭제됩니다.');
+            deleteForm.reset();
+            await loadNames();
+          } else {
+            setStatus(deleteStatus, '일치하는 기록을 찾지 못했습니다. 입력 내용을 확인해 주세요.', true);
+          }
+        } catch (error) {
+          setStatus(deleteStatus, `요청을 처리하지 못했습니다. ${error.message}`, true);
+        } finally {
+          deleteButton.disabled = false;
+        }
+      });
+
+      loadNames();
+    })();
+  </script>
+</body>
+</html>
