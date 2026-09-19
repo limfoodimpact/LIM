@@ -612,6 +612,124 @@
 }
 </style>
 
+<style id="record-bridge-polish">
+/* 03 기록해요의 골드점이 다음 장면으로 이어지는 하나의 선택처럼 보이도록 */
+.gold-step .choice-dot{
+  transform-origin:center;
+  will-change:transform,opacity;
+}
+.choice-bridge{
+  position:relative;
+  overflow:visible;
+}
+.choice-bridge span{
+  display:inline-block;
+  transform-origin:center;
+  will-change:transform,opacity;
+}
+/* PC에서 scale 애니메이션의 서브픽셀 떨림 완화 */
+@media (min-width:701px){
+  .gold-step .choice-dot,
+  .choice-bridge span{
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
+    transform:translateZ(0);
+  }
+}
+</style>
+<style id="why-record-less">
+/* WHY: 하나의 사실에 집중 */
+.facts-single{grid-template-columns:minmax(0,560px)!important;justify-content:center}
+.facts-single article{max-width:560px;margin:0 auto;width:100%}
+</style>
+<style id="hub-polish">
+/* HUB: 메인의 시각적 클라이맥스. 문구 추가 없이 '모임 → 허브 → 확산'에 집중 */
+.c-hub .hub-in{margin-bottom:26px}
+.c-hub h2{margin-bottom:34px!important}
+.c-hub .hub-out{margin-top:0!important}
+.c-hub .hub-core{box-shadow:0 0 0 12px rgba(232,201,122,.10)}
+.c-hub .more{font-size:13px}
+.c-hub .more b{font-size:15px;letter-spacing:.04em}
+@media(max-width:700px){
+  .c-hub .hub-in{margin-bottom:20px}
+  .c-hub h2{margin-bottom:26px!important}
+  .c-hub .hub-core{box-shadow:0 0 0 9px rgba(232,201,122,.10)}
+  .c-hub .more{font-size:11px;line-height:1.3}
+  .c-hub .more b{font-size:13px}
+}
+</style>
+<style id="less-more-to-stores">
+/* LESS→MORE는 HUB의 결론. 별도 설명 카드처럼 보이지 않게 */
+.c-hub h3{
+  max-width:650px;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  padding-top:20px!important;
+  line-height:1.38;
+}
+.c-hub h3 em{color:var(--gold)}
+/* 다음 '함께하는 매장'이 새로운 장면으로 또렷하게 시작되도록 */
+.c-stores{padding-top:clamp(76px,9vw,112px)!important}
+@media(max-width:700px){
+  .c-hub h3{padding-top:15px!important;line-height:1.34}
+  .c-stores{padding-top:68px!important}
+}
+</style>
+<style id="stores-polish">
+/* 참여 매장: 실제 매장 자체가 증거가 되도록 정보는 최소화 */
+.consumer-store-grid .store-body{padding-top:20px!important}
+.consumer-store-grid .store-body h3{margin-bottom:5px!important}
+.consumer-store-grid .store-body p{margin-top:0!important;margin-bottom:18px!important}
+.consumer-store-grid .store-link{margin-top:auto}
+.consumer-store-grid .store-number{
+  font-size:11px;
+  letter-spacing:.02em;
+}
+/* 두 카드의 사진/본문 리듬 통일 */
+.consumer-store-grid .store-card{display:flex;flex-direction:column}
+.consumer-store-grid .store-body{display:flex;flex-direction:column;flex:1}
+@media(max-width:700px){
+  .consumer-store-grid{gap:18px!important}
+  .consumer-store-grid .store-body{padding-top:17px!important}
+}
+</style>
+<style id="connection-record-less">
+/* 연결의 기록: 제목 + 골드점 + 실제 상태만 남김 */
+.c-connection .record-status{margin-bottom:0!important}
+.c-connection .c-wrap{padding-bottom:4px}
+</style>
+<style id="end-polish">
+/* END — 설명을 더하지 않고 브랜드와 핵심 문장으로 마감 */
+.c-end{padding-top:clamp(86px,10vw,126px)!important;padding-bottom:clamp(76px,9vw,110px)!important}
+.c-end img{max-width:190px!important;margin-bottom:25px!important}
+.c-end h2{max-width:650px;margin-left:auto!important;margin-right:auto!important;line-height:1.28!important}
+.c-end h2 em{color:var(--gold)}
+.end-links{margin-top:30px!important}
+.end-links a{font-size:14px}
+@media(max-width:700px){
+ .c-end{padding-top:76px!important;padding-bottom:72px!important}
+ .c-end img{max-width:165px!important;margin-bottom:22px!important}
+ .end-links{margin-top:26px!important;gap:10px!important}
+}
+</style>
+<style id="hero-key-gold-test">
+/* HERO: 두 줄의 시작 단어만 LIM 공식 골드로 포인트 */
+.c-hero h1 .hero-key{
+  color:#E8C97A!important;
+  font-style:normal;
+}
+</style>
+<style id="hero-key-gold-polish">
+/* 안 / 처음 포인트는 유지하되, 본문보다 튀지 않게 같은 굵기와 리듬 유지 */
+.c-hero h1 .hero-key{
+  font-weight:inherit!important;
+  letter-spacing:inherit!important;
+  text-shadow:none!important;
+}
+@media(max-width:700px){
+  .c-hero h1 .hero-key{display:inline}
+}
+</style>
 </head>
 <body>
   <header>
@@ -650,7 +768,7 @@
     <section class="c-hero" id="home">
       <div class="c-wrap c-center reveal">
         <span class="c-kicker">LIM FOOD IMPACT · LESS IS MORE</span>
-        <h1>안 드실 음식이 있다면<br><em>처음부터 받지 않으셔도 됩니다.</em></h1>
+        <h1><em class="hero-key">안</em> 드실 음식이 있다면<br><em class="hero-key">처음</em>부터 받지 않으셔도 됩니다.</h1>
         <p>작은 선택을 기록하고,<br>더 큰 변화로 연결합니다.</p>
         <div class="hero-choice" aria-hidden="true">
           <span>LESS</span><i><b>●</b></i><span>MORE</span>
@@ -663,9 +781,9 @@
       <div class="c-wrap reveal">
         <h2>이렇게 시작됩니다</h2>
         <div class="action-flow"><div class="action-rail" aria-hidden="true"><span></span></div>
-          <div class="action-step"><b>01</b><strong>선택해요</strong><span>먹지 않을 음식은<br>빼달라고 선택해요</span></div>
+          <div class="action-step"><b>01</b><strong>선택해요</strong><span>안 드실 음식이나 양을<br>필요한 만큼 선택해요</span></div>
           <i>→</i>
-          <div class="action-step"><b>02</b><strong>덜 제공해요</strong><span>선택한 음식은<br>처음부터 제공하지 않아요</span></div>
+          <div class="action-step"><b>02</b><strong>덜 제공해요</strong><span>선택한 만큼만<br>준비하고 제공해요</span></div>
           <i>→</i>
           <div class="action-step gold-step"><b>03</b><strong>기록해요</strong><span class="choice-dot">●</span><span>하나의 선택이 기록으로 남아요</span></div>
         </div>
@@ -685,9 +803,8 @@
     <section class="c-section c-why">
       <div class="c-wrap reveal">
         <h2>왜 기록할까요?</h2>
-        <div class="facts">
+        <div class="facts facts-single">
           <article><strong>19%</strong><p>2022년 전 세계에서 소비자에게 공급된 음식의 약 19%가 가정·외식업·소매 단계에서 버려졌습니다.</p></article>
-          <article><strong>약 2억 9천만 톤</strong><p>그중 외식업에서 발생한 음식물 폐기량입니다.</p></article>
         </div>
         <p class="source-note">UNEP · Food Waste Index Report 2024</p>
         <p class="why-close">버려지기 전에<br><em>줄일 수 있다면.</em></p>
@@ -735,7 +852,6 @@
         <h2>연결의 기록</h2>
         <div class="record-dot">●</div>
         <strong class="record-status">첫 연결 준비중</strong>
-        <p>확인된 결과와 실제 연결을 기록합니다.</p>
       </div>
     </section>
 
