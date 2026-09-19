@@ -737,6 +737,22 @@
 .consumer-store-grid .store-photo-link:focus-visible{outline:3px solid #E8C97A;outline-offset:3px}
 @media(prefers-reduced-motion:reduce){.consumer-store-grid .store-photo-link img{transition:none}}
 </style>
+
+<style id="lim-flow-replay-css">
+/* 기록 장면의 halo는 화면 밖에서는 정지/초기 상태 */
+.c-record:not(.flow-running) .record-dot::before,
+.c-connection:not(.flow-running) .record-dot::before{
+  animation:none!important;
+  transform:scale(.72)!important;
+  opacity:.32!important;
+}
+.c-record.flow-running .record-dot::before,
+.c-connection.flow-running .record-dot::before{
+  animation:limHaloBreath 3.4s cubic-bezier(.45,0,.55,1) infinite!important;
+}
+.c-connection.flow-running .record-dot::before{animation-delay:.15s!important}
+</style>
+
 </head>
 <body>
   <header>
@@ -895,6 +911,60 @@
 
 <script>
 (()=>{const els=[...document.querySelectorAll('.reveal')];if(!('IntersectionObserver'in window)){els.forEach(e=>e.classList.add('seen'));return}const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('seen');io.unobserve(e.target)}}),{threshold:.14,rootMargin:'0px 0px -8% 0px'});els.forEach(e=>io.observe(e))})();
+</script>
+
+
+<script id="lim-flow-replay">
+(()=>{
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!('IntersectionObserver' in window)) return;
+
+  const scenes = [
+    {root: document.querySelector('.c-action'), targets: '.action-rail span'},
+    {root: document.querySelector('.choice-bridge'), targets: '.choice-bridge span'},
+    {root: document.querySelector('.c-record'), targets: '.c-record .record-dot::before'},
+    {root: document.querySelector('.why-to-hub'), targets: '.why-to-hub span'},
+    {root: document.querySelector('.c-hub'), targets: '.hub-in span, .hub-core, .spark'},
+    {root: document.querySelector('.c-connection'), targets: '.c-connection .record-dot::before'}
+  ];
+
+  /* pseudo-element(::before)은 JS로 직접 제어할 수 없으므로
+     record 장면은 부모에 flow-running 클래스를 주어 CSS에서 제어한다. */
+  const resetElements = root => {
+    const els = root.querySelectorAll(
+      '.action-rail span,.choice-bridge span,.why-to-hub span,.hub-in span,.hub-core,.spark'
+    );
+    els.forEach(el=>{
+      el.style.animation='none';
+      void el.offsetWidth;
+      el.style.animation='';
+      el.style.animationPlayState='paused';
+    });
+    root.classList.remove('flow-running');
+  };
+
+  const playElements = root => {
+    root.classList.add('flow-running');
+    root.querySelectorAll(
+      '.action-rail span,.choice-bridge span,.why-to-hub span,.hub-in span,.hub-core,.spark'
+    ).forEach(el=>{
+      el.style.animationPlayState='running';
+    });
+  };
+
+  const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting) playElements(entry.target);
+      else resetElements(entry.target);
+    });
+  },{threshold:0.18,rootMargin:'-10% 0px -10% 0px'});
+
+  scenes.forEach(({root})=>{
+    if(!root) return;
+    resetElements(root);
+    observer.observe(root);
+  });
+})();
 </script>
 
 </body>
