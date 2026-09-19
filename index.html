@@ -754,15 +754,18 @@
 </style>
 
 
+<style id="record-anchor-fix">
+#community{scroll-margin-top:92px}
+@media(max-width:700px){#community{scroll-margin-top:76px}}
+</style>
+
 <style id="hero-dot-and-bridge-fix">
 /* PC: LESS→MORE의 문자 ●는 글리프 기준선 때문에 시각적으로 조금 낮아 보여 2px만 보정 */
 @media (min-width:701px){
   .hero-choice i b{top:calc(50% - 2px)!important}
 }
 
-/* 03 기록 → 작은 선택의 기록 사이 경계에 남아 있던 별도 bridge 점 제거.
-   그라데이션 전환 공간은 유지하고, 중복 골드점만 숨긴다. */
-.choice-bridge span{display:none!important}
+/* 첫 선택에서 기록 장면으로 이어지는 골드 bridge 점 유지 */
 </style>
 
 
@@ -908,7 +911,7 @@
     </section>
 
     <div class="choice-bridge" aria-hidden="true"><span>●</span></div>
-    <section class="c-section c-record">
+    <section class="c-section c-record" id="community">
       <div class="c-wrap c-center reveal">
         <span class="c-kicker">SMALL CHOICES, RECORDED</span>
         <h2>작은 선택의 기록</h2>
@@ -965,10 +968,9 @@
 
     <section class="c-section c-connection">
       <div class="c-wrap c-center reveal">
-        <span class="c-kicker">CONNECTION, RECORDED</span>
-        <h2>연결의 기록</h2>
+        <span class="c-kicker">THE NEXT CONNECTION</span>
+        <h2>다음 연결은<br><em>계속 이어집니다</em></h2>
         <div class="record-dot">●</div>
-        <strong class="record-status">첫 연결 준비중</strong>
       </div>
     </section>
 
