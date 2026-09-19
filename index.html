@@ -730,6 +730,13 @@
   .c-hero h1 .hero-key{display:inline}
 }
 </style>
+<style id="store-photo-links">
+.consumer-store-grid .store-photo-link{display:block;text-decoration:none;color:inherit;cursor:pointer;overflow:hidden}
+.consumer-store-grid .store-photo-link img{transition:transform .28s ease}
+@media(hover:hover) and (pointer:fine){.consumer-store-grid .store-photo-link:hover img{transform:scale(1.018)}}
+.consumer-store-grid .store-photo-link:focus-visible{outline:3px solid #E8C97A;outline-offset:3px}
+@media(prefers-reduced-motion:reduce){.consumer-store-grid .store-photo-link img{transition:none}}
+</style>
 </head>
 <body>
   <header>
@@ -835,11 +842,11 @@
         <h2>함께하는 매장</h2>
         <div class="store-grid consumer-store-grid">
           <article class="store-card">
-            <div class="store-photo"><img src="./hongje_storefront.webp" width="1448" height="1086" alt="홍제동우동국수 매장 정면" loading="lazy"><span class="store-number">LIM 참여 매장</span></div>
+            <a class="store-photo store-photo-link" href="./store_hongje.html" aria-label="홍제동우동국수 매장 자세히 보기"><img src="./hongje_storefront.webp" width="1448" height="1086" alt="홍제동우동국수 매장 정면" loading="lazy"><span class="store-number">LIM 참여 매장</span></a>
             <div class="store-body"><h3>홍제동우동국수</h3><p>서울 서대문구</p><a class="store-link" href="./store_hongje.html"><span>매장 보기</span><b>↗</b></a></div>
           </article>
           <article class="store-card">
-            <div class="store-photo"><img src="./jangsu_storefront.webp" width="1600" height="1200" alt="장수해물탕 매장 정면" loading="lazy"><span class="store-number">LIM 참여 매장</span></div>
+            <a class="store-photo store-photo-link" href="./store_jangsu.html" aria-label="장수해물탕 매장 자세히 보기"><img src="./jangsu_storefront.webp" width="1600" height="1200" alt="장수해물탕 매장 정면" loading="lazy"><span class="store-number">LIM 참여 매장</span></a>
             <div class="store-body"><h3>장수해물탕</h3><p>서울 강동구</p><a class="store-link" href="./store_jangsu.html"><span>매장 보기</span><b>↗</b></a></div>
           </article>
         </div>
