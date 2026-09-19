@@ -765,6 +765,69 @@
 .choice-bridge span{display:none!important}
 </style>
 
+
+<style id="hub-spread-flow">
+/* HUB: 장식처럼 깜빡이던 점을 'LIM HUB → MORE' 확산 Flow로 변경 */
+.hub-out .spark{
+  width:14px;height:14px;
+  border-radius:50%;
+  background:#E8C97A;
+  color:transparent!important;
+  font-size:0!important;
+  opacity:0;
+  box-shadow:0 0 12px rgba(232,201,122,.34);
+  animation:none!important;
+  will-change:transform,opacity;
+}
+
+/* 각 MORE 쪽의 도착 지점 */
+.hub-out .s1{left:15%;top:18%;--from-x:315px;--from-y:160px}
+.hub-out .s2{right:15%;top:20%;--from-x:-315px;--from-y:150px}
+.hub-out .s3{left:13%;bottom:19%;--from-x:333px;--from-y:-155px}
+.hub-out .s4{right:14%;bottom:17%;--from-x:-324px;--from-y:-165px}
+.hub-out .s5{right:9%;top:49%;--from-x:-369px;--from-y:0px}
+.hub-out .s6{display:none!important}
+
+/* 화면에 들어왔을 때 HUB 중심에서 바깥으로 한 번 퍼짐 */
+.c-hub.flow-running .hub-out .spark{
+  animation:limHubSpread 1.55s cubic-bezier(.22,.72,.28,1) forwards!important;
+}
+.c-hub.flow-running .hub-out .s1{animation-delay:.18s!important}
+.c-hub.flow-running .hub-out .s2{animation-delay:.36s!important}
+.c-hub.flow-running .hub-out .s3{animation-delay:.54s!important}
+.c-hub.flow-running .hub-out .s4{animation-delay:.72s!important}
+.c-hub.flow-running .hub-out .s5{animation-delay:.90s!important}
+
+@keyframes limHubSpread{
+  0%{
+    transform:translate(var(--from-x),var(--from-y)) scale(.65);
+    opacity:0;
+  }
+  18%{opacity:1}
+  78%{opacity:1}
+  100%{
+    transform:translate(0,0) scale(1);
+    opacity:.92;
+  }
+}
+
+/* 모바일에서는 이동거리를 화면 크기에 맞춰 축소 */
+@media(max-width:700px){
+  .hub-out .s1{left:20%;top:17%;--from-x:120px;--from-y:165px}
+  .hub-out .s2{right:20%;top:20%;--from-x:-120px;--from-y:150px}
+  .hub-out .s3{left:18%;bottom:16%;--from-x:128px;--from-y:-170px}
+  .hub-out .s4{right:18%;bottom:14%;--from-x:-128px;--from-y:-180px}
+  .hub-out .s5{right:10%;top:49%;--from-x:-160px;--from-y:0px}
+}
+@media(prefers-reduced-motion:reduce){
+  .hub-out .spark{
+    opacity:.8!important;
+    transform:none!important;
+    animation:none!important;
+  }
+}
+</style>
+
 </head>
 <body>
   <header>
