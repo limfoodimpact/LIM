@@ -1,75 +1,195 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>LIM 이야기 | LIM Food Impact</title>
-<meta name="description" content="LIM Food Impact가 시작된 질문과 현장에서 확인해가는 과정, 그리고 작은 선택이 연결되는 이야기">
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LIM Story</title>
 <style>
-:root{--navy:#1F4E79;--midblue:#3E7CB1;--skyblue:#6FA8DC;--gold:#E8C97A;--cream:#FFF6E9;--lightgray:#F2F5F8;--text:#2A2A2A;--mute:#666}
-*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}body{font-family:"Pretendard","Malgun Gothic",-apple-system,sans-serif;color:var(--text);background:#fff;line-height:1.75;word-break:keep-all;overflow-wrap:break-word}header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:14px;background:rgba(255,255,255,.96);border-bottom:1px solid #eee;padding:12px 18px}.home-logo{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;flex:0 0 auto}.home-logo img{display:block;width:auto;height:34px}.back{display:inline-flex;align-items:center;min-height:44px;color:var(--navy);font-size:16px;font-weight:800;text-decoration:none}.hero{background:linear-gradient(160deg,var(--navy) 0%,#163A5C 100%);color:#fff;padding:62px 22px 58px;text-align:center}.hero .tag{display:inline-block;background:var(--gold);color:var(--navy);font-size:14px;font-weight:800;padding:7px 15px;border-radius:999px;margin-bottom:20px}.hero h1{font-size:clamp(30px,8vw,42px);line-height:1.35;max-width:650px;margin:0 auto 18px;text-wrap:balance}.hero p{font-size:clamp(17px,4.5vw,19px);color:#D9E6F2;max-width:580px;margin:0 auto;line-height:1.75}.story-main{max-width:720px;margin:0 auto}.story-section{padding:54px clamp(20px,5vw,28px);border-bottom:1px solid #f0f0f0}.num{font-size:13px;font-weight:900;letter-spacing:.08em;color:var(--midblue);margin-bottom:8px}.story-section h2{font-size:clamp(25px,6vw,30px);line-height:1.4;color:var(--navy);margin-bottom:20px;text-wrap:balance}.story-section p{font-size:17px;color:#4f4f4f;margin-bottom:15px}.story-section p:last-child{margin-bottom:0}.story-section strong{color:var(--navy)}.quote{background:var(--cream);border:1px solid #E9DFC8;border-radius:16px;padding:24px 20px;margin:24px 0;text-align:center;font-size:clamp(21px,5.7vw,27px);font-weight:800;color:var(--navy);line-height:1.5}.words{display:grid;grid-template-columns:1fr;gap:12px;margin:22px 0}.word{background:var(--lightgray);border-radius:14px;padding:18px 17px}.word strong{display:block;font-size:18px;margin-bottom:4px}.word span{font-size:15.5px;color:var(--mute)}.people{background:#F8FAFC}.people-card{background:#fff;border:1px solid #E3EAF0;border-radius:18px;padding:24px 22px}.people-card .names{font-size:22px;font-weight:900;color:var(--navy);margin-bottom:14px}.principle{margin-top:22px;padding-left:16px;border-left:4px solid var(--gold);font-size:18px;font-weight:800;color:var(--navy)}.closing{padding:58px 22px;background:linear-gradient(160deg,var(--navy) 0%,#163A5C 100%);color:#fff;text-align:center;border-bottom:0}.closing h2{color:#fff}.closing p{color:#E7EFF6;max-width:580px;margin-left:auto;margin-right:auto}.closing .lessmore{margin-top:26px;font-size:clamp(24px,6vw,30px);font-weight:900;line-height:1.5}.home-btn{display:inline-flex;margin-top:28px;min-height:52px;align-items:center;justify-content:center;padding:14px 25px;border-radius:999px;background:var(--gold);color:var(--navy);text-decoration:none;font-weight:900}footer{text-align:center;padding:26px 20px;color:#999;font-size:14px}
-
-.story-flow-section{max-width:none;padding:70px 20px;background:linear-gradient(180deg,#f8fbfd 0%,#fffaf0 100%);border-bottom:1px solid #eadfc8}.story-flow-wrap{max-width:1100px;margin:auto}.story-flow-top{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:18px}.story-flow-brand{font-weight:900;letter-spacing:.16em;color:var(--navy)}.story-flow-replay{min-height:44px;border:1px solid rgba(31,78,121,.2);background:#fff;color:var(--navy);border-radius:999px;padding:10px 14px;font:inherit;font-size:13px;font-weight:800;cursor:pointer}.story-flow-stage{position:relative;min-height:650px;overflow:hidden;border:1px solid #e5edf2;border-radius:28px;background:linear-gradient(180deg,#fff 0%,#fff 68%,rgba(255,246,233,.65) 100%);box-shadow:0 24px 65px rgba(23,63,98,.08)}.story-flow-copy{position:absolute;z-index:5;left:50%;top:42px;transform:translateX(-50%);width:min(92%,760px);text-align:center}.story-flow-kicker{font-size:12px;font-weight:800;letter-spacing:.18em;color:var(--midblue);margin-bottom:13px}.story-flow-title{font-size:clamp(27px,4vw,48px);line-height:1.25;font-weight:850;letter-spacing:-.035em;color:var(--navy);margin:0}.story-flow-line{height:54px;margin-top:17px;font-size:clamp(16px,2vw,21px);line-height:1.55;font-weight:650;color:#3e5870;opacity:0;transition:opacity .7s ease,transform .7s ease;transform:translateY(7px)}.story-flow-line.show{opacity:1;transform:none}.story-flow-progress{height:3px;background:rgba(31,78,121,.08);border-radius:3px;overflow:hidden;margin-top:14px}.story-flow-progress i{display:block;height:100%;width:0;background:var(--gold)}.story-flow-canvas{position:absolute;inset:190px 4% 55px}.story-flow-canvas svg{width:100%;height:100%;overflow:visible}.sf-base{stroke:rgba(31,78,121,.18);stroke-width:2;fill:none;stroke-linecap:round}.sf-live{stroke:var(--gold);stroke-width:3;fill:none;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;opacity:.95}.sf-node{fill:#fff;stroke:rgba(31,78,121,.26);stroke-width:2}.sf-choice{fill:var(--gold);opacity:0;transform-box:fill-box;transform-origin:center}.sf-choice.on{animation:sfPop .5s cubic-bezier(.2,.8,.2,1) forwards}@keyframes sfPop{0%{opacity:0;transform:scale(.2)}70%{opacity:1;transform:scale(1.25)}100%{opacity:1;transform:scale(1)}}.sf-center-ring{fill:#fff;stroke:var(--navy);stroke-width:2}.sf-center-pulse{fill:none;stroke:var(--gold);stroke-width:2;opacity:0}.sf-center-pulse.go{animation:sfPulse 1.2s ease-out}@keyframes sfPulse{0%{opacity:.75;transform:scale(.75);transform-origin:center}100%{opacity:0;transform:scale(1.45);transform-origin:center}}.sf-label{font-weight:850;fill:var(--navy);font-size:19px;letter-spacing:.08em}.sf-small{font-weight:750;fill:#6c7d8d;font-size:12px}.sf-more{fill:var(--navy);opacity:0}.sf-more.on{animation:sfMore .8s ease forwards}@keyframes sfMore{from{opacity:0;transform:scale(.75);transform-origin:center}to{opacity:1;transform:scale(1);transform-origin:center}}.story-flow-final{position:absolute;left:50%;bottom:23px;transform:translateX(-50%);width:min(92%,780px);text-align:center;opacity:0;transition:opacity 1s ease}.story-flow-final.show{opacity:1}.story-flow-final strong{display:block;color:var(--navy);font-size:clamp(22px,3vw,34px);line-height:1.35;letter-spacing:-.025em}.story-flow-final span{display:block;margin-top:8px;color:#536b7e;font-weight:650}.story-flow-we{position:absolute;inset:0;display:grid;place-items:center;background:rgba(255,255,255,.95);z-index:10;opacity:0;pointer-events:none;transition:opacity 1s ease}.story-flow-we.show{opacity:1}.story-flow-we-inner{text-align:center;padding:24px}.story-flow-we .dots{font-size:18px;letter-spacing:.5em;color:var(--gold);margin-bottom:20px}.story-flow-we h2{margin:0;color:var(--navy);font-size:clamp(40px,7vw,76px);letter-spacing:-.05em}.story-flow-we p{margin:14px 0 0;color:#526a7d;font-size:clamp(16px,2vw,20px);line-height:1.6}.story-flow-we .flow-tag{margin-top:22px;font-size:12px;letter-spacing:.22em;font-weight:850;color:var(--midblue)}.story-flow-note{text-align:center;color:#71818d;font-size:13px;margin-top:16px}.story-flow-mobile{display:none}
-.story-summary{padding-top:66px}.story-intro{font-size:19px!important;line-height:1.8!important;color:#405466!important}.story-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:28px 0}.story-step{position:relative;padding:23px 19px;border:1px solid #e1e9ef;border-radius:18px;background:#fff}.story-step b{display:block;margin-bottom:9px;color:var(--gold);font-size:13px;letter-spacing:.08em}.story-step strong{display:block;margin-bottom:8px;color:var(--navy);font-size:19px;line-height:1.45}.story-step span{display:block;color:#657684;font-size:14px;line-height:1.65}.story-horizon{background:#f8fafc}.bridge-statement{margin-top:27px;padding:23px 21px;border-left:4px solid var(--gold);background:#fff;color:var(--navy);font-size:20px;font-weight:850;line-height:1.6}.current-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin:26px 0}.current-card{padding:22px 20px;border:1px solid #e0e8ee;border-radius:18px;background:#fff}.current-card span{display:block;color:#788895;font-size:12px}.current-card strong{display:block;margin:7px 0 10px;color:var(--navy);font-size:21px}.current-card p{margin:0!important;color:#4d6577!important;font-size:15px!important}.story-status{padding:20px;border-radius:16px;background:var(--cream);color:#4d6070!important}.people-card p{font-size:16px}.closing-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:28px}.closing-actions .home-btn{margin-top:0}.home-btn.secondary{border:1px solid #ffffff55;background:transparent;color:#fff}
-@media(min-width:640px){.words{grid-template-columns:repeat(3,1fr)}.story-section{padding-top:66px;padding-bottom:66px}}
-@media(max-width:620px){header{position:relative}.story-flow-section{padding:54px 12px max(68px,calc(48px + env(safe-area-inset-bottom)))}.story-flow-stage{min-height:850px;border-radius:22px;scroll-margin-top:18px}.story-flow-copy{top:34px}.story-flow-canvas{inset:250px 0 170px}.story-flow-final{bottom:28px;width:calc(100% - 30px);padding:20px 8px 0;border-top:1px solid rgba(232,201,122,.5)}.story-flow-final strong{font-size:clamp(21px,6.2vw,27px)}.story-flow-final span{font-size:14px;line-height:1.6}.story-flow-line{height:72px;font-size:16px;padding:0 10px}.story-flow-desktop{display:none}.story-flow-mobile{display:block}.sf-label{font-size:17px}.story-flow-top{padding:0 4px}.story-flow-brand{font-size:14px}.story-flow-replay{font-size:12px;padding:8px 12px}.story-flow-note{padding:0 10px}.story-summary{padding-top:52px}.story-intro{font-size:17px!important}.story-steps,.current-grid{grid-template-columns:1fr}.story-step{padding:19px 17px}.bridge-statement{font-size:18px}.closing-actions{display:grid}.closing-actions .home-btn{width:100%}}
-@media(prefers-reduced-motion:reduce){.sf-choice{opacity:1!important;transform:none!important}.sf-live{stroke-dashoffset:0!important}.story-flow-line,.story-flow-final{opacity:1;transform:none}.story-flow-we{display:none!important}*{scroll-behavior:auto}}
+:root{--n:#1F4E79;--g:#E8C97A;--c:#FFF6E9}*{box-sizing:border-box}body{margin:0;font-family:Pretendard,"Noto Sans KR",sans-serif;color:#173044;overflow-x:hidden}header{position:fixed;z-index:9;top:0;width:100%;height:66px;background:#fffffff0;backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:space-between;padding:0 4vw;border-bottom:1px solid #edf1f3}header img{height:38px!important;width:auto!important}header a{text-decoration:none;color:var(--n);font-weight:800;font-size:13px}.s{min-height:100svh;display:grid;place-items:center;text-align:center;padding:85px 18px 60px;position:relative;overflow:hidden}.intro{background:linear-gradient(#fff,#fffaf3)}h1,h2{margin:0;color:var(--n);line-height:1.13;letter-spacing:-.055em}h1{font-size:clamp(48px,7vw,78px)}h2{font-size:clamp(40px,6vw,66px)}.k{font-size:10px;letter-spacing:.18em;font-weight:900;color:#3E7CB1;margin-bottom:20px}.dot{width:30px;height:30px;border-radius:50%;background:var(--g);margin:0 auto 30px;box-shadow:0 0 17px #e8c97a55;position:relative}.dot:after{content:"";position:absolute;inset:-13px;border-radius:50%;background:#e8c97a22;animation:b 3.4s ease-in-out infinite}@keyframes b{50%{transform:scale(1.45);opacity:.4}}.gather{background:#fff}.field{height:390px;width:min(760px,90vw);position:relative;margin:35px auto 0}.p{position:absolute;width:13px;height:13px;border-radius:50%;background:var(--g);opacity:0;transform:scale(.3)}.active .p{animation:pop .65s ease forwards}@keyframes pop{to{opacity:1;transform:scale(1)}}.hubS{background:var(--n);color:#fff}.hubS h2{color:#fff}.hubstage{height:440px;width:min(820px,92vw);position:relative;margin:auto}.hub{position:absolute;left:50%;top:50%;width:145px;height:145px;margin:-72px;border:1px solid var(--g);border-radius:50%;display:grid;place-items:center;font-weight:950;letter-spacing:.08em;box-shadow:0 0 0 18px #e8c97a10}.active .hub{animation:hp 2.6s ease 1.3s 1}@keyframes hp{25%,55%,80%{box-shadow:0 0 0 30px #e8c97a20,0 0 38px #e8c97a25}}.id{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--g);transition:all 1.3s ease}.more{background:linear-gradient(#f8fafb,#fff)}.ms{height:590px;width:min(980px,94vw);position:relative;margin:auto}.mh{position:absolute;left:50%;top:50%;width:96px;height:96px;margin:-48px;border-radius:50%;background:var(--n);color:#fff;display:grid;place-items:center;font-weight:900;font-size:13px}.ray{position:absolute;left:50%;top:50%;width:var(--l);height:1px;transform-origin:0;transform:rotate(var(--a));background:linear-gradient(90deg,#e8c97acc,#e8c97a22);opacity:0}.ray:after{content:"";position:absolute;right:-5px;top:-5px;width:11px;height:11px;border-radius:50%;background:var(--g)}.active .ray{animation:show .8s ease forwards;animation-delay:var(--d)}@keyframes show{to{opacity:1}}.lab{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);font-weight:900;color:var(--n);opacity:0;white-space:nowrap}.active .lab{animation:show .6s forwards;animation-delay:var(--d)}.cont{background:var(--c)}.final a{display:inline-flex;margin-top:34px;padding:13px 20px;border-radius:999px;background:var(--n);color:#fff;text-decoration:none;font-weight:850}.rv{opacity:0;transform:translateY(20px);transition:.8s}.active .rv{opacity:1;transform:none}@media(max-width:700px){.s{padding:78px 14px 55px}.field{height:320px}.hubstage{height:390px}.hub{width:122px;height:122px;margin:-61px}.ms{height:490px}.lab{font-size:12px}.mh{width:80px;height:80px;margin:-40px;font-size:11px}}@media(prefers-reduced-motion:reduce){.rv,.p,.ray,.lab{opacity:1;transform:none;animation:none!important}.dot:after,.hub{animation:none!important}}
 </style>
-<style>
-  /* Flow 진행 상태는 문장과 움직임으로 전달하고, 도형을 가로지르는 막대는 표시하지 않습니다. */
-  .story-flow-progress{display:none}
-  /* 골드 반응은 LIM 원 안에서 중심을 유지하고, 모인 가치는 끝까지 골드로 이어집니다. */
-  .sf-center-pulse{transform-box:fill-box;transform-origin:center}
-  .sf-center-pulse.go{animation:sfPulseInside 1.2s ease-out}
-  @keyframes sfPulseInside{
-    0%{opacity:.78;transform:scale(.58)}
-    70%{opacity:.34;transform:scale(.94)}
-    100%{opacity:0;transform:scale(.94)}
+<style id="story-v2-motion-balance">
+/* 장면 사이 호흡을 일정하게 */
+.s{min-height:100svh}
+.gather h2{margin-bottom:8px}
+.hubS h2{margin-bottom:0}
+.more h2{margin-bottom:4px}
+
+/* '하나둘 모입니다' — 점들이 중앙에 몰려 있지 않고 실제로 하나씩 생겨나는 느낌 강화 */
+.p{
+  box-shadow:0 0 0 0 rgba(232,201,122,0);
+}
+.active .p{
+  animation:popV2 .72s cubic-bezier(.2,.8,.2,1) forwards;
+}
+@keyframes popV2{
+  0%{opacity:0;transform:scale(.2)}
+  65%{opacity:1;transform:scale(1.32);box-shadow:0 0 0 8px rgba(232,201,122,.08)}
+  100%{opacity:1;transform:scale(1);box-shadow:0 0 0 0 rgba(232,201,122,0)}
+}
+
+/* HUB — 들어온 뒤 잠깐 밝아지는 정도로 절제 */
+.hub{transition:transform .45s ease}
+.hubS.active .hub{
+  animation:hubV2 3s ease 1.35s 1 both;
+}
+@keyframes hubV2{
+  0%,100%{transform:scale(1);box-shadow:0 0 0 18px rgba(232,201,122,.06)}
+  32%{transform:scale(1.035);box-shadow:0 0 0 28px rgba(232,201,122,.13),0 0 34px rgba(232,201,122,.15)}
+  58%{transform:scale(1);box-shadow:0 0 0 20px rgba(232,201,122,.07)}
+  78%{transform:scale(1.025);box-shadow:0 0 0 25px rgba(232,201,122,.11)}
+}
+
+/* MORE — 목적지 글자를 조금 더 읽기 쉽게 */
+.lab{
+  font-size:16px;
+  letter-spacing:-.025em;
+  padding:5px 8px;
+  border-radius:999px;
+  background:rgba(255,255,255,.78);
+}
+.more .ms{margin-top:12px}
+
+/* 마지막은 버튼보다 골드점/문장이 먼저 보이도록 */
+.final a{margin-top:42px;font-size:13px}
+.final .dot{margin-bottom:38px}
+
+@media(max-width:700px){
+  /* 모바일에서는 선 길이를 화면 폭에 맞춰 축소 */
+  .ms{width:94vw!important;height:470px!important}
+  .ray:nth-of-type(1){--l:34vw!important}
+  .ray:nth-of-type(2){--l:40vw!important}
+  .ray:nth-of-type(3){--l:35vw!important}
+  .ray:nth-of-type(4){--l:41vw!important}
+  .ray:nth-of-type(5){--l:38vw!important}
+  .ray:nth-of-type(6){--l:34vw!important}
+  .ray:nth-of-type(7){--l:39vw!important}
+  .ray:nth-of-type(8){--l:35vw!important}
+  .lab{font-size:11px;padding:4px 6px}
+  .gather .field{margin-top:22px}
+  .hubstage{margin-top:4px}
+}
+</style>
+
+<style id="story-v3-rhythm">
+.intro .dot{width:36px;height:36px;margin-bottom:38px}.intro .dot:after{inset:-16px}
+.gather .field{max-width:700px}.hubS .k{margin-bottom:15px}.hubS .hubstage{margin-top:-6px}
+.more .ms{transform:translateY(8px)}.more .mh{box-shadow:0 0 0 14px rgba(31,78,121,.055),0 8px 26px rgba(31,78,121,.12)}
+.more .ray:nth-of-type(2){height:1.4px}.more .ray:nth-of-type(5){height:1.5px}.more .ray:nth-of-type(7){height:.8px}
+.cont h2{line-height:1.2}.cont .dot{width:18px;height:18px;box-shadow:none}.cont .dot:after{display:none}.final .dot{width:32px;height:32px}
+@media(max-width:700px){.intro .dot{width:32px;height:32px}.gather .field{height:300px!important}.hubS .hubstage{height:370px!important}.more h2{font-size:38px}.more .ms{height:455px!important;margin-top:4px}.cont h2,.final h2{font-size:39px}}
+</style>
+<style id="story-v4-polish">
+/* V4 FINAL POLISH — 구조는 유지, 타이포/여백/가독성만 정리 */
+.s>div{width:100%}
+.intro h1{max-width:760px;margin-inline:auto}
+.gather h2,.hubS h2,.more h2,.cont h2,.final h2{max-width:820px;margin-inline:auto}
+
+/* 장면 제목이 애니메이션과 경쟁하지 않도록 */
+.gather h2{font-size:clamp(38px,5.4vw,60px)}
+.hubS h2{font-size:clamp(38px,5.2vw,58px)}
+.more h2{font-size:clamp(38px,5.2vw,58px)}
+
+/* 점/허브 주변 시각적 중심 정리 */
+.field,.hubstage,.ms{margin-left:auto;margin-right:auto}
+.hub{font-size:16px}
+.mh{letter-spacing:-.02em}
+
+/* MORE 라벨은 목적지로 인식되되 과하게 카드화하지 않음 */
+.lab{background:rgba(255,255,255,.62);font-weight:850}
+.more .k{margin-bottom:17px}
+
+/* 엔딩 버튼 존재감 축소 */
+.final a{background:transparent;color:var(--n);border:1px solid rgba(31,78,121,.22);padding:11px 18px}
+.final a:hover{background:rgba(31,78,121,.045)}
+
+/* PC에서 화면이 너무 높은 경우도 중심 유지 */
+@media(min-width:901px) and (max-height:760px){
+ .s{min-height:760px;padding-top:82px;padding-bottom:52px}
+ .field{height:330px}
+ .hubstage{height:360px}
+ .ms{height:490px}
+}
+
+/* 모바일: 문장 줄바꿈과 MORE 간격 */
+@media(max-width:700px){
+ header{padding-inline:18px}
+ h1{font-size:46px}
+ .gather h2{font-size:39px}
+ .hubS h2{font-size:38px}
+ .more h2{font-size:37px}
+ .more .k{margin-bottom:14px}
+ .lab{font-size:11px;max-width:92px;white-space:normal;line-height:1.25}
+ .final a{margin-top:34px}
+}
+</style>
+<style id="story-v5-hub-replay-fix">
+/* HUB 점은 항상 흩어진 상태에서 시작. 제목을 먼저 읽은 뒤 이동한다. */
+.hubS .id{opacity:1}
+</style>
+<style id="story-v6-final-tune">
+/* V6: 이미 확정된 Flow는 유지. 장면 전환의 호흡과 마지막 마감만 미세 조정 */
+.s{scroll-margin-top:66px}
+.gather,.hubS,.more,.cont,.final{isolation:isolate}
+.cont .rv{transition-duration:1s}
+.final .rv{transition-duration:1.05s}
+.final .dot{animation-delay:.12s}
+@media(max-width:700px){
+ .s{scroll-margin-top:62px}
+ .cont,.final{min-height:92svh}
+}
+</style>
+</head><body><header><a href="./index.html"><img src="./lim-logo.png" alt="LIM Food Impact"></a><a href="./index.html">처음으로</a></header><main>
+<section class="s intro"><div class="rv"><div class="dot"></div><div class="k">LIM STORY</div><h1>하나의<br>작은 선택</h1></div></section>
+<section class="s gather"><div><h2 class="rv">하나둘 모입니다</h2><div class="field" id="field"></div></div></section>
+<section class="s hubS"><div><div class="k rv" style="color:#E8C97A">LIM HUB</div><h2 class="rv">작은 선택들이<br>LIM으로 모입니다</h2><div class="hubstage" id="hs"><div class="hub">LIM HUB</div></div></div></section>
+<section class="s more"><div><div class="k rv">FROM HUB TO MORE</div><h2 class="rv">그리고,<br>다시 이어집니다</h2><div class="ms"><div class="mh">LIM HUB</div>
+<div class="ray" style="--l:250px;--a:-155deg;--d:.2s"></div><div class="ray" style="--l:315px;--a:-120deg;--d:.4s"></div><div class="ray" style="--l:280px;--a:-70deg;--d:.6s"></div><div class="ray" style="--l:330px;--a:-25deg;--d:.8s"></div><div class="ray" style="--l:300px;--a:24deg;--d:1s"></div><div class="ray" style="--l:260px;--a:68deg;--d:1.2s"></div><div class="ray" style="--l:315px;--a:115deg;--d:1.4s"></div><div class="ray" style="--l:270px;--a:158deg;--d:1.6s"></div>
+<div class="lab" style="--x:17%;--y:34%;--d:.8s">식량</div><div class="lab" style="--x:34%;--y:11%;--d:1s">아이들</div><div class="lab" style="--x:69%;--y:14%;--d:1.2s">지역사회</div><div class="lab" style="--x:86%;--y:37%;--d:1.4s">재난</div><div class="lab" style="--x:82%;--y:70%;--d:1.6s">환경</div><div class="lab" style="--x:61%;--y:88%;--d:1.8s">다음 연결</div><div class="lab" style="--x:27%;--y:80%;--d:2s">또 다른 MORE</div></div></div></section>
+<section class="s cont"><div class="rv"><h2>다음 연결은<br>계속 만들어집니다</h2><div class="dot" style="margin-top:34px"></div></div></section>
+<section class="s final"><div class="rv"><div class="dot"></div><h2>시작은 하나의<br>작은 선택이었습니다</h2><a href="./index.html">LIM으로 돌아가기</a></div></section></main>
+<script>
+const ss=[...document.querySelectorAll('.s')];
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){
+    e.target.classList.remove('active');
+    void e.target.offsetWidth;
+    e.target.classList.add('active');
+  }else{
+    e.target.classList.remove('active');
   }
-  .sf-more{fill:var(--gold);transform-box:fill-box;transform-origin:center}
-  #sfmmore{fill:#E8C97A!important}
-</style>
-</head>
-<body>
-<header><a class="home-logo" href="./index.html" aria-label="LIM Food Impact 홈으로"><img src="./lim-logo.png" alt="LIM Food Impact"></a><a class="back" href="./index.html">← 처음으로</a></header>
-<div class="hero"><span class="tag">LIM STORY</span><h1>처음에는 아주 단순한 질문이었습니다.</h1><p>“먹지 않을 음식이라면, 처음부터 주지 않을 수 없을까?”</p></div>
-
-<main class="story-main">
-  <section class="story-section story-summary"><div class="num">01 · LIM이 시작된 이유</div><h2>필요한 만큼 선택하고,<br>그 변화를 기록합니다.</h2><p class="story-intro">LIM은 사람들에게 더 큰 희생을 요구하지 않습니다. 음식이 나오기 전에, 먹지 않을 것은 받지 않는 작은 선택에서 시작합니다.</p><div class="story-steps"><article class="story-step"><b>CHOICE</b><strong>필요한 만큼 선택합니다.</strong><span>“이 반찬은 빼주세요.”<br>“면은 조금 적게 주세요.”</span></article><article class="story-step"><b>RECORD</b><strong>작은 선택을 기록합니다.</strong><span>어떤 선택이 있었고, 제공량이 어떻게 달라졌는지 모읍니다.</span></article><article class="story-step"><b>CONNECT</b><strong>확인된 변화를 이어갑니다.</strong><span>작은 Less가 필요한 More와 이어질 방법을 찾습니다.</span></article></div><div class="quote">버려진 뒤가 아니라,<br>제공되기 전에.</div></section>
-  <section class="story-section story-horizon"><div class="num">02 · 우리가 바라보는 곳</div><h2>음식물쓰레기에서 시작하지만,<br>그곳에 머무르지 않습니다.</h2><p>세계 한쪽에서는 음식이 필요 이상으로 제공되고, 다른 곳에서는 필요한 만큼의 음식을 구하지 못하는 사람들이 있습니다.</p><p>LIM이 음식 자체를 곧바로 옮긴다는 뜻은 아닙니다. 일상의 작은 선택을 기록하고, 확인된 변화를 필요한 일을 하는 곳과 연결할 방법을 만들어갑니다.</p><div class="bridge-statement">남는 곳에서, 필요한 곳으로.<br>LIM은 그 사이에 다리를 놓습니다.</div></section>
-</main>
-
-<section class="story-flow-section" id="limFlowStory" aria-labelledby="storyFlowTitle"><div class="story-flow-wrap"><div class="story-flow-top"><div class="story-flow-brand">LIM</div><button class="story-flow-replay" id="storyFlowReplay" type="button">↻ 연결 다시 보기</button></div><div class="story-flow-stage" id="storyFlowStage"><div class="story-flow-copy"><div class="story-flow-kicker">LIM FLOW · STORY EDITION</div><h2 class="story-flow-title" id="storyFlowTitle">남는 곳에서,<br>필요한 곳으로.</h2><div class="story-flow-line" id="storyFlowLine" role="status"></div><div class="story-flow-progress"><i id="storyFlowProgress"></i></div></div>
-<div class="story-flow-canvas story-flow-desktop"><svg viewBox="0 0 1000 420" role="img" aria-label="여러 작은 선택이 LIM으로 모이고 필요한 곳으로 이어지는 흐름"><path class="sf-base" d="M110 75 C260 75 315 190 470 210"/><path class="sf-base" d="M100 165 C260 165 320 205 470 210"/><path class="sf-base" d="M115 265 C265 265 330 220 470 210"/><path class="sf-base" d="M160 350 C290 350 350 245 470 210"/><path class="sf-base" d="M530 210 C675 210 735 210 880 210"/><path id="sfp1" class="sf-live" pathLength="1" d="M110 75 C260 75 315 190 470 210"/><path id="sfp2" class="sf-live" pathLength="1" d="M100 165 C260 165 320 205 470 210"/><path id="sfp3" class="sf-live" pathLength="1" d="M115 265 C265 265 330 220 470 210"/><path id="sfp4" class="sf-live" pathLength="1" d="M160 350 C290 350 350 245 470 210"/><path id="sfout" class="sf-live" pathLength="1" d="M530 210 C675 210 735 210 880 210"/><circle class="sf-node" cx="110" cy="75" r="17"/><circle id="sfc1" class="sf-choice" cx="110" cy="75" r="8"/><circle class="sf-node" cx="100" cy="165" r="17"/><circle id="sfc2" class="sf-choice" cx="100" cy="165" r="8"/><circle class="sf-node" cx="115" cy="265" r="17"/><circle id="sfc3" class="sf-choice" cx="115" cy="265" r="8"/><circle class="sf-node" cx="160" cy="350" r="17"/><circle id="sfc4" class="sf-choice" cx="160" cy="350" r="8"/><text x="84" y="48" class="sf-small">작은 선택</text><text x="73" y="138" class="sf-small">또 하나</text><text x="88" y="238" class="sf-small">또 하나</text><text x="132" y="323" class="sf-small">그리고 또 하나</text><circle id="sfpulse" class="sf-center-pulse" cx="500" cy="210" r="48"/><circle class="sf-center-ring" cx="500" cy="210" r="48"/><text x="500" y="217" text-anchor="middle" class="sf-label">LIM</text><circle class="sf-node" cx="900" cy="210" r="48"/><circle id="sfmore" class="sf-more" cx="900" cy="210" r="38"/><text x="900" y="217" text-anchor="middle" class="sf-label">MORE</text><text x="900" y="280" text-anchor="middle" class="sf-small">필요한 일을 하는 곳</text></svg></div>
-<div class="story-flow-canvas story-flow-mobile"><svg viewBox="0 0 360 470" role="img" aria-label="여러 작은 선택이 LIM으로 모이고 필요한 곳으로 이어지는 세로 흐름"><path class="sf-base" d="M65 60 C65 125 135 130 180 175"/><path class="sf-base" d="M140 35 C140 110 160 130 180 175"/><path class="sf-base" d="M225 45 C225 115 200 135 180 175"/><path class="sf-base" d="M300 80 C300 130 225 145 180 175"/><path class="sf-base" d="M180 225 C180 300 180 335 180 395"/><path id="sfmp1" class="sf-live" pathLength="1" d="M65 60 C65 125 135 130 180 175"/><path id="sfmp2" class="sf-live" pathLength="1" d="M140 35 C140 110 160 130 180 175"/><path id="sfmp3" class="sf-live" pathLength="1" d="M225 45 C225 115 200 135 180 175"/><path id="sfmp4" class="sf-live" pathLength="1" d="M300 80 C300 130 225 145 180 175"/><path id="sfmout" class="sf-live" pathLength="1" d="M180 225 C180 300 180 335 180 395"/><circle class="sf-node" cx="65" cy="60" r="15"/><circle id="sfmc1" class="sf-choice" cx="65" cy="60" r="7"/><circle class="sf-node" cx="140" cy="35" r="15"/><circle id="sfmc2" class="sf-choice" cx="140" cy="35" r="7"/><circle class="sf-node" cx="225" cy="45" r="15"/><circle id="sfmc3" class="sf-choice" cx="225" cy="45" r="7"/><circle class="sf-node" cx="300" cy="80" r="15"/><circle id="sfmc4" class="sf-choice" cx="300" cy="80" r="7"/><text x="180" y="12" text-anchor="middle" class="sf-small">각자의 자리에서 시작된 작은 선택</text><circle id="sfmpulse" class="sf-center-pulse" cx="180" cy="200" r="44"/><circle class="sf-center-ring" cx="180" cy="200" r="44"/><text x="180" y="207" text-anchor="middle" class="sf-label">LIM</text><circle class="sf-node" cx="180" cy="420" r="44"/><circle id="sfmmore" class="sf-more" cx="180" cy="420" r="35"/><text x="180" y="427" text-anchor="middle" class="sf-label">MORE</text><text x="180" y="468" text-anchor="middle" class="sf-small">필요한 일을 하는 곳</text></svg></div>
-<div class="story-flow-final" id="storyFlowFinal"><strong>이곳의 Less가<br>누군가의 More가 될 수 있도록.</strong><span>LIM은 그 사이에 다리를 놓습니다.</span></div><div class="story-flow-we" id="storyFlowWe" aria-live="polite"><div class="story-flow-we-inner"><div class="dots">● ● ● ● ●</div><h2>우리는 LIM입니다.</h2><p>서로 다른 자리에서 시작된 작은 선택들이<br>함께 하나의 연결을 만듭니다.</p><div class="flow-tag">LESS IS MORE</div></div></div></div><p class="story-flow-note">화면에 들어오면 한 번 재생됩니다. 다시 보고 싶다면 ‘연결 다시 보기’를 눌러주세요.</p></div></section>
-
-<div class="story-main"><section class="story-section"><div class="num">03 · 현장의 기록</div><h2>두 곳의 식탁에서<br>첫 기록을 시작했습니다.</h2><div class="current-grid"><article class="current-card"><span>서울 서대문구</span><strong>홍제동우동국수</strong><p>“면은 조금 적게 주세요.”</p></article><article class="current-card"><span>서울 강동구</span><strong>장수해물탕</strong><p>“이 반찬은 빼주세요.”</p></article></div><p class="story-status">한 달 동안 모은 선택을 정리해, 실제 제공량의 변화를 이곳에 공개하겠습니다.</p></section><section class="story-section people"><div class="num">04 · 시작한 사람들</div><h2>생각을 현장으로<br>옮기고 있습니다.</h2><div class="people-card"><div class="names">강석구 · 강민구</div><p>두 사람이 함께 기획하고, 음식점을 만나며 실제로 가능한 구조인지 하나씩 확인하고 있습니다.</p><div class="principle">좋은 뜻보다, 확인된 기록을 남기겠습니다.</div></div></section><section class="story-section closing"><div class="num" style="color:#E8C97A;">05 · 다음 기록</div><h2>이곳에 계속 남기겠습니다.</h2><p>선택이 쌓이고 변화가 확인될 때마다, 그 결과를 숨김없이 공개하겠습니다.</p><div class="lessmore">아직 작은 시작입니다.<br>그래서 더 정확히 기록하겠습니다.</div><div class="closing-actions"><a class="home-btn" href="./index.html">홈으로 돌아가기</a><a class="home-btn secondary" href="./join_lim.html">함께 만드는 LIM들 보기</a></div></section></div>
-<footer>LIM Food Impact — Less Is More</footer>
-<script>
-(()=>{const stage=document.getElementById('storyFlowStage'),section=document.getElementById('limFlowStory'),story=document.getElementById('storyFlowLine'),progress=document.getElementById('storyFlowProgress'),final=document.getElementById('storyFlowFinal'),we=document.getElementById('storyFlowWe'),replay=document.getElementById('storyFlowReplay'),id=n=>document.getElementById(n),paths=['sfp1','sfp2','sfp3','sfp4','sfout','sfmp1','sfmp2','sfmp3','sfmp4','sfmout'].map(id).filter(Boolean),choices=['sfc1','sfc2','sfc3','sfc4','sfmc1','sfmc2','sfmc3','sfmc4'].map(id).filter(Boolean),reduce=matchMedia('(prefers-reduced-motion: reduce)');let timers=[],started=false;
-function later(fn,ms){timers.push(setTimeout(fn,ms))}function setStory(text){story.classList.remove('show');later(()=>{story.textContent=text;story.classList.add('show')},120)}function draw(name,duration=1200){const el=id(name);if(!el)return;el.style.transition='none';el.style.strokeDashoffset='1';requestAnimationFrame(()=>requestAnimationFrame(()=>{el.style.transition=`stroke-dashoffset ${duration}ms ease`;el.style.strokeDashoffset='0'}))}function reset(){timers.forEach(clearTimeout);timers=[];choices.forEach(el=>{el.classList.remove('on');el.style.opacity='' });paths.forEach(el=>{el.style.transition='none';el.style.strokeDashoffset='1'});['sfpulse','sfmpulse'].forEach(name=>id(name)?.classList.remove('go'));['sfmore','sfmmore'].forEach(name=>id(name)?.classList.remove('on'));story.classList.remove('show');story.textContent='';final.classList.remove('show');we.classList.remove('show');progress.style.transition='none';progress.style.width='0'}
-function finishReduced(){choices.forEach(el=>el.style.opacity='1');paths.forEach(el=>el.style.strokeDashoffset='0');id('sfmore')?.classList.add('on');id('sfmmore')?.classList.add('on');final.classList.add('show')}
-function play(){started=true;reset();if(reduce.matches){finishReduced();return}requestAnimationFrame(()=>requestAnimationFrame(()=>{progress.style.transition='width 18s linear';progress.style.width='100%'}));later(()=>setStory('필요하지 않은 것을 받지 않는, 하나의 작은 선택.'),500);later(()=>{id('sfc1')?.classList.add('on');id('sfmc1')?.classList.add('on')},1200);later(()=>{id('sfc2')?.classList.add('on');id('sfmc2')?.classList.add('on');setStory('하나의 선택에 또 하나의 선택이 더해집니다.')},2500);later(()=>{id('sfc3')?.classList.add('on');id('sfmc3')?.classList.add('on')},3400);later(()=>{id('sfc4')?.classList.add('on');id('sfmc4')?.classList.add('on')},4200);later(()=>{setStory('서로 다른 자리에서 시작된 선택들이 하나의 가치로 모입니다.');['sfp1','sfp2','sfp3','sfp4','sfmp1','sfmp2','sfmp3','sfmp4'].forEach((name,index)=>later(()=>draw(name,1200),index*180))},5000);later(()=>{id('sfpulse')?.classList.add('go');id('sfmpulse')?.classList.add('go');setStory('그리고 LIM은 그 선택이 한 번으로 끝나지 않도록 연결합니다.')},7600);later(()=>{draw('sfout',1600);draw('sfmout',1600)},9000);later(()=>{id('sfmore')?.classList.add('on');id('sfmmore')?.classList.add('on');setStory('그 가치는 필요한 일을 하는 곳과 이어집니다.')},10600);later(()=>{story.classList.remove('show');final.classList.add('show')},12600);later(()=>we.classList.add('show'),15100);later(()=>{we.classList.remove('show');final.classList.add('show')},17600)}
-replay.addEventListener('click',play);if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting)&&!started){play();observer.disconnect()}},{threshold:.24});observer.observe(stage)}else play();reduce.addEventListener('change',()=>{if(reduce.matches){reset();finishReduced()}})})();
-</script>
-<script>
-(()=>{
-  const mobileFlow=document.querySelector('.story-flow-mobile');
-  if(!mobileFlow)return;
-  const basePaths=mobileFlow.querySelectorAll('.sf-base');
-  if(basePaths[4])basePaths[4].setAttribute('d','M180 225 C180 260 180 280 180 304');
-  const out=document.getElementById('sfmout');
-  if(out)out.setAttribute('d','M180 225 C180 260 180 280 180 304');
-  const outer=mobileFlow.querySelector('circle.sf-node[cy="420"]');
-  if(outer){outer.setAttribute('cy','344');outer.setAttribute('r','40')}
-  const more=document.getElementById('sfmmore');
-  if(more){more.setAttribute('cy','344');more.setAttribute('r','31');more.setAttribute('fill','#E8C97A');more.style.setProperty('fill','#E8C97A','important')}
-  const moreLabel=mobileFlow.querySelector('text[y="427"]');
-  if(moreLabel)moreLabel.setAttribute('y','351');
-  const placeLabel=mobileFlow.querySelector('text[y="468"]');
-  if(placeLabel){placeLabel.setAttribute('y','398');placeLabel.textContent='필요한 곳'}
-})();
-</script>
-</body>
-</html>
+}),{threshold:.30});
+ss.forEach(s=>io.observe(s));
+const f=document.getElementById('field'),pts=[[50,50],[42,45],[58,44],[37,57],[63,58],[48,65],[54,34],[31,41],[69,40],[27,62],[74,61],[42,76],[60,75],[22,50],[79,49],[35,29],[65,27],[50,84]];pts.forEach((q,i)=>{let d=document.createElement('i');d.className='p';d.style.left=q[0]+'%';d.style.top=q[1]+'%';d.style.animationDelay=i*.1+'s';f.appendChild(d)});
+const hs=document.getElementById('hs');
+const hubStart=[[14,20],[25,38],[15,68],[32,78],[83,22],[74,36],[87,62],[70,78],[50,12],[50,87]];
+hubStart.forEach((q,i)=>{
+  let d=document.createElement('i');
+  d.className='id';
+  d.dataset.x=q[0]; d.dataset.y=q[1];
+  d.style.left=q[0]+'%'; d.style.top=q[1]+'%';
+  hs.appendChild(d);
+});
+const hubScene=document.querySelector('.hubS');
+let hubTimer=null;
+function resetHub(){
+  clearTimeout(hubTimer);
+  hs.querySelectorAll('.id').forEach((d,i)=>{
+    d.style.transition='none';
+    d.style.left=d.dataset.x+'%';
+    d.style.top=d.dataset.y+'%';
+    d.style.opacity='1';
+  });
+  void hs.offsetWidth;
+}
+function playHub(){
+  resetHub();
+  hubTimer=setTimeout(()=>{
+    hs.querySelectorAll('.id').forEach((d,i)=>{
+      d.style.transition=`left 1.35s cubic-bezier(.2,.75,.25,1) ${i*.07}s, top 1.35s cubic-bezier(.2,.75,.25,1) ${i*.07}s, opacity .55s ease ${0.82+i*.07}s`;
+      d.style.left='50%';
+      d.style.top='50%';
+      d.style.opacity='0';
+    });
+  },900);
+}
+const hubObs=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){ playHub(); }
+  else { resetHub(); }
+}),{threshold:.62});
+hubObs.observe(hubScene);
+</script></body></html>
