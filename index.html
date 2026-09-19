@@ -753,6 +753,18 @@
 .c-connection.flow-running .record-dot::before{animation-delay:.15s!important}
 </style>
 
+
+<style id="hero-dot-and-bridge-fix">
+/* PC: LESS→MORE의 문자 ●는 글리프 기준선 때문에 시각적으로 조금 낮아 보여 2px만 보정 */
+@media (min-width:701px){
+  .hero-choice i b{top:calc(50% - 2px)!important}
+}
+
+/* 03 기록 → 작은 선택의 기록 사이 경계에 남아 있던 별도 bridge 점 제거.
+   그라데이션 전환 공간은 유지하고, 중복 골드점만 숨긴다. */
+.choice-bridge span{display:none!important}
+</style>
+
 </head>
 <body>
   <header>
