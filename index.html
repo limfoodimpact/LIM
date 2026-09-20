@@ -861,6 +861,41 @@
 }
 </style>
 
+
+<style id="mobile-flow-clean-v1">
+/* 모바일: 선택 → HUB → MORE가 한 장면으로 읽히도록 중복 중간 HUB 제거 */
+@media(max-width:700px){
+  /* 기록/WHY 다음에는 하나의 선택만 다음 장면으로 내려온다 */
+  .why-to-hub{
+    height:54px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+  }
+  .why-to-hub span{display:none!important}
+  .why-to-hub span:first-child{
+    display:inline-block!important;
+    font-size:22px!important;
+  }
+
+  /* 기존 '점 여러 개 + 작은 LIM 원'은 PC용 전환 표현. 모바일에서는 중복 HUB처럼 보여 제거 */
+  .c-hub .hub-in{display:none!important}
+
+  /* 제목이 먼저 읽히고 바로 하나의 실제 HUB로 이어지게 */
+  .c-hub{padding-top:48px!important}
+  .c-hub h2{margin-bottom:30px!important}
+  .c-hub .hub-out{height:430px!important}
+  .c-hub .hub-core{width:118px!important;height:118px!important}
+
+  /* MORE는 실제 HUB 주위에 조금 더 가까이 배치 */
+  .c-hub .m1{left:0!important;top:7%!important}
+  .c-hub .m2{right:0!important;top:9%!important}
+  .c-hub .m3{left:0!important;bottom:8%!important}
+  .c-hub .m4{right:0!important;bottom:7%!important}
+  .c-hub .m5{right:-1%!important;top:48%!important}
+}
+</style>
+
 </head>
 <body>
   <header>
